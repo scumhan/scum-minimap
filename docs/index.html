@@ -259,18 +259,18 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="badge"><i></i> 一键装好 · 也可以绿色版 · 不写注册表</div>
+    <div class="badge"><i></i> 双击就装 · 也可以绿色版 · 不写注册表</div>
     <h1>SCUM <em>小地图</em></h1>
     <p class="lede">
       自动读游戏坐标，在屏幕上画一个圆形雷达。<br>
       人在哪、朝哪走、标点在哪，一眼就看见 —— 不用再按 M 开大地图。
     </p>
     <div class="cta">
-      <button class="btn btn-main" id="dlSetup" type="button">⚡ 一键安装（推荐）</button>
+      <button class="btn btn-main" id="dlSetup" type="button">⚡ 下载安装包（推荐）</button>
       <button class="btn btn-ghost" id="dlMain" type="button">📦 下载绿色版</button>
       <button class="btn btn-ghost" id="dlMirror" type="button">🚀 走加速</button>
     </div>
-    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 一键安装包 <b>5 MB</b>，装完就是最新版 · 绿色版 <b>160 MB</b>，自己解压 · 点一下直接开始下载，不用自己挑版本</p>
+    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 安装包 <b>114 MB</b>，双击就装 · 绿色版 <b>150 MB</b>，自己解压 · 点一下直接开始下载，不用自己挑版本</p>
     <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
     <noscript><p class="sub">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
   </div>
@@ -304,8 +304,8 @@
         <p>简中、繁中、英、俄、西、葡（巴西）、德、法、波、日、韩、泰。设置页里点一下就换，不用重启。</p>
       </div>
       <div class="card">
-        <h3><span>🔄</span>一键更新</h3>
-        <p>设置页点「立即更新」，只下几兆的程序文件，自动解压铺好，再点「重启生效」就是新版。不用重下 146M，设置和标点都不丢。</p>
+        <h3><span>🔄</span>全自动更新</h3>
+        <p>启动后自己查、自己在后台下增量包、自己装好，只等你重启一下。不用重下 150M，设置和标点都不丢。</p>
       </div>
     </div>
   </div>
@@ -314,22 +314,22 @@
 <section>
   <div class="wrap">
     <h2>怎么装</h2>
-    <p class="sec-sub">两条路，挑一条 —— 怕麻烦走一键安装，想自己掌控走绿色版。装完是同一个软件，功能一模一样。</p>
+    <p class="sec-sub">两条路，挑一条 —— 怕麻烦下安装包，想自己掌控走绿色版。装完是同一个软件，功能一模一样。</p>
 
-    <div class="route">A · 一键安装 <em>推荐新手</em></div>
+    <div class="route">A · 安装包 <em>推荐新手</em></div>
     <ol class="steps">
       <li>
-        <h3>点上面的「一键安装」</h3>
-        <p>下一个小安装器（5 MB），双击打开。它先问你装到哪 —— 默认 <code>D:\SCUM小地图</code>，没 D 盘就用桌面，也可以自己挑别的文件夹。</p>
+        <h3>点上面的「下载安装包」</h3>
+        <p>下载完是一个 114 MB 的安装包，双击打开。它会问你装到哪 —— 默认装到当前用户目录下的 <code>Programs\SCUM小地图</code>，也可以自己挑别的文件夹。<b>不需要管理员权限</b>，不会弹 UAC 那个蓝框。</p>
       </li>
       <li>
         <h3>剩下交给它，等进度条走完</h3>
-        <p>自动下 160 MB 完整包 → 解压 → 建桌面快捷方式，全程有进度显示。网络不好会自动换线路，某条线路卡住超过 12 秒也会自己切下一条。</p>
+        <p>点「安装」，等进度条走完就行。桌面和开始菜单都会留一个「SCUM小地图」快捷方式，以后从那儿开。</p>
       </li>
       <li>
         <h3>装完直接启动</h3>
-        <p>最后问你「现在打开吗」，点「是」就进软件。桌面也留了个「SCUM 小地图」快捷方式，以后从那儿开。</p>
-        <p class="mini">不需要管理员权限，不写注册表，不装运行库。想卸载？把那个文件夹删了就行，一点残留都没有。</p>
+        <p>安装向导最后一步有个勾「运行 SCUM小地图」，勾着就装完直接进软件。</p>
+        <p class="mini">不装运行库，不需要管理员权限。想卸载？Windows 设置 → 应用 → 找到「SCUM小地图」→ 卸载，程序和快捷方式一起清掉。<b>你的设置、标点、配置不会动</b>，重装还是原来那套。</p>
       </li>
     </ol>
 
@@ -344,7 +344,7 @@
         <p><b>别双击那个 zip</b> —— 双击只是打开预览，看着像解压了，关掉就没了。<br>
            在下载好的 zip 上<b>点右键</b>，选「全部解压缩」，挑个位置（比如 <code>D:\SCUM小地图</code>），点「提取」。</p>
         <div class="ctx" aria-hidden="true">
-          <div class="ctxfile">SCUM-minimap-v0.2.5.zip</div>
+          <div class="ctxfile">SCUM-minimap-v0.2.8.zip</div>
           <div class="ctxmenu">
             <div>打开</div>
             <div class="hi">全部解压缩...</div>
@@ -367,7 +367,7 @@
       <span>💡</span>
       <div>
         <b>想换位置？</b>整个文件夹直接搬走就行。设置、标点、配置都存在
-        <code>%APPDATA%\scum-minimap</code>，不跟程序目录走，搬完打开一个标点都不会丢。
+        <code>%APPDATA%\ScumMiniMap</code>，不跟程序目录走，搬完打开一个标点都不会丢。
         设置页「关于」里能看到当前程序目录，还有个按钮直接打开。
       </div>
     </div>
@@ -415,16 +415,16 @@
       <summary>杀毒软件报毒怎么办？</summary>
       <div class="body">
         <p>Electron 打包的 exe 没做代码签名，加上会读剪贴板、模拟按键（为了自动取坐标），容易被启发式引擎误判。</p>
-        <p>确认是从上面的官方 Release 下载的，就加白名单。如果你还是不放心，它不联网也能跑 —— 只有你点「检查更新」的时候才连一次网。</p>
+        <p>确认是从上面的官方 Release 下载的，就加白名单。如果你还是不放心，它不联网也能跑 —— 只有启动后自动查更新、下增量包的时候才连网。</p>
       </div>
     </details>
 
     <details>
-      <summary>怎么更新？要重新下载 146M 吗？</summary>
+      <summary>怎么更新？要重新下载 150M 吗？</summary>
       <div class="body">
-        <p>不用。设置页「🔄 软件更新」点「检查更新」，有新版本时按钮变成「立即更新」，点一下只下<b>几兆</b>的程序文件（真正的代码只有 7.8M 左右，压缩完不到 1M），自动解压、自动铺进程序目录，再点「⏻ 重启生效」就完事。</p>
-        <p>下载过程中有进度条，能暂停也能接着下。铺新文件之前会自动备份一份现在的程序，万一有文件盖不上，自动整个还原回去，不会留个打不开的半成品。</p>
-        <p>完整包一直留着当兜底 —— 特别老的版本不认识小包，或者自动更新失败时，还是可以下完整包手动覆盖。</p>
+        <p>不用，你什么都不用做。程序启动后自己查一次，之后每 6 小时再查，查到新版直接在后台下<b>不到 1 兆</b>的增量包（代码只有 8M 左右，压缩完 700KB），自动解压、自检、铺进程序目录，全程不用点一下。</p>
+        <p>装好之后托盘弹一句「已装好，重启一下就是新版」，设置页亮出「⏻ 重启生效」。它不会自己重启 —— 你正打在游戏里，重启这局就没了。</p>
+        <p>铺新文件之前会自动备份一份现在的程序，万一有文件盖不上，自动整个还原回去，不会留个打不开的半成品。完整包一直留着当兜底，自动更新失败时也能下了手动覆盖。</p>
       </div>
     </details>
 
@@ -469,16 +469,16 @@
        就能触发下载，当前页一动不动。
        版本号不写死在按钮上，先问一下接口拿最新版的地址；
        问不到（网络不通 / 限流）就用兜底地址，照样能下。
-       两个产物：一键安装器（exe，5 MB）和绿色版整包（zip，160 MB）。
+       两个产物：安装包（exe，114 MB）和绿色版整包（zip，150 MB）。
        站点地址不写成明文，免得被一眼看出东西存在哪。 */
     var _d = function (s) { return atob(s); };
     var HOST   = _d('aHR0cHM6Ly9naXRodWIuY29t');
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjIuNS8=');
-    var FILE   = _d('U0NVTS1taW5pbWFwLXYwLjIuNS56aXA=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLVNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjIuOC8=');
+    var FILE   = _d('U0NVTS1taW5pbWFwLXYwLjIuOC56aXA=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuMi44LXNldHVwLmV4ZQ==');
     // 两个产物各留一条兜底：接口问不到时照样能下
     var FALLBACK = {
       zip: HOST + REPO + TAG + FILE,
