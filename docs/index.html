@@ -123,7 +123,29 @@
   .card p { margin: 0; font-size: 13.5px; color: var(--fg2); line-height: 1.7; }
 
   /* ---------- 步骤 ---------- */
-  ol.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; }
+  ol.ctx {
+    position: relative; margin: 14px 0 6px; padding: 14px 16px;
+    background: var(--panel); border: 1px solid var(--line2); border-radius: 10px;
+    display: flex; align-items: flex-start; gap: 18px; flex-wrap: wrap;
+  }
+.ctxfile {
+    padding: 9px 14px; border-radius: 8px; background: #fff;
+    border: 1px solid #d7d7d7; font-size: 13px; color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08); max-width: 100%; word-break: break-all;
+  }
+.ctxmenu {
+    min-width: 148px; background: #fff; border: 1px solid #d0d0d0; border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .16); padding: 5px 0; font-size: 13px; color: #222;
+  }
+.ctxmenu div { padding: 6px 16px; }
+.ctxmenu .hi { background: #e8f0e0; color: #111; font-weight: 700; box-shadow: inset 3px 0 0 var(--ac); }
+.ctxmenu .sep { height: 1px; background: #e3e3e3; padding: 0; margin: 5px 0; }
+.ctxhint { font-size: 12.5px; color: var(--dim); align-self: center; }
+@media (max-width: 560px) {
+  .ctx { gap: 10px; }
+  .ctxhint { align-self: flex-start; }
+}
+.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; }
   ol.steps > li {
     counter-increment: s;
     position: relative;
@@ -142,6 +164,18 @@
   }
   ol.steps h3 { margin: 0 0 5px; font-size: 14.5px; }
   ol.steps p { margin: 0; font-size: 13.5px; color: var(--fg2); }
+  ol.steps p.mini { margin-top: 7px; font-size: 12.5px; color: var(--fg3); }
+  .route {
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: 32px 0 16px; font-size: 16px; font-weight: 800; color: var(--fg);
+  }
+  .route em {
+    font-style: normal; font-size: 11.5px; font-weight: 600;
+    letter-spacing: .04em; padding: 3px 10px; border-radius: 999px;
+    background: rgba(143, 191, 74, .12); color: var(--ac);
+    border: 1px solid var(--line);
+  }
+  .route em.b { background: rgba(255, 255, 255, .05); color: var(--fg3); border-color: var(--line2); }
   code {
     font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
     font-size: 12.5px;
@@ -225,17 +259,18 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="badge"><i></i> 绿色版 · 解压即用 · 不用安装</div>
+    <div class="badge"><i></i> 一键装好 · 也可以绿色版 · 不写注册表</div>
     <h1>SCUM <em>小地图</em></h1>
     <p class="lede">
       自动读游戏坐标，在屏幕上画一个圆形雷达。<br>
       人在哪、朝哪走、标点在哪，一眼就看见 —— 不用再按 M 开大地图。
     </p>
     <div class="cta">
-      <button class="btn btn-main" id="dlMain" type="button">⬇ 下载最新版</button>
-      <button class="btn btn-ghost" id="dlMirror" type="button">🚀 下载慢？走加速</button>
+      <button class="btn btn-main" id="dlSetup" type="button">⚡ 一键安装（推荐）</button>
+      <button class="btn btn-ghost" id="dlMain" type="button">📦 下载绿色版</button>
+      <button class="btn btn-ghost" id="dlMirror" type="button">🚀 走加速</button>
     </div>
-    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 完整包约 <b>160 MB</b> · 点一下直接开始下载，永远是最新版，不用自己挑</p>
+    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 一键安装包 <b>5 MB</b>，装完就是最新版 · 绿色版 <b>160 MB</b>，自己解压 · 点一下直接开始下载，不用自己挑版本</p>
     <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
     <noscript><p class="sub">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
   </div>
@@ -279,19 +314,53 @@
 <section>
   <div class="wrap">
     <h2>怎么装</h2>
-    <p class="sec-sub">没有安装程序，也不用装 —— 下载、解压、双击，就这三步。</p>
+    <p class="sec-sub">两条路，挑一条 —— 怕麻烦走一键安装，想自己掌控走绿色版。装完是同一个软件，功能一模一样。</p>
+
+    <div class="route">A · 一键安装 <em>推荐新手</em></div>
+    <ol class="steps">
+      <li>
+        <h3>点上面的「一键安装」</h3>
+        <p>下一个小安装器（5 MB），双击打开。它先问你装到哪 —— 默认 <code>D:\SCUM小地图</code>，没 D 盘就用桌面，也可以自己挑别的文件夹。</p>
+      </li>
+      <li>
+        <h3>剩下交给它，等进度条走完</h3>
+        <p>自动下 160 MB 完整包 → 解压 → 建桌面快捷方式，全程有进度显示。网络不好会自动换线路，某条线路卡住超过 12 秒也会自己切下一条。</p>
+      </li>
+      <li>
+        <h3>装完直接启动</h3>
+        <p>最后问你「现在打开吗」，点「是」就进软件。桌面也留了个「SCUM 小地图」快捷方式，以后从那儿开。</p>
+        <p class="mini">不需要管理员权限，不写注册表，不装运行库。想卸载？把那个文件夹删了就行，一点残留都没有。</p>
+      </li>
+    </ol>
+
+    <div class="route">B · 绿色版 <em class="b">自己解压</em></div>
     <ol class="steps">
       <li>
         <h3>下载 zip</h3>
-        <p>点上面那个「下载最新版」，浏览器会直接开始下 zip，不跳页。国内网络慢就走右边的加速镜像，同一个文件，速度更快。</p>
+        <p>点上面的「下载绿色版」，浏览器会直接开始下 zip，不跳页。国内网络慢就走右边的「走加速」，同一个文件，速度更快。</p>
       </li>
       <li>
-        <h3>解压到一个文件夹</h3>
-        <p><b>放在哪都行</b> —— 桌面、D 盘、移动硬盘都可以。这个软件是绿色版，解压到哪就是哪，不需要安装，也不写注册表。</p>
+        <h3>右键 zip →「全部解压缩」</h3>
+        <p><b>别双击那个 zip</b> —— 双击只是打开预览，看着像解压了，关掉就没了。<br>
+           在下载好的 zip 上<b>点右键</b>，选「全部解压缩」，挑个位置（比如 <code>D:\SCUM小地图</code>），点「提取」。</p>
+        <div class="ctx" aria-hidden="true">
+          <div class="ctxfile">SCUM-minimap-v0.2.5.zip</div>
+          <div class="ctxmenu">
+            <div>打开</div>
+            <div class="hi">全部解压缩...</div>
+            <div>打开方式</div>
+            <div class="sep"></div>
+            <div>复制</div>
+            <div>属性</div>
+          </div>
+          <div class="ctxhint">← 点这一项</div>
+        </div>
+        <p class="mini">解压到哪都行 —— 桌面、D 盘、移动硬盘都可以。绿色版，解压到哪就是哪，不写注册表、不留卸载残留。</p>
       </li>
       <li>
-        <h3>双击 SCUM小地图.exe</h3>
-        <p>第一次打开会自动弹新手教程，九页，讲怎么用、热键是哪些。看完就能用，地图窗口默认置顶显示。</p>
+        <h3>进文件夹，双击 SCUM小地图.exe</h3>
+        <p>解压出来是一个文件夹，进去找 <b>SCUM小地图.exe</b>，双击就行。第一次打开会自动弹新手教程，十页，讲怎么用、热键是哪些。看完就能用，地图窗口默认置顶显示。</p>
+        <p class="mini">想以后好找：右键这个 exe →「发送到」→「桌面快捷方式」，桌面上就有了。</p>
       </li>
     </ol>
     <div class="note">
@@ -398,8 +467,9 @@
     /* ---------- 下载按钮：点了直接下，不跳页面 ----------
        附件直链带 Content-Disposition: attachment，塞进隐藏 iframe
        就能触发下载，当前页一动不动。
-       版本号不写死在按钮上，先问一下接口拿最新版的 zip 地址；
+       版本号不写死在按钮上，先问一下接口拿最新版的地址；
        问不到（网络不通 / 限流）就用兜底地址，照样能下。
+       两个产物：一键安装器（exe，5 MB）和绿色版整包（zip，160 MB）。
        站点地址不写成明文，免得被一眼看出东西存在哪。 */
     var _d = function (s) { return atob(s); };
     var HOST   = _d('aHR0cHM6Ly9naXRodWIuY29t');
@@ -408,42 +478,49 @@
     var REPO   = '/scumhan/scum-minimap';
     var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjIuNS8=');
     var FILE   = _d('U0NVTS1taW5pbWFwLXYwLjIuNS56aXA=');
-    var FALLBACK = HOST + REPO + TAG + FILE;
-    var cached = null;
+    var SETUP  = _d('U0NVTS1taW5pbWFwLVNldHVwLmV4ZQ==');
+    // 两个产物各留一条兜底：接口问不到时照样能下
+    var FALLBACK = {
+      zip: HOST + REPO + TAG + FILE,
+      exe: HOST + REPO + TAG + SETUP
+    };
+    var cache = { zip: null, exe: null };
 
-    function askApi() {
-      if (cached) return Promise.resolve(cached);
+    function askApi(kind) {
+      if (cache[kind]) return Promise.resolve(cache[kind]);
+      var fb = FALLBACK[kind];
       return new Promise(function (res) {
         var done = false;
         var timer = setTimeout(function () {
-          if (!done) { done = true; res(FALLBACK); }
+          if (!done) { done = true; res(fb); }
         }, 4000);
         try {
           fetch(APIB + '/repos' + REPO + '/releases/latest').then(function (r) {
             return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status));
           }).then(function (d) {
             var a = (d.assets || []).filter(function (x) {
+              if (kind === 'exe') return /\.exe$/i.test(x.name);
               return /\.zip$/i.test(x.name) && !/patch/i.test(x.name);
             })[0];
-            if (!a) throw new Error('no zip asset');
-            cached = a.browser_download_url;
-            if (!done) { done = true; clearTimeout(timer); res(cached); }
+            if (!a) throw new Error('no ' + kind + ' asset');
+            cache[kind] = a.browser_download_url;
+            if (!done) { done = true; clearTimeout(timer); res(cache[kind]); }
           }).catch(function () {
-            if (!done) { done = true; clearTimeout(timer); res(FALLBACK); }
+            if (!done) { done = true; clearTimeout(timer); res(fb); }
           });
         } catch (e) {
-          if (!done) { done = true; clearTimeout(timer); res(FALLBACK); }
+          if (!done) { done = true; res(fb); }
         }
       });
     }
 
-    function fire(btn, label) {
+    function fire(btn, label, kind) {
       var old = btn.getAttribute('data-label') || btn.textContent.trim();
       btn.setAttribute('data-label', old);
       btn.textContent = '准备下载…';
       var fb = document.getElementById('dlFallback');
       if (fb) fb.hidden = true;
-      askApi().then(function (u) {
+      askApi(kind).then(function (u) {
         btn.textContent = old;
         var real = label === 'mirror' ? MIRROR + u : u;
         var f = document.createElement('iframe');
@@ -464,10 +541,10 @@
       });
     }
 
-    [['dlMain', 'gh'], ['dlMirror', 'mirror']].forEach(function (pair) {
-      var el = document.getElementById(pair[0]);
+    [['dlSetup', 'gh', 'exe'], ['dlMain', 'gh', 'zip'], ['dlMirror', 'mirror', 'zip']].forEach(function (t) {
+      var el = document.getElementById(t[0]);
       if (!el) return;
-      el.addEventListener('click', function () { fire(el, pair[1]); });
+      el.addEventListener('click', function () { fire(el, t[1], t[2]); });
     });
 
     // 页内锚点走平滑滚动，外部链接照常新开
