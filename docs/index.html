@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SCUM 小地图 · 下载</title>
+<style>
+  :root {
+    --bg: #0e110e;
+    --bg2: #141813;
+    --panel: #191e18;
+    --panel2: #1f2520;
+    --line: rgba(143, 191, 74, .16);
+    --line2: rgba(255, 255, 255, .07);
+    --fg: #e8ebe4;
+    --fg2: #a9b3a2;
+    --fg3: #6f7a6b;
+    --ac: #8fbf4a;
+    --ac-d: #6d9438;
+    --ac2: #ff8a3d;
+    --warn: #e0b341;
+    --r: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 50% -220px, rgba(143, 191, 74, .12), transparent 70%),
+      var(--bg);
+    color: var(--fg);
+    font: 15px/1.75 -apple-system, "Segoe UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", sans-serif;
+    overflow-wrap: break-word;
+  }
+  a { color: var(--ac); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--ac2);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  /* ---------- 首屏 ---------- */
+  header.hero { padding: 64px 0 40px; text-align: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; letter-spacing: .06em; color: var(--ac);
+    border: 1px solid var(--line); background: rgba(143, 191, 74, .07);
+    padding: 5px 13px; border-radius: 999px; margin-bottom: 22px;
+  }
+  .badge i {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--ac);
+    box-shadow: 0 0 0 3px rgba(143, 191, 74, .18);
+  }
+  h1 {
+    margin: 0 0 14px;
+    font-size: clamp(30px, 5.6vw, 46px);
+    line-height: 1.2;
+    letter-spacing: -.015em;
+    font-weight: 800;
+  }
+  h1 em { font-style: normal; color: var(--ac); }
+  .lede {
+    max-width: 620px; margin: 0 auto 34px;
+    font-size: clamp(15px, 2vw, 17px);
+    color: var(--fg2);
+  }
+  .cta {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 26px; border-radius: 10px;
+    font-size: 15px; font-weight: 700;
+    border: 1px solid transparent; cursor: pointer;
+    transition: transform .12s ease, background-color .12s ease, border-color .12s ease;
+  }
+  .btn:hover { text-decoration: none; }
+  .btn:active { transform: translateY(1px); }
+  .btn-main {
+    background: linear-gradient(180deg, var(--ac), var(--ac-d));
+    color: #0d1408;
+    box-shadow: 0 8px 22px rgba(143, 191, 74, .22);
+  }
+  .btn-main:hover { background: linear-gradient(180deg, #9bcc55, #77a03c); }
+  .btn-ghost {
+    background: var(--panel); color: var(--fg); border-color: var(--line2);
+  }
+  .btn-ghost:hover { border-color: rgba(143, 191, 74, .35); }
+  .sub {
+    font-size: 12.5px; color: var(--fg3);
+  }
+  .sub b { color: var(--fg2); font-weight: 600; }
+
+  /* ---------- 区块 ---------- */
+  section { padding: 46px 0; border-top: 1px solid var(--line2); }
+  h2 {
+    margin: 0 0 8px;
+    font-size: 21px; font-weight: 750; letter-spacing: -.01em;
+  }
+  .sec-sub { margin: 0 0 26px; color: var(--fg2); font-size: 14px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line2);
+    border-radius: var(--r);
+    padding: 18px 20px;
+  }
+  .card h3 {
+    margin: 0 0 7px; font-size: 14.5px; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h3 span { font-size: 16px; }
+  .card p { margin: 0; font-size: 13.5px; color: var(--fg2); line-height: 1.7; }
+
+  /* ---------- 步骤 ---------- */
+  ol.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; }
+  ol.steps > li {
+    counter-increment: s;
+    position: relative;
+    padding: 0 0 22px 46px;
+    border-left: 2px solid var(--line);
+    margin-left: 14px;
+  }
+  ol.steps > li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  ol.steps > li::before {
+    content: counter(s);
+    position: absolute; left: -15px; top: -2px;
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--panel2); border: 1px solid var(--line);
+    color: var(--ac); font-size: 13px; font-weight: 700;
+    display: grid; place-items: center;
+  }
+  ol.steps h3 { margin: 0 0 5px; font-size: 14.5px; }
+  ol.steps p { margin: 0; font-size: 13.5px; color: var(--fg2); }
+  code {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-size: 12.5px;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid var(--line2);
+    padding: 1px 6px; border-radius: 5px;
+    color: #cfd8c6;
+    overflow-wrap: anywhere;
+  }
+
+  /* ---------- 表格 ---------- */
+  .tblwrap { overflow-x: auto; border: 1px solid var(--line2); border-radius: var(--r); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 420px; }
+  caption { text-align: left; padding: 14px 18px 0; color: var(--fg2); font-size: 13px; }
+  th, td { padding: 11px 18px; text-align: left; border-bottom: 1px solid var(--line2); }
+  thead th { background: var(--bg2); color: var(--fg2); font-weight: 600; font-size: 12.5px; }
+  tbody tr:last-child td { border-bottom: none; }
+  td:first-child { color: var(--fg); font-weight: 600; white-space: nowrap; }
+  td code { background: none; border: none; padding: 0; }
+
+  /* ---------- 折叠 ---------- */
+  details {
+    background: var(--panel);
+    border: 1px solid var(--line2);
+    border-radius: 10px;
+    padding: 0 18px;
+    margin-bottom: 10px;
+  }
+  details[open] { border-color: var(--line); }
+  summary {
+    cursor: pointer; padding: 14px 0; font-size: 14px; font-weight: 650;
+    list-style: none; display: flex; justify-content: space-between; gap: 14px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--fg3); font-weight: 400; font-size: 18px; line-height: 1; }
+  details[open] summary::after { content: "−"; }
+  details .body { padding: 0 0 16px; font-size: 13.5px; color: var(--fg2); }
+  details .body p { margin: 0 0 9px; }
+  details .body p:last-child { margin-bottom: 0; }
+
+  /* ---------- 提示条 ---------- */
+  .note {
+    display: flex; gap: 12px;
+    background: rgba(224, 179, 65, .07);
+    border: 1px solid rgba(224, 179, 65, .22);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13.5px; color: #ddcf9f;
+    margin: 22px 0 0;
+  }
+  .note b { color: var(--warn); }
+  .note span { flex: 0 0 auto; }
+
+  footer {
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line2);
+    text-align: center;
+    font-size: 13px; color: var(--fg3);
+  }
+  footer p { margin: 0 0 8px; }
+  footer a { color: var(--fg2); }
+
+  @media (max-width: 620px) {
+    header.hero { padding: 44px 0 30px; }
+    .btn { flex: 1 1 100%; justify-content: center; }
+    section { padding: 36px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+  @media print {
+    body { background: #fff; color: #111; }
+    .btn-main, .btn-ghost { border: 1px solid #999; box-shadow: none; background: #fff; color: #111; }
+    section { break-inside: avoid; }
+    details { border: 1px solid #ccc; }
+    details .body { display: block !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="badge"><i></i> 绿色版 · 解压即用 · 不用安装</div>
+    <h1>SCUM <em>小地图</em></h1>
+    <p class="lede">
+      自动读游戏坐标，在屏幕上画一个圆形雷达。<br>
+      人在哪、朝哪走、标点在哪，一眼就看见 —— 不用再按 M 开大地图。
+    </p>
+    <div class="cta">
+      <a class="btn btn-main" id="dlMain" role="button" tabindex="0" target="_blank" rel="noopener noreferrer"
+         href="https://github.com/scumhan/scum-minimap/releases/download/v0.2.4/SCUM-minimap-v0.2.4.zip">
+        ⬇ 下载最新版
+      </a>
+      <a class="btn btn-ghost" id="dlMirror" role="button" tabindex="0" target="_blank" rel="noopener noreferrer"
+         href="https://gh-proxy.com/https://github.com/scumhan/scum-minimap/releases/download/v0.2.4/SCUM-minimap-v0.2.4.zip">
+        🚀 下载慢？走加速
+      </a>
+    </div>
+    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 完整包约 <b>146 MB</b> · 点一下直接开始下载，永远是最新版，不用自己挑</p>
+    <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
+  </div>
+</header>
+
+<main>
+
+<section>
+  <div class="wrap">
+    <h2>它能干什么</h2>
+    <p class="sec-sub">不是为了开挂，是为了少按几次 M 键。</p>
+    <div class="grid">
+      <div class="card">
+        <h3><span>🧭</span>实时定位</h3>
+        <p>自动读游戏里的坐标，圆形雷达上实时显示你的位置和朝向。窗口可拖、可缩放、可调视野，默认直径 280px，约屏幕七分之一宽。</p>
+      </div>
+      <div class="card">
+        <h3><span>📌</span>标点与追踪</h3>
+        <p>双击地图空白处加标点，每个点可以自定义颜色、形状、图标和名字。开着追踪连线，目标点会画一条线指过去，还带距离和方位。</p>
+      </div>
+      <div class="card">
+        <h3><span>👻</span>鼠标穿透</h3>
+        <p>圆外透明自动穿透，圆内按 <code>Ctrl+Shift+L</code> 也能整窗穿透 —— 打开之后地图就是贴在屏幕上的一张图，点击、拖动、滚轮全部落到下面的游戏里。</p>
+      </div>
+      <div class="card">
+        <h3><span>🗺️</span>两级地图</h3>
+        <p>启动只加载 2048 精度的小图，放大到一定程度才懒加载 4096 大图。内存占用低，缩放手感跟得上。</p>
+      </div>
+      <div class="card">
+        <h3><span>🌍</span>十二种语言</h3>
+        <p>简中、繁中、英、俄、西、葡（巴西）、德、法、波、日、韩、泰。设置页里点一下就换，不用重启。</p>
+      </div>
+      <div class="card">
+        <h3><span>🔄</span>一键更新</h3>
+        <p>设置页点「立即更新」，只下几兆的程序文件，自动解压铺好，再点「重启生效」就是新版。不用重下 146M，设置和标点都不丢。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>怎么装</h2>
+    <p class="sec-sub">没有安装程序，也不用装 —— 下载、解压、双击，就这三步。</p>
+    <ol class="steps">
+      <li>
+        <h3>下载 zip</h3>
+        <p>点上面那个「下载最新版」，浏览器会直接开始下 zip，不跳页。国内连 GitHub 慢就走右边的加速镜像，同一个文件。</p>
+      </li>
+      <li>
+        <h3>解压到一个文件夹</h3>
+        <p><b>放在哪都行</b> —— 桌面、D 盘、移动硬盘都可以。这个软件是绿色版，解压到哪就是哪，不需要安装，也不写注册表。</p>
+      </li>
+      <li>
+        <h3>双击 SCUM小地图.exe</h3>
+        <p>第一次打开会自动弹新手教程，九页，讲怎么用、热键是哪些。看完就能用，地图窗口默认置顶显示。</p>
+      </li>
+    </ol>
+    <div class="note">
+      <span>💡</span>
+      <div>
+        <b>想换位置？</b>整个文件夹直接搬走就行。设置、标点、配置都存在
+        <code>%APPDATA%\scum-minimap</code>，不跟程序目录走，搬完打开一个标点都不会丢。
+        设置页「关于」里能看到当前程序目录，还有个按钮直接打开。
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>常用热键</h2>
+    <p class="sec-sub">全部 18 个键都能在设置里改，每个右边还有独立开关 —— 关掉就不注册，不占热键位。</p>
+    <div class="tblwrap">
+      <table>
+        <caption>默认热键（可在「⌨️ 热键」页修改或关闭）</caption>
+        <thead>
+          <tr><th scope="col">功能</th><th scope="col">默认键</th><th scope="col">说明</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>显示 / 隐藏地图</td><td><code>Ctrl+Shift+M</code></td><td>临时收起雷达窗口</td></tr>
+          <tr><td>鼠标穿透</td><td><code>Ctrl+Shift+L</code></td><td>整窗不吃鼠标，点哪都落到游戏里</td></tr>
+          <tr><td>作战模式</td><td><code>Ctrl+Shift+X</code></td><td>简化显示，只留最要紧的信息</td></tr>
+          <tr><td>测距</td><td><code>Ctrl+Shift+D</code></td><td>量两点之间的实际距离</td></tr>
+          <tr><td>地图居中</td><td><code>Ctrl+Shift+C</code></td><td>视野拉回自己身上</td></tr>
+          <tr><td>打开设置</td><td><code>Ctrl+Shift+O</code></td><td>不用去托盘找</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>常见问题</h2>
+    <p class="sec-sub">装之前先看这两条，能省不少事。</p>
+
+    <details open>
+      <summary>会被封号吗？</summary>
+      <div class="body">
+        <p>程序<b>不读游戏内存、不注入、不改游戏文件</b>，坐标是从游戏的「复制位置」功能拿的 —— 就是你自己按一下复制键、把坐标复制到剪贴板那套，跟手动复制一模一样。</p>
+        <p>也正因为这样，它<b>不做游戏帧率显示</b>。读帧数据要碰游戏进程，SCUM 用的 BattlEye 反作弊对这类行为敏感，不值得冒这个风险。想看帧率用 Steam 自带的：Steam → 设置 → 游戏中 → 内嵌界面性能监视器。</p>
+        <p>但话说回来，任何第三方工具都没法给你打包票。用不用、怎么用，自己判断。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>杀毒软件报毒怎么办？</summary>
+      <div class="body">
+        <p>Electron 打包的 exe 没做代码签名，加上会读剪贴板、模拟按键（为了自动取坐标），容易被启发式引擎误判。</p>
+        <p>确认是从上面的官方 Release 下载的，就加白名单。如果你不放心，可以自己看源码 —— 仓库是公开的。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>怎么更新？要重新下载 146M 吗？</summary>
+      <div class="body">
+        <p>不用。设置页「🔄 软件更新」点「检查更新」，有新版本时按钮变成「立即更新」，点一下只下<b>几兆</b>的程序文件（真正的代码只有 7.8M 左右，压缩完不到 1M），自动解压、自动铺进程序目录，再点「⏻ 重启生效」就完事。</p>
+        <p>下载过程中有进度条，能暂停也能接着下。铺新文件之前会自动备份一份现在的程序，万一有文件盖不上，自动整个还原回去，不会留个打不开的半成品。</p>
+        <p>完整包一直留着当兜底 —— 特别老的版本不认识小包，或者自动更新失败时，还是可以下完整包手动覆盖。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>需要装 .NET、运行库之类的吗？</summary>
+      <div class="body">
+        <p>不用。Electron 把运行时都打进去了，解压出来就能跑。系统要求只有一条：Windows 10 或 11，64 位。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>坐标不更新 / 取不到坐标</summary>
+      <div class="body">
+        <p>坐标靠模拟按游戏的「复制位置」键来取。如果没反应，先看设置页「📡 采集」里的复制键是不是跟游戏里一致 —— 游戏设置 → 按键绑定 → 找「复制位置」那一项。</p>
+        <p>改完键要<b>重进游戏</b>才生效，因为游戏只在启动时读一次配置。设置页里改复制键时会自动帮你写进游戏的 <code>Input.ini</code>，但游戏开着的时候不写，会提示你先退游戏。</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>支持哪些服务器 / 地图？</summary>
+      <div class="body">
+        <p>地图是 SCUM 官方的岛屿地图，跟服务器无关 —— 官服、私服、单机都能用，只要是同一张图。</p>
+        <p>设置里对服务器难度做了标签提示：1/3 服标「新手推荐」，2 服标「打架抄家」，4/5 服标「硬核高难」，方便挑服的时候心里有数。</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
+    <p><a href="https://github.com/scumhan/scum-minimap" target="_blank" rel="noopener noreferrer">GitHub 仓库</a> · <a href="https://gitee.com/scumhan/scum-minimap" target="_blank" rel="noopener noreferrer">Gitee 镜像</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  try {
+    /* ---------- 下载按钮：点了直接下，不跳页面 ----------
+       GitHub 的 release 附件直链带 Content-Disposition: attachment，
+       塞进隐藏 iframe 就能触发下载，当前页一动不动。
+       版本号不写死在按钮上，先问一下 API 拿最新版的 zip 地址；
+       问不到（被墙 / 限流）就用写死的兜底链接，照样能下。 */
+    var FALLBACK = 'https://github.com/scumhan/scum-minimap/releases/download/v0.2.4/SCUM-minimap-v0.2.4.zip';
+    var MIRROR = 'https://gh-proxy.com/';
+    var cached = null;
+
+    function askApi() {
+      if (cached) return Promise.resolve(cached);
+      return new Promise(function (res) {
+        var done = false;
+        var timer = setTimeout(function () {
+          if (!done) { done = true; res(FALLBACK); }
+        }, 4000);
+        try {
+          fetch('https://api.github.com/repos/scumhan/scum-minimap/releases/latest', {
+            headers: { 'Accept': 'application/vnd.github+json' }
+          }).then(function (r) {
+            return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status));
+          }).then(function (d) {
+            var a = (d.assets || []).filter(function (x) {
+              return /\.zip$/i.test(x.name) && !/patch/i.test(x.name);
+            })[0];
+            if (!a) throw new Error('no zip asset');
+            cached = a.browser_download_url;
+            if (!done) { done = true; clearTimeout(timer); res(cached); }
+          }).catch(function () {
+            if (!done) { done = true; clearTimeout(timer); res(FALLBACK); }
+          });
+        } catch (e) {
+          if (!done) { done = true; clearTimeout(timer); res(FALLBACK); }
+        }
+      });
+    }
+
+    function fire(url, btn, label) {
+      var old = btn.getAttribute('data-label') || btn.textContent.trim();
+      btn.setAttribute('data-label', old);
+      btn.textContent = '准备下载…';
+      var fb = document.getElementById('dlFallback');
+      if (fb) fb.hidden = true;
+      askApi().then(function (u) {
+        btn.textContent = old;
+        var real = label === 'mirror' ? MIRROR + u : u;
+        var f = document.createElement('iframe');
+        f.style.display = 'none';
+        f.setAttribute('aria-hidden', 'true');
+        f.src = real;
+        document.body.appendChild(f);
+        setTimeout(function () {
+          try { document.body.removeChild(f); } catch (e) {}
+        }, 120000);
+        // 五秒后还没开始下（有些浏览器拦 iframe 下载），给个手动兜底
+        setTimeout(function () {
+          if (fb) fb.hidden = false;
+        }, 5000);
+      }).catch(function () {
+        btn.textContent = old;
+        if (fb) fb.hidden = false;
+      });
+    }
+
+    [['dlMain', 'gh'], ['dlMirror', 'mirror']].forEach(function (pair) {
+      var el = document.getElementById(pair[0]);
+      if (!el) return;
+      el.addEventListener('click', function (e) {
+        e.preventDefault();
+        fire(el.getAttribute('href'), el, pair[1]);
+      });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          fire(el.getAttribute('href'), el, pair[1]);
+        }
+      });
+    });
+
+    // 页内锚点走平滑滚动，外部链接照常新开
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="#"]');
+      if (!a) return;
+      var id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      var t = document.getElementById(id);
+      if (!t) return;
+      e.preventDefault();
+      t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  } catch (err) {
+    /* 脚本挂了页面照样能读 */
+  }
+})();
+</script>
+</body>
+</html>
