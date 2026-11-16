@@ -235,7 +235,7 @@
       <button class="btn btn-main" id="dlSetup" type="button">⚡ 下载安装包（推荐）</button>
       <button class="btn btn-ghost" id="dlMirror" type="button">🚀 下载慢？走加速</button>
     </div>
-    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 安装包 <b>114 MB</b>，双击就装 · 点一下直接开始下载 · 国内网络下不动就点「走加速」</p>
+    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 安装包 <b id="dlSize">约 120 MB</b>，双击就装 · 点一下直接开始下载 · 国内网络下不动就点「走加速」</p>
     <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
     <noscript><p class="sub">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
   </div>
@@ -285,7 +285,7 @@
     <ol class="steps">
       <li>
         <h3>点上面的「下载安装包」</h3>
-        <p>下载完是一个 114 MB 的安装包，双击打开。它会问你装到哪 —— 默认装到当前用户目录下的 <code>Programs\SCUM小地图</code>，也可以自己挑别的文件夹。<b>不需要管理员权限</b>，不会弹 UAC 那个蓝框。</p>
+        <p>下载完是一个安装包，双击打开。它会问你装到哪 —— 默认装到当前用户目录下的 <code>Programs\SCUM小地图</code>，也可以自己挑别的文件夹。<b>不需要管理员权限</b>，不会弹 UAC 那个蓝框。</p>
       </li>
       <li>
         <h3>剩下交给它，等进度条走完</h3>
@@ -294,7 +294,7 @@
       <li>
         <h3>装完直接启动</h3>
         <p>安装向导最后一步有个勾「运行 SCUM小地图」，勾着就装完直接进软件。</p>
-        <p class="mini">不装运行库，不需要管理员权限。想卸载？Windows 设置 → 应用 → 找到「SCUM小地图」→ 卸载，程序和快捷方式一起清掉。<b>你的设置、标点、配置不会动</b>，重装还是原来那套。</p>
+        <p class="mini">不装运行库，不需要管理员权限。安装包装完会自己删掉，不在下载目录里占地方。想卸载？Windows 设置 → 应用 → 找到「SCUM小地图」→ 卸载，程序和快捷方式一起清掉。<b>你的设置、标点、配置不会动</b>，重装还是原来那套。</p>
       </li>
     </ol>
 
@@ -304,7 +304,7 @@
 <section>
   <div class="wrap">
     <h2>常用热键</h2>
-    <p class="sec-sub">全部 18 个键都能在设置里改，每个右边还有独立开关 —— 关掉就不注册，不占热键位。</p>
+    <p class="sec-sub">全部 19 个键都能在设置里改，每个右边还有独立开关 —— 关掉就不注册，不占热键位。</p>
     <div class="tblwrap">
       <table>
         <caption>默认热键（可在「⌨️ 热键」页修改或关闭）</caption>
@@ -317,6 +317,7 @@
           <tr><td>作战模式</td><td><code>Ctrl+Shift+X</code></td><td>简化显示，只留最要紧的信息</td></tr>
           <tr><td>测距</td><td><code>Ctrl+Shift+D</code></td><td>量两点之间的实际距离</td></tr>
           <tr><td>地图居中</td><td><code>Ctrl+Shift+C</code></td><td>视野拉回自己身上</td></tr>
+          <tr><td>极简模式</td><td><code>Ctrl+Shift+J</code></td><td>设置页收成四页、地图窗口只剩地图，截图录视频的时候干净</td></tr>
           <tr><td>打开设置</td><td><code>Ctrl+Shift+O</code></td><td>不用去托盘找</td></tr>
         </tbody>
       </table>
@@ -347,7 +348,7 @@
     </details>
 
     <details>
-      <summary>怎么更新？要重新下载 114M 吗？</summary>
+      <summary>怎么更新？要重新下载整个安装包吗？</summary>
       <div class="body">
         <p>不用，你什么都不用做。程序启动后自己查一次，之后每 6 小时再查，查到新版直接在后台下<b>不到 1 兆</b>的增量包（代码只有 8M 左右，压缩完 700KB），自动解压、自检、铺进程序目录，全程不用点一下。</p>
         <p>装好之后托盘弹一句「已装好，重启一下就是新版」，设置页亮出「⏻ 重启生效」。它不会自己重启 —— 你正打在游戏里，重启这局就没了。</p>
@@ -396,7 +397,7 @@
        就能触发下载，当前页一动不动。
        版本号不写死在按钮上，先问一下接口拿最新版的地址；
        问不到（网络不通 / 限流）就用兜底地址，照样能下。
-       页面上只给安装包（exe，114 MB）。完整包 zip 照样传到 Release，
+       页面上只给安装包（exe）。完整包 zip 照样传到 Release，
        那是自更新失败时的完整包兜底，页面上不露出。
        站点地址不写成明文，免得被一眼看出东西存在哪。
        加速按钮下哪个产物，跟着上一次点的主按钮走，一进来默认安装包，
@@ -406,11 +407,20 @@
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjIuOC8=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuMi44LXNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjMuMy8=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuMy4zLXNldHVwLmV4ZQ==');
     // 接口问不到时用这条兜底，照样能下
     var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
     var cache = { exe: null };
+
+    // 包体积别写死在页面里：版本一涨、地图资源一换就对不上，
+    // 用户下完发现跟写的差几十兆反而更疑惑。接口给了 size 就用真的，
+    // 拿不到就保留 HTML 里那句「约 120 MB」
+    function paintSize(n) {
+      var el = document.getElementById('dlSize');
+      if (!el || !n) return;
+      el.textContent = '约 ' + Math.round(n / 1024 / 1024) + ' MB';
+    }
 
     function askApi(kind) {
       if (cache[kind]) return Promise.resolve(cache[kind]);
@@ -429,6 +439,7 @@
             })[0];
             if (!a) throw new Error('no ' + kind + ' asset');
             cache[kind] = a.browser_download_url;
+            paintSize(a.size);
             if (!done) { done = true; clearTimeout(timer); res(cache[kind]); }
           }).catch(function () {
             if (!done) { done = true; clearTimeout(timer); res(fb); }
@@ -465,6 +476,10 @@
         if (fb) fb.hidden = false;
       });
     }
+
+    // 一进页面就问一次，主要是为了把真实体积显示出来。
+    // 结果会进 cache，之后点按钮不用再等一轮
+    askApi('exe');
 
     [['dlSetup', 'gh'], ['dlMirror', 'mirror']].forEach(function (t) {
       var el = document.getElementById(t[0]);
