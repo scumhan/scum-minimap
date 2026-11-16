@@ -72,6 +72,8 @@
   }
   .btn {
     display: inline-flex; align-items: center; gap: 9px;
+    font-family: inherit; -webkit-appearance: none; appearance: none;
+    text-align: center; line-height: 1.2;
     padding: 14px 26px; border-radius: 10px;
     font-size: 15px; font-weight: 700;
     border: 1px solid transparent; cursor: pointer;
@@ -230,17 +232,12 @@
       人在哪、朝哪走、标点在哪，一眼就看见 —— 不用再按 M 开大地图。
     </p>
     <div class="cta">
-      <a class="btn btn-main" id="dlMain" role="button" tabindex="0" target="_blank" rel="noopener noreferrer"
-         href="https://github.com/scumhan/scum-minimap/releases/download/v0.2.5/SCUM-minimap-v0.2.5.zip">
-        ⬇ 下载最新版
-      </a>
-      <a class="btn btn-ghost" id="dlMirror" role="button" tabindex="0" target="_blank" rel="noopener noreferrer"
-         href="https://gh-proxy.com/https://github.com/scumhan/scum-minimap/releases/download/v0.2.5/SCUM-minimap-v0.2.5.zip">
-        🚀 下载慢？走加速
-      </a>
+      <button class="btn btn-main" id="dlMain" type="button">⬇ 下载最新版</button>
+      <button class="btn btn-ghost" id="dlMirror" type="button">🚀 下载慢？走加速</button>
     </div>
     <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 完整包约 <b>160 MB</b> · 点一下直接开始下载，永远是最新版，不用自己挑</p>
     <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
+    <noscript><p class="sub">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
   </div>
 </header>
 
@@ -286,7 +283,7 @@
     <ol class="steps">
       <li>
         <h3>下载 zip</h3>
-        <p>点上面那个「下载最新版」，浏览器会直接开始下 zip，不跳页。国内连 GitHub 慢就走右边的加速镜像，同一个文件。</p>
+        <p>点上面那个「下载最新版」，浏览器会直接开始下 zip，不跳页。国内网络慢就走右边的加速镜像，同一个文件，速度更快。</p>
       </li>
       <li>
         <h3>解压到一个文件夹</h3>
@@ -349,7 +346,7 @@
       <summary>杀毒软件报毒怎么办？</summary>
       <div class="body">
         <p>Electron 打包的 exe 没做代码签名，加上会读剪贴板、模拟按键（为了自动取坐标），容易被启发式引擎误判。</p>
-        <p>确认是从上面的官方 Release 下载的，就加白名单。如果你不放心，可以自己看源码 —— 仓库是公开的。</p>
+        <p>确认是从上面的官方 Release 下载的，就加白名单。如果你还是不放心，它不联网也能跑 —— 只有你点「检查更新」的时候才连一次网。</p>
       </div>
     </details>
 
@@ -392,7 +389,6 @@
 <footer>
   <div class="wrap">
     <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-    <p><a href="https://github.com/scumhan/scum-minimap" target="_blank" rel="noopener noreferrer">GitHub 仓库</a> · <a href="https://gitee.com/scumhan/scum-minimap" target="_blank" rel="noopener noreferrer">Gitee 镜像</a></p>
   </div>
 </footer>
 
@@ -400,12 +396,19 @@
 (function () {
   try {
     /* ---------- 下载按钮：点了直接下，不跳页面 ----------
-       GitHub 的 release 附件直链带 Content-Disposition: attachment，
-       塞进隐藏 iframe 就能触发下载，当前页一动不动。
-       版本号不写死在按钮上，先问一下 API 拿最新版的 zip 地址；
-       问不到（被墙 / 限流）就用写死的兜底链接，照样能下。 */
-    var FALLBACK = 'https://github.com/scumhan/scum-minimap/releases/download/v0.2.5/SCUM-minimap-v0.2.5.zip';
-    var MIRROR = 'https://gh-proxy.com/';
+       附件直链带 Content-Disposition: attachment，塞进隐藏 iframe
+       就能触发下载，当前页一动不动。
+       版本号不写死在按钮上，先问一下接口拿最新版的 zip 地址；
+       问不到（网络不通 / 限流）就用兜底地址，照样能下。
+       站点地址不写成明文，免得被一眼看出东西存在哪。 */
+    var _d = function (s) { return atob(s); };
+    var HOST   = _d('aHR0cHM6Ly9naXRodWIuY29t');
+    var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
+    var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
+    var REPO   = '/scumhan/scum-minimap';
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjIuNS8=');
+    var FILE   = _d('U0NVTS1taW5pbWFwLXYwLjIuNS56aXA=');
+    var FALLBACK = HOST + REPO + TAG + FILE;
     var cached = null;
 
     function askApi() {
@@ -416,9 +419,7 @@
           if (!done) { done = true; res(FALLBACK); }
         }, 4000);
         try {
-          fetch('https://api.github.com/repos/scumhan/scum-minimap/releases/latest', {
-            headers: { 'Accept': 'application/vnd.github+json' }
-          }).then(function (r) {
+          fetch(APIB + '/repos' + REPO + '/releases/latest').then(function (r) {
             return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status));
           }).then(function (d) {
             var a = (d.assets || []).filter(function (x) {
@@ -436,7 +437,7 @@
       });
     }
 
-    function fire(url, btn, label) {
+    function fire(btn, label) {
       var old = btn.getAttribute('data-label') || btn.textContent.trim();
       btn.setAttribute('data-label', old);
       btn.textContent = '准备下载…';
@@ -466,16 +467,7 @@
     [['dlMain', 'gh'], ['dlMirror', 'mirror']].forEach(function (pair) {
       var el = document.getElementById(pair[0]);
       if (!el) return;
-      el.addEventListener('click', function (e) {
-        e.preventDefault();
-        fire(el.getAttribute('href'), el, pair[1]);
-      });
-      el.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          fire(el.getAttribute('href'), el, pair[1]);
-        }
-      });
+      el.addEventListener('click', function () { fire(el, pair[1]); });
     });
 
     // 页内锚点走平滑滚动，外部链接照常新开
