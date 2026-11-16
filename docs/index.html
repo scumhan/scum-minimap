@@ -268,9 +268,9 @@
     <div class="cta">
       <button class="btn btn-main" id="dlSetup" type="button">⚡ 下载安装包（推荐）</button>
       <button class="btn btn-ghost" id="dlMain" type="button">📦 下载绿色版</button>
-      <button class="btn btn-ghost" id="dlMirror" type="button">🚀 走加速</button>
+      <button class="btn btn-ghost" id="dlMirror" type="button">🚀 加速下载安装包</button>
     </div>
-    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 安装包 <b>114 MB</b>，双击就装 · 绿色版 <b>150 MB</b>，自己解压 · 点一下直接开始下载，不用自己挑版本</p>
+    <p class="sub" id="dlHint">Windows 10 / 11 64 位 · 安装包 <b>114 MB</b>，双击就装 · 绿色版 <b>150 MB</b>，自己解压 · 点一下直接开始下载 · 国内网络下不动就点「加速」</p>
     <p class="sub" id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
     <noscript><p class="sub">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
   </div>
@@ -337,7 +337,7 @@
     <ol class="steps">
       <li>
         <h3>下载 zip</h3>
-        <p>点上面的「下载绿色版」，浏览器会直接开始下 zip，不跳页。国内网络慢就走右边的「走加速」，同一个文件，速度更快。</p>
+        <p>点上面的「下载绿色版」，浏览器会直接开始下 zip，不跳页。国内网络慢就走加速通道 —— 点过「下载绿色版」之后，旁边那个按钮会变成「加速下载绿色版」，同一个文件，速度快得多。</p>
       </li>
       <li>
         <h3>右键 zip →「全部解压缩」</h3>
@@ -470,7 +470,9 @@
        版本号不写死在按钮上，先问一下接口拿最新版的地址；
        问不到（网络不通 / 限流）就用兜底地址，照样能下。
        两个产物：安装包（exe，114 MB）和绿色版整包（zip，150 MB）。
-       站点地址不写成明文，免得被一眼看出东西存在哪。 */
+       站点地址不写成明文，免得被一眼看出东西存在哪。
+       加速按钮下哪个产物，跟着上一次点的主按钮走，一进来默认安装包，
+       国内连不上 GitHub 时靠它把东西拿下来。 */
     var _d = function (s) { return atob(s); };
     var HOST   = _d('aHR0cHM6Ly9naXRodWIuY29t');
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
@@ -521,7 +523,7 @@
       var fb = document.getElementById('dlFallback');
       if (fb) fb.hidden = true;
       askApi(kind).then(function (u) {
-        btn.textContent = old;
+        btn.textContent = btn.getAttribute('data-label') || old;
         var real = label === 'mirror' ? MIRROR + u : u;
         var f = document.createElement('iframe');
         f.style.display = 'none';
@@ -536,16 +538,32 @@
           if (fb) fb.hidden = false;
         }, 5000);
       }).catch(function () {
-        btn.textContent = old;
+        btn.textContent = btn.getAttribute('data-label') || old;
         if (fb) fb.hidden = false;
       });
     }
 
-    [['dlSetup', 'gh', 'exe'], ['dlMain', 'gh', 'zip'], ['dlMirror', 'mirror', 'zip']].forEach(function (t) {
+    // 加速按钮下哪个产物，跟着上一次点的主按钮走；一进来默认安装包。
+    var lastKind = 'exe';
+    var MTXT = { exe: '🚀 加速下载安装包', zip: '🚀 加速下载绿色版' };
+
+    function syncMirror() {
+      var el = document.getElementById('dlMirror');
+      if (!el) return;
+      el.textContent = MTXT[lastKind];
+      el.setAttribute('data-label', MTXT[lastKind]);
+    }
+
+    [['dlSetup', 'gh', 'exe'], ['dlMain', 'gh', 'zip'], ['dlMirror', 'mirror', null]].forEach(function (t) {
       var el = document.getElementById(t[0]);
       if (!el) return;
-      el.addEventListener('click', function () { fire(el, t[1], t[2]); });
+      el.addEventListener('click', function () {
+        var kind = t[2] || lastKind;
+        if (t[1] === 'gh') { lastKind = kind; syncMirror(); }
+        fire(el, t[1], kind);
+      });
     });
+    syncMirror();
 
     // 页内锚点走平滑滚动，外部链接照常新开
     document.addEventListener('click', function (e) {
