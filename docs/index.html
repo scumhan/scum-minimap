@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.3.4</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.3.5</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.3.4 <s>·</s> 2026-11-17 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.3.5 <s>·</s> 2026-11-17 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.3.4 全部功能</h2>
+      <h2>v0.3.5 全部功能</h2>
       <p class="sec-sub">七大类、十五个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1063,14 +1063,38 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.3.4，一共三十四批。最新六批摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.3.5，一共三十五批。最新六批摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv">v0.3.4</span>
+          <span class="clv">v0.3.5</span>
           <span class="clnew">最新</span>
+          <span class="clt">队友方位说 NEWS，房间号能随机能加入</span>
+          <span class="cld">2026-11-17</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>方位改成 NEWS</b>　队友方位不再报「左前 / 右后」，直接给绝对方位：N / NE / E / SE / S / SW / W / NW，跟罗盘和标点提示一个口径。报点说「他在 E 方向 200 米」，听的人不用先转一遍脑子。</li>
+            <li><b>队友箭头能改大小</b>　50% 到 220% 可调。只改队友那个小三角，自己的箭头还在「地图 → 我的箭头」里。</li>
+            <li><b>跨网和局域网彻底分开</b>　以前关掉局域网，跨网也跟着不干活。现在两条路各走各的，单独开哪个都行。</li>
+            <li><b>设置页重新分组</b>　一张卡放局域网、跨网两个开关；一张卡放房间；端口、密码、服务器全收进「高级设置」并默认折叠，写着「非必要不用改」。</li>
+            <li><b>频道改名房间号，能随机能加入</b>　旁边一颗骰子生成六位随机码，去掉了 0/O/1/I/L 这些念出来会错的字符。下面填别人给的号点「加入房间」就进去，不用再翻到高级设置里改。在线队友列表也搬进房间卡里。</li>
+            <li><b>追踪开关下放到每个人</b>　以前「队友连线」是一个总开关，要么全连要么全不连。现在每个队友那一行后面各一个「追踪」勾，勾谁连谁。</li>
+            <li><b>采集器不打断瞄准</b>　采集器在发 Ctrl+C 之前先查一遍鼠标左右键，按着就跳过这一轮、等下一轮。开镜、开枪的时候它永远不会插进来。只查鼠标，WASD 不查。</li>
+            <li><b>底图不再每帧重画</b>　底图缓存到离屏画布，只有缩放、旋转、平移超过一格才重画，人站着不动时 CPU 明显降下来。</li>
+            <li><b>底图换成 WebP</b>　两张地图从 6.5 MB 压到 5.2 MB，画质看不出差别。老版本升级上来的机器上还是读原来的 jpg，不影响。</li>
+            <li><b>设置页能打开日志</b>　遇到问题那张卡多一颗「打开日志」，直接打开日志文件，下面还列着最近几条带 error 的行。</li>
+            <li><b>热键冲突能看出来</b>　同一套组合键被两个功能占着，两个输入框都会变橙并提示跟谁撞了。以前只有被别的软件占用才会标红。</li>
+            <li><b>一堆小修补</b>　在线队友后面显示丢包率；拔副屏、改 DPI 后窗口跑到屏幕外会自动挪回来；每张设置卡右上角一颗小箭头，只把这一卡恢复默认；标点列表改成切回那页才重建；<code>Ctrl+Shift+I</code> 队友连线热键以前按了没反应，现在真能用；房间密码填了就两边都得对上。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.3.4</span>
           <span class="clt">地图能换形状，箭头能改大小</span>
           <span class="cld">2026-11-17</span>
         </summary>
@@ -1302,7 +1326,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.3.4</b> · 2026-11-17</p>
+      <p>当前版本 <b>v0.3.5</b> · 2026-11-17</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -1327,8 +1351,8 @@
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjMuNC8=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuMy40LXNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjMuNS8=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuMy41LXNldHVwLmV4ZQ==');
     // 接口问不到时用这条兜底，照样能下
     var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
     var cache = { exe: null };
