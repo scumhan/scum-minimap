@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.3.9</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.4.2</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.3.9 <s>·</s> 2026-11-17 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.4.2 <s>·</s> 2026-11-17 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.3.9 全部功能</h2>
+      <h2>v0.4.2 全部功能</h2>
       <p class="sec-sub">七大类、十五个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -672,6 +672,7 @@
             <li><b>显示方位 / 视野 / 海拔 / 速度</b>　四项各一个开关</li>
             <li><b>速度单位</b>　km/h · mph · m/s 三选一</li>
             <li><b>显示地图原图</b>　原版卫星图和网格底图随时切</li>
+            <li><b>🗺 三档高清底图</b>　2048 启动秒开、4096 中距、8192 近看，放到最大能看清房子和路</li>
             <li><b>显示轨迹</b>　走过的路留一条线</li>
             <li><b>显示坐标</b>　底部实时 X / Y / Z</li>
             <li><b>不透明度</b>　压到半透明不挡视线</li>
@@ -756,11 +757,21 @@
           </ul>
         </article>
         <article class="fc">
-          <h4>🎯 辅助 <u>AID</u></h4>
+          <h4>🌙 夜视 <u>NIGHT</u></h4>
           <ul>
-            <li><b>🌙 夜视滤镜</b>　提亮暗部 / 亮度 / 暗部细节，三个预设 + 一键还原屏幕</li>
-            <li><b>✨ 屏幕准星</b>　多种样式，偏移 / 长度 / 间隙 / 线宽 / 中心点 / 颜色 / 黑色描边全能调</li>
-            <li>两个都是往屏幕上叠一层，所以放一页</li>
+            <li><b>提亮暗部 / 亮度 / 暗部细节</b>　三根滑杆，直接改显卡输出曲线</li>
+            <li><b>三个预设</b>　默认 / 夜战增强 / 极暗潜行</li>
+            <li><b>一键还原屏幕</b>　关掉或退出时把屏幕还原成原样</li>
+            <li>单独一页，「恢复本页默认」只清这三项</li>
+          </ul>
+        </article>
+        <article class="fc">
+          <h4>✨ 准星 <u>CROSS</u></h4>
+          <ul>
+            <li><b>多种样式</b>　十字 / 点 / 圆 / T 形等，随便挑</li>
+            <li><b>偏移 / 长度 / 间隙 / 线宽 / 中心点</b>　五项都能单独调</li>
+            <li><b>颜色 + 黑色描边</b>　亮背景上也看得清</li>
+            <li>独立透明窗口，盖在游戏上，不占鼠标</li>
           </ul>
         </article>
         <article class="fc">
@@ -1081,11 +1092,63 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.3.9，一共三十九批。最新六批摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.4.2，一共四十二批。最新九批摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
+        <summary>
+          <span class="clv">v0.4.2</span>
+          <span class="clnew">最新</span>
+          <span class="clt">底图换成高清图，准星和夜视分家</span>
+          <span class="cld">2026-11-17</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>底图换成高清</b>　整张地图重做成三档：2048 启动秒开、放大 0.45 倍以上换 4096、0.85 倍以上换 8192。8192 从 14481px 的原图缩下来，比原来的 4096 清晰一倍，放到最大也能看清房屋轮廓和路网走向。</li>
+            <li><b>大图不用了就放掉</b>　8192 解码要 268M，三张一直挂着是几百兆。缩回小倍之后 30 秒没再用就释放，下次放大重新解码 —— 低档一直顶着，画面不会空。</li>
+            <li><b>校准不用重调</b>　新旧底图做过位移检测，地形逐像素对得上，偏移 0。原来的校准值、已经导入的点位包，一个都不用动。</li>
+            <li><b>准星和夜视分家</b>　以前挤在同一页，想调准星得先滚过一屏夜视说明。现在「⚔ 作战」下面拆成「🌙 夜视」和「✨ 准星」两页，各调各的，「恢复本页默认」也只清本页那几项。</li>
+            <li><b>安装包大了 10M</b>　多出来的就是这张 8192 的底图。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.4.1</span>
+          <span class="clt">点位包重做，坐标能导 CSV</span>
+          <span class="cld">2026-11-17</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>内置点位包重做</b>　换成社区整理的全量坐标，按类别拆成 17 个包，一共 7988 个点：地堡据点、载具、摩托、船、手推车、商店、服务设施、洞穴狩猎、地标、城镇、草莓、水果、玉米、蔬菜、建材、物资、其他未命名。要哪类导哪类，不用再一次把地图塞满。</li>
+            <li><b>坐标导出成 CSV</b>　标点、坐标历史、路线一起写进一张表，Excel 双击打开就能排序、筛选、发给别人。</li>
+            <li><b>换房间号不再卡一下</b>　密钥派生挪到后台线程先算，那 90 毫秒里主进程不再整个停住。</li>
+            <li><b>设置没改就不重启共享</b>　以前改一个开关会连着推好几遍配置，每遍都重新监听端口。</li>
+            <li><b>游戏不在前台就降频</b>　切出去看网页、挂机吃饭时，探活间隔拉到 3 倍，不再满速空转；切回游戏最多 3 秒恢复。</li>
+            <li><b>队友隐藏现在真的全藏了</b>　以前只是把名字从列表里摘掉，地图上照样画着箭头。</li>
+            <li><b>点位多的时候不画满屏箭头</b>　超过 160 个点只给正在追踪的那个画屏幕外箭头。</li>
+            <li><b>日志时间统一成本地时间</b>　以前主日志写 UTC、采集器写本地，两份放一起差八小时。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.4.0</span>
+          <span class="clt">更新其实装上了，别再报「没装上」</span>
+          <span class="cld">2026-11-17</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>自动更新装好了却报「没装上」</b>　从 v0.3.4 起每一版都这样：包下完、校验通过、文件其实已经全换成新版了，程序紧接着把自己判成失败。连带着设置页不显示「重启生效」、更新说明存不下来、失败次数还白记一笔。现在装完就认账，气泡说的是「已装好，重启一下就是新版」。</li>
+            <li><b>诊断报告老写「编译失败 是」</b>　不管实际有没有事都写「是」，其实是读取时把「否」当成了「是」。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
         <summary>
           <span class="clv">v0.3.9</span>
           <span class="clnew">最新</span>
@@ -1209,63 +1272,12 @@
         </div>
       </details>
 
-      <details class="cl-item">
-        <summary>
-          <span class="clv">v0.3.1</span>
-          <span class="clt">队友在哪，一眼看见</span>
-          <span class="cld">2026-11-17</span>
-        </summary>
-        <div class="cl-body">
-          <ul>
-            <li><b>位置共享上线</b>　前面三十批解决的都是「自己看得更清楚」，这一批第一次处理「别人」。</li>
-            <li><b>为什么是局域网广播</b>　自建服务器要一直养、用户坐标要过别人的硬盘；局域网 UDP 广播谁也不中转、谁也不存储，断网能用，连热点、直连网线都能用。</li>
-            <li><b>频道号</b>　宿舍、网吧、公司网络下同一个广播域里可能有完全不认识的人开着同一个软件。填一个相同的字符串才算同伙，空频道只跟空频道通。</li>
-            <li><b>地图上长什么样</b>　队友点和自己的箭头同一套坐标，朝向跟地图旋转一致；出屏的钳到圆边上画空心轮廓，一眼分出「在那个方向」和「就在这附近」。</li>
-            <li><b>站着不动不重绘</b>　位置没动超过 0.5 米就不推给界面，四个人连着也不会让笔记本风扇一直转。</li>
-            <li><b>热键</b>　<code>Ctrl+Shift+T</code> 开关共享。</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="cl-item">
-        <summary>
-          <span class="clv">v0.3.0</span>
-          <span class="clt">打开就有地方去，出问题一句话说清</span>
-          <span class="cld">2026-11-16</span>
-        </summary>
-        <div class="cl-body">
-          <ul>
-            <li><b>点位包</b>　新手第一次打开地图是空的，攻略里满篇「D3 地堡」「港口 Klis」得一个个抄。现在带两个包：10 个主要地标 + 8 个军事地堡，一键导入。</li>
-            <li><b>给的是区域中心 + 提醒圈</b>　地堡位置随游戏版本调过，所以不写死精确到米 —— 跑到圈边上就弹提醒，差几十米照样知道自己到了。</li>
-            <li><b>一键诊断</b>　以前报「不显示坐标」要来回问五六轮：游戏开了吗、什么显示模式、采集器在不在跑、日志写的什么。现在一次全写进一个 txt，落到桌面。</li>
-            <li><b>采集器不再把「站着不动」当失败</b>　蹲屋里守点三十秒，以前间隔会被拖到 7 秒，一站起来还要再等七秒才跟上。现在前 8 轮只温和降频，最多 3 倍。</li>
-            <li><b>标点列表分批画</b>　几百条标点时改一个勾选不用整份重建，不再顿半秒。</li>
-            <li><b>更新日志只留最近 5 批</b>　三十批能滚两屏多，其余收进折叠。</li>
-          </ul>
-        </div>
-      </details>
-
-      <details class="cl-item">
-        <summary>
-          <span class="clv">v0.2.9</span>
-          <span class="clt">装完知道改了啥，日志不再拖累设置页</span>
-          <span class="cld">2026-11-16</span>
-        </summary>
-        <div class="cl-body">
-          <ul>
-            <li><b>装完知道改了什么</b>　自动更新装好之后弹一句「已装好，重启一下就是新版」，不用猜这版改了啥。</li>
-            <li><b>增量包校验</b>　装之前先核一遍哈希，坏包不往下走。</li>
-            <li><b>失败十分钟重试</b>　不用白等六小时。</li>
-            <li><b>装完清干净</b>　zip 和临时目录不留，磁盘不会越攒越多。</li>
-            <li><b>日志挪出程序目录</b>　不再往安装目录里写文件。</li>
-            <li><b>更新日志从设置页里分出去</b>　不再拖着设置页一起变慢。</li>
-          </ul>
-        </div>
-      </details>
-
       <details class="cl-old">
-        <summary>更早的 28 个版本（v0.0.1 → v0.2.8）</summary>
+        <summary>更早的 31 个版本（v0.0.1 → v0.3.1）</summary>
         <ul class="old-list">
+          <li><span class="ov">v0.3.1</span><span class="ot">队友在哪，一眼看见</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.3.0</span><span class="ot">打开就有地方去，出问题一句话说清</span><span class="od">2026-11-16</span></li>
+          <li><span class="ov">v0.2.9</span><span class="ot">装完知道改了啥，日志不再拖累设置页</span><span class="od">2026-11-16</span></li>
           <li><span class="ov">v0.2.8</span><span class="ot">更新全自动，只剩一条进度条</span><span class="od">2026-11-16</span></li>
           <li><span class="ov">v0.2.7</span><span class="ot">服务器排到第二，系统拆成六页</span><span class="od">2026-11-16</span></li>
           <li><span class="ov">v0.2.6</span><span class="ot">战斗模式管住所有开关，界面能瘦成一张图</span><span class="od">2026-11-16</span></li>
@@ -1385,7 +1397,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.3.9</b> · 2026-11-17</p>
+      <p>当前版本 <b>v0.4.2</b> · 2026-11-17</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
