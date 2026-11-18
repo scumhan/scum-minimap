@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.6.0</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.6.3</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.6.0 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.6.3 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.6.0 全部功能</h2>
+      <h2>v0.6.3 全部功能</h2>
       <p class="sec-sub">七大类、二十个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -672,7 +672,7 @@
             <li><b>显示方位 / 视野 / 海拔 / 速度</b>　四项各一个开关</li>
             <li><b>速度单位</b>　km/h · mph · m/s 三选一</li>
             <li><b>显示地图原图</b>　原版卫星图和网格底图随时切</li>
-            <li><b>🗺 高清底图</b>　2048 启动秒开、4096 中距离；放到最大换成 196 块切片拼的 14336px 底图，房子和路一眼能认。切片按需下载，安装包里不带</li>
+            <li><b>🗺 高清底图</b>　2048 启动秒开、4096 中距离；放到最大换成 196 块切片拼的 10161px 原生底图，1:1 真像素，房子和路一眼能认。切片按需下载，安装包里不带</li>
             <li><b>显示轨迹</b>　走过的路留一条线</li>
             <li><b>显示坐标</b>　底部实时 X / Y / Z</li>
             <li><b>不透明度</b>　压到半透明不挡视线</li>
@@ -735,7 +735,7 @@
             <li><b>5 个公开直连国服</b>　进游戏前先看去哪玩</li>
             <li><b>难度定位标签</b>　1/3 服「新手推荐」· 2 服「打架抄家」· 4/5 服「硬核高难」</li>
             <li><b>点一下复制</b>　IP 或 QQ 群号一键拿走</li>
-            <li><b>想开服？联系作者</b>　顶部有广告位</li>
+            <li><b>想开服？联系作者</b>　服务器组里单独一页，不感兴趣不用点进来</li>
             <li>排在第二个大类，极简模式也留着</li>
             <li>地图跟服务器无关 —— 官服、私服、单机都是同一张岛</li>
           </ul>
@@ -1092,14 +1092,62 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.6.0，一共六十批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.6.3，一共六十三批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv">v0.6.0</span>
+          <span class="clv">v0.6.3</span>
           <span class="clnew">最新</span>
+          <span class="clt">换原生底图，高清第一次 1:1</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>底图换成原生图</b>　换成 10161×10161 的原生导出，尺寸正好等于地图的坐标空间，高清切片第一次做到 1:1 真像素。以前是把 14481 的图缩到 14336 再切，每块比地图空间多出 40% 的插值像素，放到最大反而是糊的</li>
+            <li><b>旧图上的杂物一起没了</b>　左下角那块制图者署名、四块半透明绿色圆盘、一条紫色虚线都不在新图上；对比度和饱和度也提上来了 —— 海水更蓝、林子更绿，最大倍看东西更清楚</li>
+            <li><b>换图不动坐标</b>　地图坐标空间一直是 10161，标点、轨迹、队友位置、校准值一个都不用迁移，升级完打开就在原位</li>
+            <li><b>删高清底图删不干净</b>　删除时写死了 1024 这个子目录名，瓦片换成 726 之后就找不到、直接报错。现在整个目录走一遍</li>
+            <li><b>老瓦片不会被误认成能用</b>　块数同样是 14，光看块数会把旧瓦片当成新的。现在按版本号判断，对不上就当没装、退回 4096 整图，设置页提示重下</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.6.2</span>
+          <span class="clt">5789 上架，开服单开一页</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>广告位加到四条</b>　7811 原版、7811 二服、DayZ 车臣、5789 五服一排说完，点条目直接复制 IP 或开商城</li>
+            <li><b>5789 五个服的服规写在卡上</b>　抄家怎么算、几点到几点炸家保护，进服前就能看到；1~3 服带「🛒 商城」按钮</li>
+            <li><b>开服合作单独一页</b>　这张卡原来收在服务器页里、默认折叠，想开服的人得先知道有这么张卡才点得到。现在跟「🎮 服务器」并排摆在「🖥️ 服务器」组里</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.6.1</span>
+          <span class="clt">搜索框、水印与日志清理</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>一键清理日志</b>　设置 → ⚙️ 系统 → 🩺 遇到问题里多一颗「清理日志」，运行日志直接清空、崩溃日志一份份删掉，点之前问一句</li>
+            <li><b>搜索框的放大镜压到文字上</b>　那颗放大镜原来是绝对定位的 emoji，不同系统字体下宽度差挺多，字号一大就贴到「搜索设置项…」上。换成输入框自己的背景 SVG，尺寸位置都写死</li>
+            <li><b>极简模式开关后设置页对不上</b>　按极简开关时主进程会连带改一串字段，而设置页为了不被自己的回声打断会丢掉 400ms 内的广播，这一页其它开关就停在旧状态。现在带 simpleMode 的广播不再丢</li>
+            <li><b>底图左下角的制图者水印去掉了</b>　原图左下角那块 Stitched by TripplExN 的署名压在最南边的海面上，高清底图放到最大就能看到。这一版先盖掉了，下一版直接换成没水印的原生图</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.6.0</span>
           <span class="clt">拆出模块，砍掉二十兆</span>
           <span class="cld">2026-11-18</span>
         </summary>
@@ -1443,7 +1491,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.6.0</b> · 2026-11-18</p>
+      <p>当前版本 <b>v0.6.3</b> · 2026-11-18</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
