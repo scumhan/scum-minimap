@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.7.7</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.7.8</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.7.7 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.7.8 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.7.7 全部功能</h2>
+      <h2>v0.7.8 全部功能</h2>
       <p class="sec-sub">七大类、二十个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1097,14 +1097,33 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.7.7，一共七十七批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.7.8，一共七十八批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv">v0.7.7</span>
+          <span class="clv">v0.7.8</span>
           <span class="clnew">最新</span>
+          <span class="clt">转满一圈，按钮归位</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>方窗口启动特效转满一圈</b>　上一批矩形周长只算了一半，进度条跑到一半就停、右边和底边之间还断一截，1.5 秒时停在左边中点回不到起点。现在按真周长分五段走（顶边右半 → 右边 → 底边 → 左边 → 顶边左半），从顶部正中顺时针跑满一整圈，正好闭合在起点</li>
+            <li><b>按钮只贴左右两边</b>　方形、长方形下不再用角度射线找落点 —— 扁窗口下 -60°、-124°、48° 会先撞到上边和下边，⚔ 作战、⚙ 设置、隐藏键就跑到上下边去了。现在左右各一列，竖直居中、等距排开：左列 5 个工具键，右列隐藏键 + 放大 / 缩小 / 居中</li>
+            <li><b>48 格刻度平均分布</b>　跟着真周长走，四个角上不再堆成一团</li>
+            <li><b>矮窗口自动压间距</b>　窗口高度不够时按钮间距跟着收，不会顶到上下边</li>
+            <li><b>圆形和椭圆一点没变</b>　还是原来那套椭圆公式，位置逐像素不动</li>
+            <li><b>启动特效开关默认还是打开</b>　装上就是开机跑一遍，不用自己去设置页找</li>
+            <li><b>增量包瘦了一圈</b>　开发期的备份和调试脚本不再打进增量包，整包 1.45 MB</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.7.7</span>
           <span class="clt">方窗口不绕弧了</span>
           <span class="cld">2026-11-18</span>
         </summary>
@@ -1641,7 +1660,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.7.7</b> · 2026-11-18</p>
+      <p>当前版本 <b>v0.7.8</b> · 2026-11-18</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -1666,8 +1685,8 @@
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjcuNy8=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNy43LXNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjcuOC8=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNy44LXNldHVwLmV4ZQ==');
     // 接口问不到时用这条兜底，照样能下
     var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
     var cache = { exe: null };
