@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.6.5</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.6.8</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.6.5 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.6.8 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.6.5 全部功能</h2>
+      <h2>v0.6.8 全部功能</h2>
       <p class="sec-sub">七大类、二十个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -939,6 +939,7 @@
             <li>启动查一次，之后每 6 小时查一次</li>
             <li>后台下不到 1 兆的增量包，自己装好</li>
             <li>只等你重启，不会自己重启打断这一局</li>
+            <li>等不及就点「立即检测」，查到直接下、直接装</li>
             <li>设置和标点都不丢</li>
           </ul>
         </article>
@@ -1096,11 +1097,59 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.6.5，一共六十五批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.6.8，一共六十八批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
+        <summary>
+          <span class="clv">v0.6.8</span>
+          <span class="clnew">最新</span>
+          <span class="clt">更新页多一颗「立即检测」</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>更新页多一颗「立即检测」</b>　等不及 6 小时那一轮就点它，马上查一次；查到新版直接在后台下增量包、自动装好，界面照旧只有一条进度条，装完这里多一个「重启生效」。查不到就明说「已是最新」，不用干等着猜</li>
+            <li><b>检测结果分开写</b>　正在更新、已经是最新、这一版没增量包得手动下完整包、检测失败，四种情况各说各的，不再是一句含糊的「检查更新」</li>
+            <li><b>手动检测走同一条自动更新链路</b>　跟后台定时那套共用同一套下载和安装逻辑，没有第二套；之前连续失败被放弃的那一版，手动点一下会重置计数再试一次</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.6.7</span>
+          <span class="clt">隐身改成对跨网房间里的人隐身</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>隐身：跨网房间里看不到我</b>　设置 → 🌐 跨网 新开一个开关。打开后不再往跨网房间发自己的位置和标点，房间里的人最多 12 秒后从他们地图上消失；局域网队友照常看得见你，在线人数也照常上报，你这边照样能看到别人。默认热键 <b>Ctrl + Alt + H</b></li>
+            <li><b>标题旁的在线人数前面挂个眼镜</b>　正隐着身的时候一眼能看出来，免得自己忘了</li>
+            <li><b>在线人数页的「隐身：不上报自己」删了</b>　那个开关只管在线人数，跟队友共享是两码事，名字也叫「隐身」，容易让人以为开了队友就看不见你。现在隐身只有一处，就在跨网页</li>
+            <li><b>跨网隐身只掐发送，不收包</b>　连接和订阅都不动，切开关立刻生效，不用重连</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.6.6</span>
+          <span class="clt">在线人数搬去标题旁，新手指引先起名选色</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>设置页单开「在线人数」页</b>　从服务器页整张搬进队友组，跟局域网、跨网、同步显示排在一起</li>
+            <li><b>在线人数挪到标题旁边</b>　从底部那一行搬到程序名右边，底部只剩状态点、方位、视野、海拔、速度</li>
+            <li><b>名字默认给一个随机的</b>　新装第一次启动就有名字，中文两字 + 4 位数字（比如 游侠4721）</li>
+            <li><b>新手教程第一页先起名、再选色</b>　输入框右边有骰子能换名字，颜色十选一，点完立刻生效</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="cl-item" open>
         <summary>
           <span class="clv">v0.6.5</span>
           <span class="clnew">最新</span>
@@ -1531,7 +1580,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.6.5</b> · 2026-11-18</p>
+      <p>当前版本 <b>v0.6.8</b> · 2026-11-18</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -1556,8 +1605,8 @@
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjYuNS8=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNi41LXNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjYuOC8=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNi44LXNldHVwLmV4ZQ==');
     // 接口问不到时用这条兜底，照样能下
     var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
     var cache = { exe: null };
