@@ -493,14 +493,14 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.7.6</button>
+    <button class="mini" id="dlTop" type="button">下载 v0.7.7</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.7.6 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
+      <div class="badge"><i></i> v0.7.7 <s>·</s> 2026-11-18 <s>·</s> 已上线</div>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -655,7 +655,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.7.6 全部功能</h2>
+      <h2>v0.7.7 全部功能</h2>
       <p class="sec-sub">七大类、二十个设置分页、六十多张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1097,14 +1097,30 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.7.6，一共七十六批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 v0.7.7，一共七十七批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv">v0.7.6</span>
+          <span class="clv">v0.7.7</span>
           <span class="clnew">最新</span>
+          <span class="clt">方窗口不绕弧了</span>
+          <span class="cld">2026-11-18</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>方窗口按钮贴边</b>　正方形、长方形下按钮不再沿椭圆弧绕，改成按角度射线打到窗口四条边的交点摆放 —— 左边一撮贴着左边、右边一撮贴着右边，四角该空着就空着</li>
+            <li><b>按钮改小方角</b>　方形、长方形下按钮从正圆改成 3px 圆角，跟方窗口是一套；圆形和椭圆下还是圆的</li>
+            <li><b>启动特效走矩形</b>　环形进度、48 格刻度、同心圈、收尾圈全改成矩形路径，从顶部正中起笔顺时针沿四条边跑一圈</li>
+            <li><b>罗盘贴方形边</b>　刻度环和 N/E/S/W 八个方位字母一起投影到矩形边，不再缩在中间的椭圆上</li>
+            <li><b>广告卡不显示到期日</b>　服务器页每张广告右上角原来挂一行「至 2026-12-18」，现在整行去掉 —— 还剩几天、排到哪一天都不摆在界面上，到点照样自动隐藏</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.7.6</span>
           <span class="clt">四种形状都贴合了</span>
           <span class="cld">2026-11-18</span>
         </summary>
@@ -1625,7 +1641,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.7.6</b> · 2026-11-18</p>
+      <p>当前版本 <b>v0.7.7</b> · 2026-11-18</p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -1650,8 +1666,8 @@
     var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
     var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
     var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjcuNi8=');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNy42LXNldHVwLmV4ZQ==');
+    var TAG    = _d('L3JlbGVhc2VzL2Rvd25sb2FkL3YwLjcuNy8=');
+    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuNy43LXNldHVwLmV4ZQ==');
     // 接口问不到时用这条兜底，照样能下
     var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
     var cache = { exe: null };
