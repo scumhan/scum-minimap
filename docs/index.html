@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="自动读游戏坐标，在屏幕一角画实时雷达。队友位置共享、标点带距离。Windows 10 / 11，免费。">
 <meta name="twitter:image" content="og.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.0.2","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-20","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.0.3","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-20","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
 </script>
 <style>
   :root {
@@ -1272,14 +1272,46 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.0.0</span>，一共一百零一批，一批不少。点标题展开，看每一批改了什么。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.0.0</span>，一共一百零三批，一批不少。点标题展开，看每一批改了什么。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
               <summary>
-                <span class="clv">v1.0.1</span>
+                <span class="clv">v1.0.3</span>
                 <span class="clnew">最新</span>
+                <span class="clt">换单键后提醒压间隔</span>
+                <span class="cld">2026-11-20</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📉 换完键顺手提醒你压间隔</b>　原生 Ctrl+C 一轮光按键就要 280ms，换成 F11 这种单键只剩 90ms 左右。以前换完就完了，没人告诉你其实还能更快。现在应用成功后在键位卡下面弹一条：现在多少、能降到多少。</li>
+                  <li><b>🔘 自动还是自己调，你说了算</b>　「自动调到 800 ms」直接改，「我自己调」把光标送到间隔输入框；勾「以后换键位自动调，不再问」就静默调完只弹一句。</li>
+                  <li><b>🔔 同一个键只问一次</b>　选「我自己调」也算答过了，换个键才重新提。</li>
+                  <li><b>🛑 不会往回拉</b>　只往短里建议：间隔已经 800 及以下不出声，组合键换回 Ctrl+C 也不提。地板仍是 400，压到那儿每轮就开始排队。</li>
+                  <li><b>✅ 342 项单测全过</b>　不换键就不会弹任何东西，老配置一点不用动。</li>
+                </ul>
+              </div>
+            </details>
+      <details class="cl-item">
+              <summary>
+                <span class="clv">v1.0.2</span>
+                <span class="clt">复制键自己选，写盘先校验</span>
+                <span class="cld">2026-11-20</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>🎹 复制键自己挑</b>　点开「复制键」那行是个面板，把 F11 / F12 / Insert / Home / End 和原生 Ctrl+C 在游戏里的占用情况摊开，看完再决定。</li>
+                  <li><b>🚦 选键当场判风险</b>　绿=推荐，黄=能用但有代价，红=别用：裸字母数字会往聊天框打字，带修饰的键高频注入容易让游戏以为你一直按着，F12 可能被 Steam 截图抢走。</li>
+                  <li><b>🐛 改键不再静默失效</b>　以前先改内存再写游戏配置，写失败也不回滚。现在先写盘、写完读回来校验，失败原样不动并说清原因。</li>
+                  <li><b>🩺 启动时核一次</b>　20 秒后检查复制键还在不在游戏配置里，被游戏改键位盖掉会提示。</li>
+                  <li><b>✅ 325 项单测全过</b></li>
+                </ul>
+              </div>
+            </details>
+      <details class="cl-item">
+              <summary>
+                <span class="clv">v1.0.1</span>
                 <span class="clt">设置页音效不再响两声</span>
                 <span class="cld">2026-11-20</span>
         </summary>
@@ -3193,11 +3225,11 @@
      发版只改这一段（或跑 scripts/bump_download.js 自动改）
      ══════════════════════════════════════════════════════════ */
   var CFG = {
-    ver:    '1.0.2',
+    ver:    '1.0.3',
     date:   '2026-11-20',
-    size:   119580940,
-    count:  803,
-    sha256: 'f00cd0fe01659c75838bcccbf08dcfc72b0c05036d441dc6604f85d6e1bc3936'
+    size:   119611838,
+    count:  810,
+    sha256: '3d7cf8910f02de37554dcd4539a1c876bbdbbbf8f981bda31f1e0a0402e1898d'
   };
 
   /* 域名与文件名不写明文 */
