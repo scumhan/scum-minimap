@@ -3196,7 +3196,7 @@
     ver:    '1.0.1',
     date:   '2026-11-20',
     size:   119580940,
-    count:  95,
+    count:  803,
     sha256: 'f00cd0fe01659c75838bcccbf08dcfc72b0c05036d441dc6604f85d6e1bc3936'
   };
 
@@ -3253,7 +3253,7 @@
     var c = document.getElementById('dlCount');
     if (c && cnt > 0) {
       c.hidden = false;
-      c.innerHTML = '已被下载 <b>' + String(cnt).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</b> 次';
+      c.innerHTML = '累计下载 <b>' + String(cnt).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</b> 次';
     }
 
     var f = document.getElementById('dlFresh');
@@ -3312,21 +3312,43 @@
     try { localStorage.setItem('mm_mirror', String(mIdx)); } catch (e) {}
   });
 
+  /* 下载数是「累计」口径：把每个 release 的每个资源下载量全加起来，
+     跟设置页「累计下载次数」同一个算法（安装包、免安装包、增量更新、高清底图包都算）。
+     只取最新一版的话，数字会永远停在几十次，看着像没人用。 */
+  function sumCount(list) {
+    var n = 0;
+    for (var i = 0; i < list.length; i++) {
+      var r = list[i];
+      if (!r || r.draft) continue;
+      var as = r.assets || [];
+      for (var k = 0; k < as.length; k++) n += (as[k].download_count || 0);
+    }
+    return n;
+  }
+
   /* 接口只做增强：失败就退回 CFG，页面照常可用 */
   function askApi() {
     var cached = null;
-    try { cached = JSON.parse(sessionStorage.getItem('mm_rel') || 'null'); } catch (e) {}
+    try { cached = JSON.parse(sessionStorage.getItem('mm_rel2') || 'null'); } catch (e) {}
     if (cached && cached.d && Date.now() - cached.t < 6e5) { api = cached.d; paint(); return; }
     if (!window.fetch) return;
 
     var ctl = window.AbortController ? new AbortController() : null;
-    var tm = setTimeout(function () { if (ctl) ctl.abort(); }, 4500);
+    var tm = setTimeout(function () { if (ctl) ctl.abort(); }, 6000);
 
-    fetch(APIB + '/repos' + REPO + '/releases/latest', ctl ? { signal: ctl.signal } : {})
+    fetch(APIB + '/repos' + REPO + '/releases?per_page=100', ctl ? { signal: ctl.signal } : {})
       .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
-      .then(function (j) {
+      .then(function (list) {
         clearTimeout(tm);
-        if (!j || !j.tag_name) return;
+        if (!list || !list.length) return;
+        /* 最新一版：剔掉草稿和预发布，再按发布时间挑 */
+        var j = null;
+        for (var i = 0; i < list.length; i++) {
+          var r = list[i];
+          if (!r || !r.tag_name || r.draft || r.prerelease) continue;
+          if (!j || String(r.published_at || '') > String(j.published_at || '')) j = r;
+        }
+        if (!j) return;
         var exe = (j.assets || []).filter(function (a) {
           return /\.exe$/i.test(a.name) && !/patch/i.test(a.name);
         })[0];
@@ -3334,14 +3356,14 @@
           ver: String(j.tag_name).replace(/^v/i, ''),
           date: String(j.published_at || '').slice(0, 10),
           size: (exe && exe.size) || 0,
-          count: (exe && exe.download_count) || 0,
+          count: sumCount(list),
           sha: (exe && exe.digest) ? String(exe.digest).replace(/^sha256:/i, '') : '',
           url: (exe && exe.browser_download_url) || ''
         };
         if (!o.size) delete o.size;
         if (!o.count) delete o.count;
         api = o;
-        try { sessionStorage.setItem('mm_rel', JSON.stringify({ t: Date.now(), d: o })); } catch (e) {}
+        try { sessionStorage.setItem('mm_rel2', JSON.stringify({ t: Date.now(), d: o })); } catch (e) {}
         paint();
       })
       .catch(function () { clearTimeout(tm); });
