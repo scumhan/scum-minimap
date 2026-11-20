@@ -13,7 +13,9 @@
 // 第一百一十七批加了 pi18n.js，同理升到 v3。
 // 第一百一十九批加了 net.js（跨网），升到 v4
 // 第一百二十二批加了 pairparse.js（粘贴拆房间号密码），升到 v5
-const CACHE = 'smm-phone-v5';
+// 第一百二十四批改了 net.js 的订阅主题（跨网连不上的根因），升到 v6 ——
+// 不升的话手机上还可能是旧壳，跨网照样连不上
+const CACHE = 'smm-phone-v6';
 
 // 壳文件：少一样页面就白屏，必须拿到
 const SHELL = [
