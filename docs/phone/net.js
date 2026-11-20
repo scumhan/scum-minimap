@@ -203,7 +203,10 @@
           st = 'online';
           err = '';
           retryDelay = 1500;
-          try { ws.send(mqSubscribe(topicUp)); } catch (e) {}
+          // 第一百二十四批：这里原来订的是 topicUp，等于订了自己发出去的那条，
+          // 电脑把回包发在 topicDn 上，手机永远收不到 —— 表现就是每次卡满 12 秒
+          // 然后说「电脑没回话」。订阅下行才对得上。
+          try { ws.send(mqSubscribe(topicDn)); } catch (e) {}
           if (pingTimer) clearInterval(pingTimer);
           pingTimer = setInterval(function () {
             if (ws && ws.readyState === 1) { try { ws.send(PINGREQ); } catch (e) {} }
@@ -284,7 +287,9 @@
     var o = opts || {};
     close();
     room = String(o.room || '').trim();
-    pass = String(o.pass || '');
+    // 第一百二十四批：密码也去空格。手机键盘选词、粘贴时常带个尾巴空格，
+    // 差一个字符派出来的主题就完全是另一条，电脑那边等于没人在听。
+    pass = String(o.pass || '').trim();
     devId = String(o.devId || '').replace(/[^a-z0-9]/gi, '').slice(0, 32);
     if (devId.length < 6) devId = randHex(8);
     started = true;
