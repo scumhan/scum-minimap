@@ -909,6 +909,57 @@
   if ($('nroom')) $('nroom').addEventListener('keydown', function (e) { if (e.key === 'Enter') doPair(); });
   if ($('npass')) $('npass').addEventListener('keydown', function (e) { if (e.key === 'Enter') doPair(); });
 
+  /* ---------- 第一百二十二批：粘贴房间号 + 密码 ----------
+     电脑上点「🔑 复制房间号和密码」拿到的是一行，手机上一次粘贴要拆成两个框。
+     主路径走 paste 事件：不依赖读剪贴板权限，iOS / Android 长按粘贴都能用；
+     按钮只是图省事，读不到剪贴板时给一句提示，别让人以为按钮坏了 */
+  function pairTip(msg) { $('err').textContent = msg ? T(msg) : ''; }
+
+  function fillPair(r) {
+    if (!r || !r.ok) {
+      pairTip(r && r.why === 'toolong' ? '房间号或密码太长，检查一下' : '粘贴的内容里没找到房间号和密码');
+      return false;
+    }
+    if (r.room) $('nroom').value = r.room;
+    if (r.pass) $('npass').value = r.pass;
+    pairTip(r.filled === 'both' ? '已填入，点连接' : '只填了一格，另一格补一下');
+    return true;
+  }
+
+  function pasteInto(txt, from) {
+    if (!window.PP) return false;
+    return fillPair(window.PP.parse(txt, from));
+  }
+
+  // 两格都拆出来才接管粘贴：只粘了一段就交给浏览器，用户自己知道粘的是哪格
+  function bindPaste(id, from) {
+    var box = $(id);
+    if (!box) return;
+    box.addEventListener('paste', function (e) {
+      var txt = '';
+      try { txt = (e.clipboardData || window.clipboardData).getData('text') || ''; } catch (x) {}
+      if (!window.PP || !txt) return;
+      var r = window.PP.parse(txt, from);
+      if (r && r.ok && r.filled === 'both') { e.preventDefault(); fillPair(r); }
+    });
+  }
+  bindPaste('nroom', 'room');
+  bindPaste('npass', 'pass');
+
+  if ($('pasteRP')) {
+    $('pasteRP').addEventListener('click', function () {
+      if (!navigator.clipboard || !navigator.clipboard.readText) {
+        pairTip('这个浏览器不让读剪贴板，长按输入框选「粘贴」');
+        return;
+      }
+      navigator.clipboard.readText().then(function (txt) {
+        pasteInto(txt, 'room');
+      }).catch(function () {
+        pairTip('这个浏览器不让读剪贴板，长按输入框选「粘贴」');
+      });
+    });
+  }
+
   if (NET) {
     // 跨网：存着房间号和密码就自动重连，没存就回配对页填
     var rr = null;
