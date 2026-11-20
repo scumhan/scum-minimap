@@ -3,8 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SCUM 小地图 · 下载</title>
-<meta name="description" content="SCUM 小地图：自动读游戏坐标，在屏幕上画一个实时雷达。队友位置共享、标点追踪、作战模式、夜视滤镜。Windows 10 / 11，双击就装。">
+<title>SCUM 小地图下载 · 实时雷达 / 队友共享 / 标点 · 免费</title>
+<meta name="description" content="SCUM 小地图：自动读游戏坐标，在屏幕上画一个实时雷达。队友位置共享、标点追踪、作战模式、夜视滤镜。Windows 10 / 11，双击就装，免费。">
+<meta name="theme-color" content="#0a0d0a">
+<link rel="icon" href="icon32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icon32.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SCUM 小地图">
+<meta property="og:title" content="SCUM 小地图 · 实时雷达，队友在哪一眼看见">
+<meta property="og:description" content="自动读游戏坐标，在屏幕一角画实时雷达。队友位置共享、标点带距离、28 个热键。Windows 10 / 11，免费。">
+<meta property="og:image" content="og.png">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SCUM 小地图 · 实时雷达">
+<meta name="twitter:description" content="自动读游戏坐标，在屏幕一角画实时雷达。队友位置共享、标点带距离。Windows 10 / 11，免费。">
+<meta name="twitter:image" content="og.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"0.8.9","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-19","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+</script>
 <style>
   :root {
     --bg: #0a0d0a;
@@ -16,7 +32,7 @@
     --line2: rgba(255, 255, 255, .07);
     --fg: #eaece4;
     --fg2: #a5b09c;
-    --fg3: #6c7769;
+    --fg3: #7d8879;
     --ac: #8fbf4a;
     --ac-l: #a8d662;
     --ac-d: #6d9438;
@@ -458,6 +474,123 @@
     .old-list .od { grid-column: 2; }
     .topbar .mini { display: none; }
   }
+  /* ============ 增补：可访问性 / 下载反馈 / 对比表 ============ */
+  .skip {
+    position: absolute; left: -9999px; top: 8px; z-index: 999;
+    background: var(--ac); color: #0c1407; font-weight: 700; font-size: 13px;
+    padding: 9px 16px; border-radius: 9px; text-decoration: none;
+  }
+  .skip:focus { left: 12px; }
+
+  a.badge { text-decoration: none; transition: border-color .14s ease, background .14s ease; }
+  a.badge:hover { border-color: rgba(143, 191, 74, .42); background: rgba(143, 191, 74, .12); }
+  .badge-more { font-style: normal; color: var(--fg3); margin-left: 1px; }
+  a.badge:hover .badge-more { color: var(--ac); }
+
+  .btn > span { display: block; }
+  .btn-sub {
+    display: block; font-size: 11.5px; font-weight: 600; line-height: 1.45;
+    letter-spacing: .01em; opacity: .74; margin-top: 2px;
+  }
+  .btn-main .btn-sub { color: #1d2a0c; opacity: .84; }
+  .btn-ghost .btn-sub { color: var(--fg3); opacity: 1; }
+  .btn.is-busy { pointer-events: none; opacity: .82; }
+  .btn.is-busy .btn-sub { opacity: .92; }
+
+  .lede-safety {
+    margin: -16px 0 26px; font-size: 12.5px; color: var(--fg3);
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+  }
+  .lede-safety span::before { content: "✓"; color: var(--ac); margin-right: 5px; font-weight: 700; }
+
+  .proof {
+    display: flex; flex-wrap: wrap; gap: 4px 0; margin: 13px 0 0;
+    font-size: 12.5px; color: var(--fg3);
+  }
+  .proof > * { display: inline-flex; align-items: center; gap: 5px; }
+  .proof > * + *::before { content: "·"; color: var(--fg3); margin: 0 12px; }
+  .proof b { color: var(--fg2); font-weight: 600; }
+
+  #dlFallback { margin: 12px 0 0; font-size: 12.5px; color: var(--ac2); }
+  #dlFallback p { margin: 0 0 9px; }
+  #dlFallback .tiny { font-size: 11.5px; color: var(--fg3); margin: 9px 0 0; }
+  #dlDirect { padding: 10px 18px; font-size: 13.5px; }
+
+  .os-hint {
+    margin: 14px 0 0; padding: 11px 14px; font-size: 13px; line-height: 1.7; color: var(--fg);
+    background: rgba(255, 138, 61, .09); border: 1px solid rgba(255, 138, 61, .32);
+    border-radius: 10px; max-width: 520px;
+  }
+  .os-hint b { color: var(--ac2); }
+
+  .dl-help { margin-top: 20px; max-width: 560px; }
+  .dl-help summary {
+    cursor: pointer; list-style: none; font-size: 12.5px; color: var(--fg3);
+    display: inline-flex; align-items: center; gap: 7px;
+  }
+  .dl-help summary::-webkit-details-marker { display: none; }
+  .dl-help summary::before {
+    content: "?"; display: inline-grid; place-items: center; width: 15px; height: 15px;
+    border-radius: 50%; border: 1px solid var(--line); font-size: 10px; line-height: 1;
+  }
+  .dl-help[open] summary, .dl-help summary:hover { color: var(--fg2); }
+  .dl-help .body { margin-top: 11px; font-size: 13px; color: var(--fg2); line-height: 1.78; }
+  .dl-help .body p { margin: 0 0 9px; }
+  .dl-help .body p:last-child { margin-bottom: 0; }
+  .dl-help .body b { color: var(--fg); font-weight: 650; }
+
+  .verify { margin: 10px 0 0; font-size: 11.5px; color: var(--fg3); }
+  .verify code { font-family: var(--mono); color: var(--fg2); }
+
+  /* ============ 对比表 ============ */
+  .cmp {
+    overflow-x: auto; border: 1px solid var(--line2); border-radius: var(--r);
+    background: var(--panel);
+  }
+  .cmp table { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 540px; }
+  .cmp th, .cmp td { padding: 13px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.05); vertical-align: top; }
+  .cmp thead th {
+    font-size: 11.5px; letter-spacing: .1em; color: var(--fg3); font-weight: 600;
+    background: rgba(255,255,255,.02); white-space: nowrap;
+  }
+  .cmp thead th:last-child { color: var(--ac); }
+  .cmp tr:last-child td { border-bottom: none; }
+  .cmp td:first-child { color: var(--fg); font-weight: 600; white-space: nowrap; }
+  .cmp td:nth-child(2) { color: var(--fg3); }
+  .cmp td:last-child { color: var(--fg2); }
+
+  /* ============ 手机端目录按钮 ============ */
+  .menu-btn {
+    display: none; align-items: center; gap: 6px;
+    font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--fg);
+    background: var(--panel); border: 1px solid var(--line2); border-radius: 8px;
+    padding: 7px 11px; cursor: pointer;
+  }
+
+  @media (max-width: 620px) {
+    .menu-btn { display: inline-flex; }
+    .tnav { display: none; }
+    .tnav.open {
+      display: flex; flex-direction: column; gap: 2px;
+      position: absolute; left: 12px; right: 12px; top: 54px;
+      background: rgba(12, 16, 12, .985); border: 1px solid var(--line2);
+      border-radius: 12px; padding: 7px; z-index: 60;
+      box-shadow: 0 20px 44px rgba(0, 0, 0, .55);
+    }
+    .tnav.open a { padding: 11px 13px; border-radius: 8px; }
+    .tnav.open a:hover { background: var(--panel2); }
+    .topbar .mini { display: inline-flex; }
+    .radar { max-width: 250px; }
+    .btn { text-align: center; }
+    .lede-safety { margin-top: -10px; }
+    .proof { font-size: 12px; }
+  }
+
+  /* 页面切到后台时停掉雷达动画，笔记本省电 */
+  body.paused .radar *,
+  body.paused .radar::before,
+  body.paused .radar::after { animation-play-state: paused !important; }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; animation: none !important; }
@@ -482,10 +615,12 @@
 </head>
 <body>
 
+<a class="skip" href="#dlSetup">跳到下载按钮</a>
+
 <div class="topbar" id="topbar">
   <div class="wrap">
     <b>SCUM <i>小地图</i></b>
-    <nav class="tnav" aria-label="页面导航">
+    <nav class="tnav" id="tnav" aria-label="页面导航">
       <a href="#share">队友共享</a>
       <a href="#features">功能</a>
       <a href="#hotkeys">热键</a>
@@ -493,30 +628,53 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 v0.8.9</button>
+    <button class="mini" id="dlTop" type="button">下载 <span data-ver>v0.8.9</span></button>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="tnav" aria-label="打开页面目录">目录</button>
   </div>
 </div>
 
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <div class="badge"><i></i> v0.8.9 <s>·</s> 2026-11-19 <s>·</s> 已上线</div>
+      <a class="badge" href="#changelog" title="看这一版改了什么"><i></i> <span data-ver>v0.8.9</span> <s>·</s> <span data-date>2026-11-19</span> <s>·</s> 已上线 <em class="badge-more">改了什么 →</em></a>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
         人在哪、朝哪走、标点在哪、<b>队友在哪</b> —— 一眼就看见，不用再按 M 开大地图。
       </p>
+      <p class="lede-safety">
+        <span>不读内存</span><span>不注入游戏</span><span>不改游戏文件</span><span>不上传存档</span>
+      </p>
       <div class="cta">
-        <button class="btn btn-main" id="dlSetup" type="button">⚡ 下载安装包（推荐）</button>
-        <button class="btn btn-ghost" id="dlMirror" type="button">🚀 下载慢？走加速</button>
+        <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v0.8.9</span> · <span data-size>114 MB</span> · Win10/11</span></span></button>
+        <button class="btn btn-ghost" id="dlMirror" type="button"><span>🚀 国内加速下载<span class="btn-sub">备用线路 · 同一个包</span></span></button>
       </div>
       <p class="meta">
         <span>Windows 10 / 11 64 位</span>
         <span>安装包 <b id="dlSize">约 114 MB</b></span>
-        <span>双击就装</span>
+        <span>双击就装，约 30 秒</span>
         <span>不要管理员权限</span>
       </p>
-      <p id="dlFallback" hidden>没开始下载？再点一次上面的按钮。</p>
+      <p class="proof">
+        <span id="dlCount" hidden>—</span>
+        <span id="dlFresh">最近更新</span>
+        <span>免费，不注册</span>
+      </p>
+      <div id="dlFallback" hidden>
+        <p>没开始下载？直接点下面这个链接：</p>
+        <a class="btn btn-ghost" id="dlDirect" href="#">⬇ 直接下载安装包</a>
+        <p class="tiny">浏览器拦了自动下载时，用这个链接能绕过去。</p>
+      </div>
+      <p class="os-hint" id="osHint" hidden>这是 <b>Windows 10 / 11</b> 的桌面程序，手机上装不了。把这一页的链接发到电脑上再打开。</p>
+      <details class="dl-help">
+        <summary>下载没反应？点这里看三种常见情况</summary>
+        <div class="body">
+          <p><b>1. 浏览器把自动下载拦了</b>　地址栏右侧会出现一个「已拦截」小图标，点它选「允许」，再点一次下载按钮；或者直接用上面的「直接下载安装包」链接。</p>
+          <p><b>2. 卡在 0 字节 / 速度是 0</b>　多半是线路问题。点「国内加速下载」会换一条镜像线路，连点几次会依次换，直到有一条通。</p>
+          <p><b>3. 下完文件不见了</b>　杀软有时会直接把安装包删掉或隔离。去「保护历史记录」里恢复并允许，或先把安装包所在的文件夹加进白名单。</p>
+        </div>
+      </details>
+      <p class="verify" id="dlVerify" hidden>文件校验 <code id="dlSha">—</code> · <span id="dlBytes">—</span> 字节 · 和这里一致就是原包</p>
       <noscript><p id="dlFallback2" style="margin:10px 0 0;font-size:12.5px;color:#ff8a3d">浏览器把 JavaScript 关了，按钮点不动 —— 在设置里打开脚本再刷新一下这个页面。</p></noscript>
     </div>
 
@@ -650,12 +808,37 @@
   </div>
 </section>
 
+<!-- ========== 为什么 ========== -->
+<section id="compare">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="sec-no">00 / WHY</span>
+      <h2>和「按 M 开大地图」比</h2>
+      <p class="sec-sub">不是替代大地图，是把最常用的那几眼挪到屏幕一角，省下每次开图的两三秒。</p>
+    </div>
+    <div class="cmp rv">
+      <table>
+        <thead>
+          <tr><th>场景</th><th>按 M 开大地图</th><th>小地图</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>边跑边看自己在哪</td><td>得停下来按一下，地图盖住半个屏幕</td><td>常驻角落，不挡视野，跑着就能看</td></tr>
+          <tr><td>队友在哪</td><td>大地图上看不到人，只能靠喊</td><td>队友位置实时画在同一张图上</td></tr>
+          <tr><td>标点在哪、多远</td><td>开图对坐标，还得自己估距离</td><td>标点直接落在雷达上，带距离刻度</td></tr>
+          <tr><td>打起来的时候</td><td>不敢按，一按就分心</td><td>余光扫一眼就够，手不离鼠标</td></tr>
+          <tr><td>找方向</td><td>开图找北，再关掉</td><td>罗盘常驻，北一直在</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
 <!-- ========== 功能总览 ========== -->
 <section id="features">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2>v0.8.9 全部功能</h2>
+      <h2><span data-ver>v0.8.9</span> 全部功能</h2>
       <p class="sec-sub">七大类、二十九个设置分页、七十八张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1089,13 +1272,13 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 v0.8.9，一共八十九批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v0.8.9</span>，一共八十九批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv">v0.8.9</span>
+          <span class="clv" data-ver>v0.8.9</span>
           <span class="clnew">最新</span>
           <span class="cld">2026-11-19</span>
           <span class="clt">设置页拆成小栏目，一屏看全不用长滚</span>
@@ -1729,6 +1912,48 @@
           <p>建议用<b>无边框窗口</b>或窗口模式。全屏独占下小地图可能压不上去，全局热键也更容易出现修饰键状态残留（比如你按了 Ctrl 但游戏没收到抬起）。</p>
         </div>
       </details>
+
+      <details>
+        <summary>更新会把我调好的设置弄丢吗？</summary>
+        <div class="body">
+          <p>不会。自动更新只替换程序本体，<b>设置、热键、标点、地图缓存都不动</b>。真要重装，先在设置页把配置导出一份，装完再导入就行。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>换电脑了，怎么把设置搬过去？</summary>
+        <div class="body">
+          <p>设置页有<b>导出 / 导入配置</b>。在旧机器导出成一个文件，拷到新机器上导入，热键、开关、颜色全跟着走。地图底图不用管，会自己重新下。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>程序要一直开着吗？</summary>
+        <div class="body">
+          <p>要。关掉窗口就停了，雷达也就不画了。正常玩法是开机自启、缩在托盘里，进游戏自动开始工作。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>第一次放到最大，地图怎么是糊的 / 空白的？</summary>
+        <div class="body">
+          <p>高清底图是<b>按需下载的切片</b>，安装包里不带那 196 块。第一次放到最大要等几秒，下过的区域之后就是秒开，并且会缓存在本地。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>界面能换成英文吗？</summary>
+        <div class="body">
+          <p>能，设置里有 12 种语言：简繁中文、英、日、韩、俄、德、法、西、葡、土、波兰。切完立即生效，不用重启。</p>
+        </div>
+      </details>
+
+      <details>
+        <summary>只想看地图，不想要那些按钮？</summary>
+        <div class="body">
+          <p>开<b>极简模式</b>，窗口只剩地图本体，罗盘和按钮全收起来。总开关在「极简」页最上面，进出不会改你别的设置。</p>
+        </div>
+      </details>
     </div>
   </div>
 </section>
@@ -1739,7 +1964,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b>v0.7.8</b> · 2026-11-18</p>
+      <p>当前版本 <b data-ver>v0.8.9</b> · <span data-date>2026-11-19</span></p>
     </div>
     <p class="fine">
       免费工具，不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -1750,126 +1975,211 @@
 
 <script>
 (function () {
-  try {
-    /* ---------- 下载按钮：点了直接下，不跳页面 ----------
-       附件直链带 Content-Disposition: attachment，塞进隐藏 iframe
-       就能触发下载，当前页一动不动。
-       版本号不写死在按钮上，先问一下接口拿最新版的地址；
-       问不到（网络不通 / 限流）就用兜底地址，照样能下。
-       页面上只给安装包（exe）。完整包 zip 照样传上去，
-       那是自更新失败时的完整包兜底，页面上不露出。
-       站点地址不写成明文，免得被一眼看出东西存在哪。 */
-    var _d = function (s) { return atob(s); };
-    var HOST   = _d('aHR0cHM6Ly9naXRodWIuY29t');
-    var APIB   = _d('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
-    var MIRROR = _d('aHR0cHM6Ly9naC1wcm94eS5jb20v');
-    var REPO   = '/scumhan/scum-minimap';
-    var TAG    = _d('cmVsZWFzZXMvZG93bmxvYWQvdjAuOC45Lw==');
-    var SETUP  = _d('U0NVTS1taW5pbWFwLTAuOC45LXNldHVwLmV4ZQ==');
-    // 接口问不到时用这条兜底，照样能下
-    var FALLBACK = { exe: HOST + REPO + TAG + SETUP };
-    var cache = { exe: null };
+  'use strict';
 
-    // 包体积别写死在页面里：版本一涨、地图资源一换就对不上，
-    // 用户下完发现跟写的差几十兆反而更疑惑。接口给了 size 就用真的，
-    // 拿不到就保留 HTML 里那句「约 113 MB」
-    function paintSize(n) {
-      var el = document.getElementById('dlSize');
-      if (!el || !n) return;
-      el.textContent = '约 ' + Math.round(n / 1024 / 1024) + ' MB';
-    }
+  /* ══════════════════════════════════════════════════════════
+     发版只改这一段（或跑 scripts/bump_download.js 自动改）
+     ══════════════════════════════════════════════════════════ */
+  var CFG = {
+    ver:    '0.8.9',
+    date:   '2026-11-19',
+    size:   119549560,
+    count:  95,
+    sha256: 'abefc7a130cc157470a95f6f3846f45b27ffb73eebac2aa6ec4347a538405891'
+  };
 
-    function askApi(kind) {
-      if (cache[kind]) return Promise.resolve(cache[kind]);
-      var fb = FALLBACK[kind];
-      return new Promise(function (res) {
-        var done = false;
-        var timer = setTimeout(function () {
-          if (!done) { done = true; res(fb); }
-        }, 4000);
-        try {
-          fetch(APIB + '/repos' + REPO + '/releases/latest').then(function (r) {
-            return r.ok ? r.json() : Promise.reject(new Error('http ' + r.status));
-          }).then(function (d) {
-            var a = (d.assets || []).filter(function (x) {
-              return /\.exe$/i.test(x.name);
-            })[0];
-            if (!a) throw new Error('no ' + kind + ' asset');
-            cache[kind] = a.browser_download_url;
-            paintSize(a.size);
-            if (!done) { done = true; clearTimeout(timer); res(cache[kind]); }
-          }).catch(function () {
-            if (!done) { done = true; clearTimeout(timer); res(fb); }
-          });
-        } catch (e) {
-          if (!done) { done = true; res(fb); }
-        }
-      });
-    }
+  /* 域名与文件名不写明文 */
+  var D = function (x) { try { return atob(x); } catch (e) { return ''; } };
+  var HOST   = D('aHR0cHM6Ly9naXRodWIuY29t');
+  var APIB   = D('aHR0cHM6Ly9hcGkuZ2l0aHViLmNvbQ==');
+  var MIRROR = [D('aHR0cHM6Ly9naC1wcm94eS5jb20v'), D('aHR0cHM6Ly9naHByb3h5Lm5ldC8=')];
+  var REPO   = D('L3NjdW1oYW4vc2N1bS1taW5pbWFw');
+  var TAG_T  = D('cmVsZWFzZXMvZG93bmxvYWQvdiVWJS8=');
+  var EXE_T  = D('U0NVTS1taW5pbWFwLSVWJS1zZXR1cC5leGU=');
 
-    function fire(btn, label, kind) {
-      if (!btn) return;
-      var old = btn.getAttribute('data-label') || btn.textContent.trim();
-      btn.setAttribute('data-label', old);
-      btn.textContent = '准备下载…';
-      var fb = document.getElementById('dlFallback');
-      if (fb) fb.hidden = true;
-      askApi(kind).then(function (u) {
-        btn.textContent = btn.getAttribute('data-label') || old;
-        var real = label === 'mirror' ? MIRROR + u : u;
-        var f = document.createElement('iframe');
-        f.style.display = 'none';
-        f.setAttribute('aria-hidden', 'true');
-        f.src = real;
-        document.body.appendChild(f);
-        setTimeout(function () {
-          try { document.body.removeChild(f); } catch (e) {}
-        }, 120000);
-        // 五秒后还没开始下（有些浏览器拦 iframe 下载），给个手动兜底
-        setTimeout(function () {
-          if (fb) fb.hidden = false;
-        }, 5000);
-      }).catch(function () {
-        btn.textContent = btn.getAttribute('data-label') || old;
-        if (fb) fb.hidden = false;
-      });
-    }
+  var api = null, busy = false, fbTimer = null;
+  var mIdx = 0;
+  try { mIdx = parseInt(localStorage.getItem('mm_mirror') || '0', 10) || 0; } catch (e) {}
 
-    // 一进页面就问一次，主要是为了把真实体积显示出来。
-    // 结果会进 cache，之后点按钮不用再等一轮
-    askApi('exe');
+  function fill(t, v) { return String(t).split('%V%').join(v); }
+  function curVer() { return (api && api.ver) || CFG.ver; }
+  function exeName(v) { return fill(EXE_T, v || curVer()); }
+  function tagPath(v) { return fill(TAG_T, v || curVer()); }
+  function directUrl() { return HOST + REPO + '/' + tagPath() + exeName(); }
+  function mirrorUrl(i) { return MIRROR[i % MIRROR.length] + HOST + REPO + '/' + tagPath() + exeName(); }
 
-    [['dlSetup', 'gh'], ['dlMirror', 'mirror'], ['dlTop', 'gh']].forEach(function (t) {
-      var el = document.getElementById(t[0]);
-      if (!el) return;
-      el.addEventListener('click', function () { fire(el, t[1], 'exe'); });
-    });
+  function mb(n) { return (Math.round(n / 1048576 * 10) / 10).toFixed(0) + ' MB'; }
 
-    // ---------- 顶栏：滚过首屏才出来 ----------
-    var tb = document.getElementById('topbar');
-    function onScroll() {
-      if (!tb) return;
-      if (window.scrollY > 420) tb.classList.add('on');
-      else tb.classList.remove('on');
-    }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // ---------- 淡入：只做一次，动 opacity / transform ----------
-    var els = document.querySelectorAll('.rv');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (ents) {
-        ents.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-        });
-      }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
-      for (var i = 0; i < els.length; i++) io.observe(els[i]);
-    } else {
-      for (var j = 0; j < els.length; j++) els[j].classList.add('in');
-    }
-  } catch (err) {
-    /* 脚本挂了页面照样能读 */
+  function daysAgo(d) {
+    if (!d) return '';
+    var p = String(d).split('-');
+    if (p.length !== 3) return '';
+    var t = Date.UTC(+p[0], +p[1] - 1, +p[2]);
+    if (isNaN(t)) return '';
+    var now = new Date();
+    var today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    var n = Math.round((today - t) / 864e5);
+    if (n < 0) return '';
+    if (n === 0) return '今天更新';
+    if (n === 1) return '昨天更新';
+    return n + ' 天前更新';
   }
+
+  function paint() {
+    var v = curVer(), d = (api && api.date) || CFG.date;
+    var size = (api && api.size) || CFG.size;
+    var cnt = (api && api.count) || CFG.count;
+    var sha = (api && api.sha) || CFG.sha256;
+
+    [].forEach.call(document.querySelectorAll('[data-ver]'), function (el) { el.textContent = 'v' + v; });
+    [].forEach.call(document.querySelectorAll('[data-date]'), function (el) { el.textContent = d; });
+    [].forEach.call(document.querySelectorAll('[data-size]'), function (el) { el.textContent = mb(size); });
+
+    var sz = document.getElementById('dlSize');
+    if (sz) sz.textContent = '约 ' + mb(size);
+
+    var c = document.getElementById('dlCount');
+    if (c && cnt > 0) {
+      c.hidden = false;
+      c.innerHTML = '已被下载 <b>' + String(cnt).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '</b> 次';
+    }
+
+    var f = document.getElementById('dlFresh');
+    if (f) { var s = daysAgo(d); if (s) f.textContent = s; }
+
+    if (sha) {
+      var sh = document.getElementById('dlSha'), vb = document.getElementById('dlVerify');
+      if (sh) { sh.textContent = sha.slice(0, 16) + '…'; sh.title = sha; }
+      if (vb) vb.hidden = false;
+    }
+    var by = document.getElementById('dlBytes');
+    if (by) by.textContent = String(size).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+    var a = document.getElementById('dlDirect');
+    if (a) a.href = (api && api.url) || directUrl();
+  }
+
+  function showFb() { var f = document.getElementById('dlFallback'); if (f) f.hidden = false; }
+  function hideFb() { var f = document.getElementById('dlFallback'); if (f) f.hidden = true; }
+
+  function fire(url, btn) {
+    if (busy) return;
+    busy = true;
+    hideFb();
+
+    var sub = btn && btn.querySelector('.btn-sub');
+    if (btn) { btn.classList.add('is-busy'); if (sub) { sub.setAttribute('data-t', sub.textContent); sub.textContent = '正在开始下载…'; } }
+
+    var fr = document.createElement('iframe');
+    fr.style.cssText = 'display:none;width:0;height:0;border:0';
+    fr.setAttribute('aria-hidden', 'true');
+    fr.setAttribute('tabindex', '-1');
+    fr.src = url;
+    document.body.appendChild(fr);
+    setTimeout(function () { if (fr.parentNode) fr.parentNode.removeChild(fr); }, 120000);
+
+    clearTimeout(fbTimer);
+    fbTimer = setTimeout(function () {
+      busy = false;
+      showFb();
+      if (btn) {
+        btn.classList.remove('is-busy');
+        if (sub && sub.getAttribute('data-t')) sub.textContent = sub.getAttribute('data-t');
+      }
+    }, 6000);
+  }
+
+  function on(id, fn) { var el = document.getElementById(id); if (el) el.addEventListener('click', fn); }
+
+  on('dlSetup', function () { fire(directUrl(), this); });
+  on('dlTop', function () { fire(directUrl(), this); });
+  on('dlMirror', function () {
+    var i = mIdx % MIRROR.length;
+    fire(mirrorUrl(i), this);
+    mIdx = (i + 1) % MIRROR.length;
+    try { localStorage.setItem('mm_mirror', String(mIdx)); } catch (e) {}
+  });
+
+  /* 接口只做增强：失败就退回 CFG，页面照常可用 */
+  function askApi() {
+    var cached = null;
+    try { cached = JSON.parse(sessionStorage.getItem('mm_rel') || 'null'); } catch (e) {}
+    if (cached && cached.d && Date.now() - cached.t < 6e5) { api = cached.d; paint(); return; }
+    if (!window.fetch) return;
+
+    var ctl = window.AbortController ? new AbortController() : null;
+    var tm = setTimeout(function () { if (ctl) ctl.abort(); }, 4500);
+
+    fetch(APIB + '/repos' + REPO + '/releases/latest', ctl ? { signal: ctl.signal } : {})
+      .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
+      .then(function (j) {
+        clearTimeout(tm);
+        if (!j || !j.tag_name) return;
+        var exe = (j.assets || []).filter(function (a) {
+          return /\.exe$/i.test(a.name) && !/patch/i.test(a.name);
+        })[0];
+        var o = {
+          ver: String(j.tag_name).replace(/^v/i, ''),
+          date: String(j.published_at || '').slice(0, 10),
+          size: (exe && exe.size) || 0,
+          count: (exe && exe.download_count) || 0,
+          sha: (exe && exe.digest) ? String(exe.digest).replace(/^sha256:/i, '') : '',
+          url: (exe && exe.browser_download_url) || ''
+        };
+        if (!o.size) delete o.size;
+        if (!o.count) delete o.count;
+        api = o;
+        try { sessionStorage.setItem('mm_rel', JSON.stringify({ t: Date.now(), d: o })); } catch (e) {}
+        paint();
+      })
+      .catch(function () { clearTimeout(tm); });
+  }
+
+  /* 手机上给个提示，别白下 114MB */
+  if (!/Windows/i.test(navigator.userAgent || '')) {
+    var h = document.getElementById('osHint');
+    if (h) h.hidden = false;
+  }
+
+  /* 顶栏滚动 */
+  var bar = document.getElementById('topbar');
+  var onScroll = function () { if (bar) bar.classList.toggle('on', window.scrollY > 420); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* 窄屏目录 */
+  var mb2 = document.getElementById('menuBtn'), nav = document.getElementById('tnav');
+  if (mb2 && nav) {
+    mb2.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      mb2.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.addEventListener('click', function (e) {
+      if (e.target && e.target.tagName === 'A') {
+        nav.classList.remove('open');
+        mb2.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* 淡入 */
+  var rv = document.querySelectorAll('.rv');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    [].forEach.call(rv, function (el) { io.observe(el); });
+  } else {
+    [].forEach.call(rv, function (el) { el.classList.add('in'); });
+  }
+
+  /* 后台停动画 */
+  document.addEventListener('visibilitychange', function () {
+    document.body.classList.toggle('paused', document.hidden);
+  });
+
+  paint();
+  askApi();
 })();
 </script>
 </body>
