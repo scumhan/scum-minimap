@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1014">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SCUM 小地图">
+<title>SCUM 小地图 · 手机</title>
+<!-- 第一百一十八批：资源全改成相对路径。
+     局域网下页面在根（/），公网托管在 /scum-minimap/phone/ 下，
+     绝对路径 /phone/x 到了公网就是 404。相对路径两边都对 -->
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="phone.css">
+</head>
+<body>
+
+<!-- 配对 -->
+<section id="pair" class="pane">
+  <div class="card">
+    <div class="logo">SCUM<em>MINIMAP</em></div>
+
+    <!-- 局域网：同一个 WiFi 下，填 6 位配对码 -->
+    <div id="pairLan">
+      <p class="tip">在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里</p>
+      <input id="code" class="code" type="tel" inputmode="numeric" autocomplete="one-time-code"
+             maxlength="6" placeholder="000000" aria-label="配对码">
+    </div>
+
+    <!-- 第一百一十八批：跨网。人不在家，走公共中转，填房间号和密码 -->
+    <div id="pairNet" class="hide">
+      <p class="tip">不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码</p>
+      <input id="nroom" class="name" type="text" maxlength="24" autocomplete="off"
+             placeholder="房间号" aria-label="房间号">
+      <input id="npass" class="name" type="password" maxlength="64" autocomplete="off"
+             placeholder="密码" aria-label="密码">
+    </div>
+
+    <input id="name" class="name" type="text" maxlength="16" placeholder="这台手机的名字（可不填）" aria-label="设备名">
+    <button id="go" class="big">连接</button>
+    <p id="err" class="err"></p>
+    <p class="tip" style="margin-top:14px"><a id="switchMode" href="#" style="color:#7fd1ff">改用跨网 / 局域网</a></p>
+  </div>
+</section>
+
+<!-- 主界面 -->
+<section id="main" class="pane hide">
+  <canvas id="cv"></canvas>
+
+  <div id="hud" class="hud">
+    <span id="stat" class="pill">连接中…</span>
+    <span id="spd" class="pill hide">0.0</span>
+    <!-- 第一百一十三批：打点成功后这里亮 5 秒，点了就撤掉刚打的那个 -->
+    <button id="undo" type="button" class="pill undo hide">撤销打点</button>
+    <span class="grow"></span>
+    <button id="fit" class="ic" title="全图">⤢</button>
+    <button id="me" class="ic" title="跟住我">◎</button>
+  </div>
+
+  <div id="bar" class="bar">
+    <button id="zin" class="b">＋</button>
+    <button id="zout" class="b">－</button>
+    <button id="mark" class="b wide">⚑ 打点</button>
+    <button id="menu" class="b">⋯</button>
+  </div>
+
+  <div id="mkbar" class="mkbar hide">
+    <div class="mkbar-in">
+      <h4>打什么点？</h4>
+      <div id="mklist" class="mklist"></div>
+      <div class="mkbtns">
+        <button id="mkok" class="b">放这儿</button>
+        <button id="mkoff" class="b ghost">取消</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="sheet" class="sheet hide">
+    <div class="sheet-in">
+      <h4>手机端</h4>
+      <p id="roTip" class="rotip hide"></p>
+      <!-- 第一百一十三批：标点被截的时候说清楚，别让人以为自己没打上 -->
+      <p id="mkCap" class="rotip hide"></p>
+      <label class="row"><span>显示队友</span><input id="oPeer" type="checkbox" checked></label>
+      <label class="row"><span>显示标点</span><input id="oMark" type="checkbox" checked></label>
+      <label class="row"><span>显示自己</span><input id="oMe" type="checkbox" checked></label>
+      <label class="row"><span>显示底图</span><input id="oBase" type="checkbox" checked></label>
+      <label class="row"><span>屏幕常亮</span><input id="oWake" type="checkbox" checked></label>
+      <label class="row"><span>跟随自己</span><input id="oFollow" type="checkbox" checked></label>
+      <!-- 第一百一十三批：连上之后再改名，不用回电脑上踢了重配 -->
+      <div class="rn">
+        <input id="dname" class="name" type="text" maxlength="16" placeholder="这台手机的名字">
+        <button id="dnameGo" class="b" type="button">改名</button>
+      </div>
+      <!-- 第一百一十五批：标点一多，在地图上根本找不到。给一份列表，点一条飞过去 -->
+      <button id="openList" class="big ghost" type="button">📋 标点列表</button>
+      <button id="quit" class="big ghost">断开这台手机</button>
+      <button id="closeSheet" class="big">收起</button>
+      <p class="tip2">用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。</p>
+    </div>
+  </div>
+
+  <!-- 第一百一十五批：标点列表，按类型分组、组内按远近排 -->
+  <div id="plist" class="sheet hide">
+    <div class="sheet-in">
+      <h4>标点列表</h4>
+      <div id="plistBody" class="plist"></div>
+      <button id="closeList" class="big">收起</button>
+    </div>
+  </div>
+</section>
+
+<script src="pi18n.js"></script>
+<script src="mklist.js"></script>
+<script src="net.js"></script>
+<script src="phone.js"></script>
+<script>
+  // 手机页多语言：?lang= → 上次选的 → 系统语言。连上电脑后由电脑的设置覆盖
+  PI.setLang(PI.detect());
+  PI.apply(document.body);
+  document.title = T(document.title);
+</script>
+</body>
+</html>
