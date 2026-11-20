@@ -165,6 +165,21 @@
   /* ---------- 第一百一十八批：跨网配对 ----------
      不在同一个网里，没有 6 位码这回事：房间号决定「找哪条通道」，
      密码决定「能不能解开」。两个都对，电脑那头才会把你登记成一台设备 */
+  /* 第一百二十三批：配对请求重发一次。
+     公共中转只保证「最多送到一次」，电脑那头正好在重启中继就丢包，
+     表现成 12 秒没回话。这种重发一次就好 —— 连接本身断了的（offline /
+     closed）重发也没用，直接报，别让人多等一个 12 秒。 */
+  function pairPing(n, left) {
+    return window.PN.req('/api/ping', { n: n }).then(function (j) {
+      if (j && j.ok) return j;
+      if (left > 1 && j && j.why === 'timeout') {
+        $('err').textContent = T('再试一次…');
+        return pairPing(n, left - 1);
+      }
+      return j;
+    });
+  }
+
   function doPairNet() {
     var r = ($('nroom').value || '').trim();
     var p = $('npass').value || '';
@@ -181,10 +196,10 @@
         $('err').textContent = T('连不上中转：{why}', { why: x.err || x.st || '' });
         return null;
       }
-      return window.PN.req('/api/ping', { n: n }).then(function (j) {
+      return pairPing(n, 2).then(function (j) {
         $('go').disabled = false;
         if (!j || !j.ok) {
-          var m = { full: '电脑上连的手机太多了，先踢掉一台', auth: '房间号或密码不对', timeout: '密码不对，或者电脑那边没开跨网中继' };
+          var m = { full: '电脑上连的手机太多了，先踢掉一台', auth: '房间号或密码不对', timeout: '电脑没回话：房间号和密码要跟电脑上的一模一样（分大小写）' };
           $('err').textContent = m[j && j.why] ? T(m[j.why]) : T('连不上电脑：{why}', { why: (j && j.why) || '' });
           return;
         }
