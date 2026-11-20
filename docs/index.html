@@ -1272,14 +1272,182 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v0.8.9</span>，一共八十九批。最新的摊开写，更早的收在下面。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.0.0</span>，一共一百批。最新的摊开写，更早的收在下面。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
         <summary>
-          <span class="clv" data-ver>v0.8.9</span>
+          <span class="clv">v1.0.0</span>
           <span class="clnew">最新</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">一百批收尾，版本进 1.0.0</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🎉 一百批做完了</b>　从 11 月 15 日第一版到现在，六天一百批。版本号进 v1.0.0 —— 这一版功能上没有改动，只是把这一百批的账理清。</li>
+            <li><b>📘 一百批总览</b>　新增一份发布说明，把前九十九批按版本分组列成表，哪一批干了什么一眼能查到；后面附一张数字表：批次、代码行数、单测数、语言包数。</li>
+            <li><b>✅ 306 项单测全过</b>　打包自检、桥接检查、代码检查一起跑绿，这次没有新增功能，手上那套操作一点没变。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.9</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">文档瘦身，开发文档拆出去</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>📚 说明文档瘦了十 K</b>　目录结构、独立版、坐标采集原理、多语言机制挪进开发文档；坐标采集排查、校准、显示模式挪进常见问题。首页只留日常要看的。</li>
+            <li><b>🗂 更新日志分卷</b>　第九十批往前的记录单独存档，主文件只留最近的，翻起来不用从头滚。</li>
+            <li><b>🧹 一百七十多个开发期脚本归档</b>　早就用不上的临时脚本挪进 archive 目录，根目录只留发版要跑的那几十个。</li>
+            <li><b>🔍 打包前多一项核对</b>　下载页写的版本号和更新清单对不上会提示，省得页面挂着旧版本号。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.8</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">更新判断抽出来单测，打包前自动检查</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🧪 「要不要更新」抽成独立逻辑</b>　以前手动检测和自动检测各写一遍差不多的判断，改一条规则要改两处。现在只留一份，20 项单测盯着五条路：断网重试、已是最新、没增量包、基线对不上、同一版装挂三次就放弃。</li>
+            <li><b>🤖 打包前自动检查</b>　语法错、残留的调试输出、行尾空白、文件末尾没换行，六类低级问题当场拦下，不会再混进安装包。</li>
+            <li><b>🔁 四步全绿才算过</b>　自动检查 → 单测 → 桥接检查 → 打包自检，缺一步都不往下走。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.7</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">三条线合成一套画法，清掉死代码</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🧵 三条线合成一套画法</b>　追踪线、路线、回死亡点以前各写一遍「起笔 → 连线 → 设线宽颜色 → 落笔」，差别只在颜色和虚实。现在共用一套，以后调线型只改一处，不会再出现「改了两条忘了一条」。</li>
+            <li><b>🧹 清掉死代码</b>　删了没人调用的切换函数，和早就不用的窗口自适应空壳连同六处调用一起。</li>
+            <li><b>✅ 单测 286 项全过</b>　这一批只是整理，画出来的东西逐像素没变。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.6</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">搜索不卡了，导入快了，低配自动降档</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>⌨️ 三个搜索框加了防抖</b>　标点搜索、设置页搜索、热键搜索以前每敲一个键就全量过滤再重建列表，打得快一点就跟不上手。现在停 100 毫秒才画一次。</li>
+            <li><b>📦 点位包导入按名字分桶</b>　两边各一千个点，以前要逐对比五十万次，导个包卡几百毫秒；现在只跟同名的那几个比。</li>
+            <li><b>🧠 缩得很小时放掉 4096 底图</b>　它解码后常驻几十 MB，是低配机器上最大的一笔内存。缩到切图点以下就释放，放大回去自动重新加载。</li>
+            <li><b>📉 帧率低了自动降档</b>　连续约 12 秒低于 45 帧就先不画足迹热力，还不行再把标点文字收一收；顺回 55 帧以上逐级放开。只影响画多少，不动你设置里的任何开关。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.5</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">标点上千也不卡，九处渲染提速</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🖼️ 标点预览图先缩小再存</b>　缩略图最长边缩到 320 像素，体积降到几分之一，设置页不再卡一下。</li>
+            <li><b>🎯 标点图标不再每帧重拼</b>　形状、颜色、字号、层数变了才重算，标点上千时省掉一大截。</li>
+            <li><b>✍️ 名字、距离、备注共用文字样式</b>　以前一个点最多重复设置 12 次。</li>
+            <li><b>♻️ 命中检测复用对象</b>　不再每秒造几万个短命对象，卡顿少了很多；悬停气泡也改走标点索引，不再每帧全表扫一遍。</li>
+            <li><b>🌐 中文模式下关掉翻译监听</b>　中文原文就是键，那套监听纯属白跑；状态栏内容没变也不再重复写。</li>
+            <li><b>⚡ 队友光晕渐变复用、距离改手算开方</b>　队友多的时候也稳。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.4</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">报错不再悄悄咽下去，队友同步减负</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>📝 关键失败不再悄悄咽下去</b>　写盘、装增量包、采集器起不来这些地方，报错以前被空 catch 吞了 —— 真出问题时日志里一个字都没有，只能靠猜。现在都记一笔，同一个错误一分钟只记一条并带上累计次数，不会把日志刷爆。</li>
+            <li><b>🤝 队友共享的标点不再整份广播</b>　以前收一个同步包就把整份配置（上千个标点、两百多 KB）推给三个窗口重绘，现在只发变的那几个点，各窗口往本地那份上合并，队友两三个、标点上千时明显不卡了。</li>
+            <li><b>📦 打包自检改成从白名单反推</b>　以前靠一张手写清单，加个目录忘了补一行，打出来的包就少文件、装完白屏；现在直接读打包白名单，少一个都当场报出来。</li>
+            <li><b>🔍 打完包还能抽查产物</b>　版本对得上就逐个核对主进程、页面、脚本、图标在不在，对不上就说一句跳过，不误报。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.3</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">稳定性五条：写盘、采集、崩溃、更新、换屏</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>💾 设置写盘失败会重试</b>　盘满、杀软正扫着、文件被短暂占用时，以前只是留个「还没写」的标记就没人管了 —— 拖完滑杆关掉程序，设置全丢，日志里一个字都没有。现在记一笔，并按 1 秒 → 4 秒 → 15 秒自动重试三次。</li>
+            <li><b>🔁 采集器起不来会退避</b>　脚本路径不对、PowerShell 被策略拦住、脚本编译失败，以前每 8 秒拉一次直到程序关掉，CPU 白烧、日志刷屏。现在按 8 秒 → 30 秒 → 2 分钟退避，连续三次活不过 6 秒就停手，卡片里直接写原因，点「重启采集器」还能再试。</li>
+            <li><b>🩹 主进程崩了自动重启一次</b>　以前只写一行日志然后带着半坏的状态继续跑 —— 白屏、热键失灵、采集器变孤儿进程。现在重启前弹个气泡说明「已经自动重启，设置和标点都在」；十分钟内崩过两次就不再重启，免得反复重启把人晾在那儿。</li>
+            <li><b>⚡ 装增量包不再冻界面</b>　铺文件改成异步，每铺 24 个让一次，不再冻 1–3 秒；真还原不了会直接说「下最新安装包覆盖装」，而不是假装装好了。</li>
+            <li><b>🖥 拖到另一块屏不再发虚错位</b>　笔记本屏和外接屏缩放比例不一样，换屏之后按新比例重算，两张离屏缓存一起作废重画。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.2</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">安全加固二：更新包校验、设置项校验、标点上限</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🛡 更新包版本号要和清单对得上</b>　镜像缓存错乱、断点续传接错包、上个版本的 zip 还躺在临时目录，都会装出「文件换了、版本号还是旧的」这种混血程序，之后所有版本判断全乱还查不出原因。现在包里版本和清单不一致直接拒装。</li>
+            <li><b>🛡 解压有了上限和校验</b>　声明解压后超过 300MB 直接放弃；每个文件解完比对 CRC32，对不上就是包坏了，停止安装并提示重下。</li>
+            <li><b>🛡 设置项全部过一遍校验</b>　数字夹进合理范围（采集间隔 200ms–10s、透明度 0.3–1、共享端口 1024–65535），带换行的按键名、进程名不合格式就丢弃保留原值 —— 以前采集间隔填 1 就真的每毫秒跑一次。</li>
+            <li><b>🛡 剪贴板超过 4KB 一律当无效</b>　复制一个日志文件或一段网页源码，以前会被每 250ms 拉进主线程跑一遍正则，现在直接跳过。</li>
+            <li><b>📍 标点总数上限 2000</b>　导入几个点位包也堆不到几万个，标点文件不会越写越大、每帧遍历也不会越来越卡。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.1</span>
+          <span class="cld">2026-11-20</span>
+          <span class="clt">安全加固：导入配置、更新包、安装中断、键位文件</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>🛡 导入的配置不再什么键都收</b>　以前一份「配置备份」里塞一个更新地址，就能让程序自己下任意包覆盖安装目录。现在只认出厂表里有的键，值按类型校验，更新地址只收 http / https。</li>
+            <li><b>🛡 更新包没带校验值就不自动装</b>　一律走手动更新，设置页里点一下才装。</li>
+            <li><b>🛡 安装中途被打断会自动还原</b>　覆盖前先落标记，全部盖完才消；下次启动发现装了一半，从备份把旧文件铺回去，不用重装。</li>
+            <li><b>🛡 游戏键位文件改成原子写</b>　先写临时文件再整体替换，写到一半断电也不会把 Input.ini 弄成半截；真坏了启动时自动从备份还原。</li>
+            <li><b>🛡 高清底图不再先删后拷</b>　先铺好新目录再整体换上去，失败就退回旧的，不会出现地图空白。</li>
+            <li><b>🛡 打包版关掉调试口子</b>　几个环境变量在正式版里不再执行任意脚本。</li>
+            <li><b>🔧 标点 id 不再撞车</b>　同一毫秒连点两次会生成两个一样的 id，之后改一个会连带改到另一个，现在补了随机后缀。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.9.0</span>
+          <span class="cld">2026-11-19</span>
+          <span class="clt">性能卡改看独占内存，不再虚高两倍</span>
+        </summary>
+        <div class="cl-body">
+          <ul>
+            <li><b>📊 内存占用改成「独占」口径</b>　以前把 7 个进程的工作集直接相加，同一套框架在 7 个进程里各算一份 —— 实测独占 565M，卡上却显示 1560M，虚高近两倍。现在只算每个进程私有的那部分，共享的框架文件不再重复计数。</li>
+            <li><b>📋 进程明细多一列</b>　左边独占（亮色）、右边工作集（灰色），两个数差得越大说明共享的部分越多，不是这个进程真多花了。</li>
+            <li><b>📝 说明文字跟着改</b>　「内存 800M 上下正常」改成「独占 500M 上下正常」，并讲清实际物理占用约 700M（共享的那份只算一次）—— 浏览器开一个标签页也是这个量级。</li>
+          </ul>
+        </div>
+      </details>
+      <details class="cl-item">
+        <summary>
+          <span class="clv">v0.8.9</span>
           <span class="cld">2026-11-19</span>
           <span class="clt">设置页拆成小栏目，一屏看全不用长滚</span>
         </summary>
@@ -1798,8 +1966,37 @@
       </details>
 
       <details class="cl-old">
-        <summary>更早的 31 个版本（v0.0.1 → v0.3.1）</summary>
+        <summary>其余 60 个版本（v0.0.1 → v0.8.5，只列一行）</summary>
         <ul class="old-list">
+          <li><span class="ov">v0.8.5</span><span class="ot">没人用的入口清掉</span><span class="od">2026-11-19</span></li>
+          <li><span class="ov">v0.8.4</span><span class="ot">窗口摆放的算术拆出来</span><span class="od">2026-11-19</span></li>
+          <li><span class="ov">v0.8.3</span><span class="ot">页面锁死、空转的定时器停掉</span><span class="od">2026-11-19</span></li>
+          <li><span class="ov">v0.8.2</span><span class="ot">包里不再带备份、自检补齐</span><span class="od">2026-11-19</span></li>
+          <li><span class="ov">v0.8.1</span><span class="ot">采集影响说清楚、教程重做</span><span class="od">2026-11-19</span></li>
+          <li><span class="ov">v0.7.9</span><span class="ot">累计数改叫下载次数</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.7.4</span><span class="ot">地图顶部多一条公告条</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.7.3</span><span class="ot">房间号留空就不进任何频道</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.7.2</span><span class="ot">在线人数开关只管显示，全服统一校准</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.7.1</span><span class="ot">罗盘补上斜四方位</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.6.9</span><span class="ot">设置引导第一页也能起名选色</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.5.8</span><span class="ot">广告位，改文案不用发版</span><span class="od">2026-11-18</span></li>
+          <li><span class="ov">v0.5.7</span><span class="ot">看不见的就不算</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.6</span><span class="ot">一帧只算一次</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.5</span><span class="ot">改一个点就只报这一个点</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.4</span><span class="ot">配置文件拆成四份</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.3</span><span class="ot">别再整份搬来搬去</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.2</span><span class="ot">每一帧的开销再压一遍</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.1</span><span class="ot">高清底图，一张切成 196 块</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.5.0</span><span class="ot">极简模式勾了就算数</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.9</span><span class="ot">主进程拆开，改完能一键自查</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.8</span><span class="ot">走过的路变成颜色，配置能发给人</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.7</span><span class="ot">想关什么关什么，死完知道往哪跑</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.6</span><span class="ot">附近有啥，一眼看见</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.5</span><span class="ot">手动采集，出问题自己先查一遍</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.4</span><span class="ot">标点实时同步，版本不一样会说</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.4.3</span><span class="ot">标点多了也不卡，双击标题回全图</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.3.7</span><span class="ot">队友位置整包加密，房间号当钥匙</span><span class="od">2026-11-17</span></li>
+          <li><span class="ov">v0.3.6</span><span class="ot">把拖慢启动的几处收干净</span><span class="od">2026-11-17</span></li>
           <li><span class="ov">v0.3.1</span><span class="ot">队友在哪，一眼看见</span><span class="od">2026-11-17</span></li>
           <li><span class="ov">v0.3.0</span><span class="ot">打开就有地方去，出问题一句话说清</span><span class="od">2026-11-16</span></li>
           <li><span class="ov">v0.2.9</span><span class="ot">装完知道改了啥，日志不再拖累设置页</span><span class="od">2026-11-16</span></li>
