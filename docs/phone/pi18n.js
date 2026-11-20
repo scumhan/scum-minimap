@@ -99,6 +99,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Wrong password, or the relay isn't on on your PC",
       "连不上电脑：{why}": "Can't reach your PC: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Disconnected. To reconnect, enter the room and password again",
+      '📋 粘贴房间号和密码': '📋 Paste room & password',
+      '已填入，点连接': 'Filled in — tap Connect',
+      '只填了一格，另一格补一下': 'Only one field was filled — complete the other',
+      '粘贴的内容里没找到房间号和密码': 'No room and password found in the pasted text',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'This browser does not let the page read the clipboard — long-press the field and choose Paste',
+      '房间号或密码太长，检查一下': 'Room or password is too long — double-check it',
     },
 
     'zh-TW': {
@@ -184,6 +190,12 @@
       "密码不对，或者电脑那边没开跨网中继": "密碼不對，或者電腦那邊沒開跨網中繼",
       "连不上电脑：{why}": "連不上電腦：{why}",
       "已断开。想再连，把房间号和密码再填一次": "已斷開。想再連，把房間號和密碼再填一次",
+      '📋 粘贴房间号和密码': '📋 貼上房間號和密碼',
+      '已填入，点连接': '已填入，點連接',
+      '只填了一格，另一格补一下': '只填了一格，另一格補一下',
+      '粘贴的内容里没找到房间号和密码': '貼上的內容裡找不到房間號和密碼',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': '這個瀏覽器不讓讀剪貼簿，長按輸入框選「貼上」',
+      '房间号或密码太长，检查一下': '房間號或密碼太長，檢查一下',
     },
 
     'ja': {
@@ -269,6 +281,12 @@
       "密码不对，或者电脑那边没开跨网中继": "パスワードが違うか、PC 側で中継がオフです",
       "连不上电脑：{why}": "PC に接続できません：{why}",
       "已断开。想再连，把房间号和密码再填一次": "切断しました。再接続するにはルームとパスワードを入れ直してください",
+      '📋 粘贴房间号和密码': '📋 ルームとパスワードを貼り付け',
+      '已填入，点连接': '入力しました。「接続」を押してください',
+      '只填了一格，另一格补一下': '片方だけ入りました。もう片方を補ってください',
+      '粘贴的内容里没找到房间号和密码': '貼り付けた内容にルームとパスワードが見つかりません',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'このブラウザはクリップボードを読めません。入力欄を長押しして「貼り付け」を選んでください',
+      '房间号或密码太长，检查一下': 'ルームまたはパスワードが長すぎます。確認してください',
     },
 
     'ko': {
@@ -354,6 +372,12 @@
       "密码不对，或者电脑那边没开跨网中继": "비밀번호가 틀렸거나 PC에서 중계가 꺼져 있습니다",
       "连不上电脑：{why}": "PC에 연결할 수 없습니다: {why}",
       "已断开。想再连，把房间号和密码再填一次": "연결이 끊겼습니다. 다시 연결하려면 룸과 비밀번호를 다시 입력하세요",
+      '📋 粘贴房间号和密码': '📋 방 번호와 비밀번호 붙여넣기',
+      '已填入，点连接': '입력했습니다. 연결을 누르세요',
+      '只填了一格，另一格补一下': '한 칸만 채워졌습니다. 나머지를 채우세요',
+      '粘贴的内容里没找到房间号和密码': '붙여넣은 내용에서 방 번호와 비밀번호를 찾지 못했습니다',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': '이 브라우저는 클립보드를 읽을 수 없습니다. 입력란을 길게 눌러 붙여넣기를 선택하세요',
+      '房间号或密码太长，检查一下': '방 번호나 비밀번호가 너무 깁니다. 확인하세요',
     },
 
     'de': {
@@ -439,6 +463,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Passwort falsch oder das Relay ist am PC aus",
       "连不上电脑：{why}": "PC nicht erreichbar: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Getrennt. Zum Wiederverbinden Raum und Passwort erneut eingeben",
+      '📋 粘贴房间号和密码': '📋 Raum und Passwort einfügen',
+      '已填入，点连接': 'Eingetragen – tippe auf Verbinden',
+      '只填了一格，另一格补一下': 'Nur ein Feld gefüllt – bitte das andere ergänzen',
+      '粘贴的内容里没找到房间号和密码': 'Im Eingefügten wurden Raum und Passwort nicht gefunden',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Dieser Browser erlaubt das Lesen der Zwischenablage nicht – Feld lange drücken und Einfügen wählen',
+      '房间号或密码太长，检查一下': 'Raum oder Passwort ist zu lang – bitte prüfen',
     },
 
     'es': {
@@ -524,6 +554,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Contraseña incorrecta o el relé está apagado en el PC",
       "连不上电脑：{why}": "No se puede conectar al PC: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Desconectado. Para reconectar, escribe otra vez la sala y la contraseña",
+      '📋 粘贴房间号和密码': '📋 Pegar sala y contraseña',
+      '已填入，点连接': 'Rellenado: pulsa Conectar',
+      '只填了一格，另一格补一下': 'Solo se rellenó un campo: completa el otro',
+      '粘贴的内容里没找到房间号和密码': 'No se encontraron sala ni contraseña en el texto pegado',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Este navegador no permite leer el portapapeles: mantén pulsado el campo y elige Pegar',
+      '房间号或密码太长，检查一下': 'La sala o la contraseña es demasiado larga: revísala',
     },
 
     'fr': {
@@ -609,6 +645,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Mot de passe incorrect ou le relais est coupé sur le PC",
       "连不上电脑：{why}": "PC injoignable : {why}",
       "已断开。想再连，把房间号和密码再填一次": "Déconnecté. Pour te reconnecter, ressaisis le salon et le mot de passe",
+      '📋 粘贴房间号和密码': '📋 Coller la salle et le mot de passe',
+      '已填入，点连接': 'Rempli — touchez Connecter',
+      '只填了一格，另一格补一下': 'Un seul champ rempli — complétez le second',
+      '粘贴的内容里没找到房间号和密码': 'Aucune salle ni mot de passe trouvé dans le texte collé',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Ce navigateur ne permet pas de lire le presse-papiers — appuyez longuement sur le champ et choisissez Coller',
+      '房间号或密码太长，检查一下': 'La salle ou le mot de passe est trop long — vérifiez',
     },
 
     'pl': {
@@ -694,6 +736,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Złe hasło albo przekaźnik jest wyłączony na PC",
       "连不上电脑：{why}": "Brak połączenia z PC: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Rozłączono. Aby wrócić, wpisz pokój i hasło jeszcze raz",
+      '📋 粘贴房间号和密码': '📋 Wklej pokój i hasło',
+      '已填入，点连接': 'Wpisane — dotknij Połącz',
+      '只填了一格，另一格补一下': 'Wypełniono jedno pole — uzupełnij drugie',
+      '粘贴的内容里没找到房间号和密码': 'W wklejonym tekście nie ma pokoju ani hasła',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Ta przeglądarka nie pozwala czytać schowka — przytrzymaj pole i wybierz Wklej',
+      '房间号或密码太长，检查一下': 'Pokój lub hasło jest za długie — sprawdź',
     },
 
     'pt-BR': {
@@ -779,6 +827,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Senha errada ou o retransmissor está desligado no PC",
       "连不上电脑：{why}": "Não foi possível conectar ao PC: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Desconectado. Para reconectar, digite a sala e a senha de novo",
+      '📋 粘贴房间号和密码': '📋 Colar sala e senha',
+      '已填入，点连接': 'Preenchido — toque em Conectar',
+      '只填了一格，另一格补一下': 'Só um campo foi preenchido — complete o outro',
+      '粘贴的内容里没找到房间号和密码': 'Não encontrei sala nem senha no texto colado',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Este navegador não deixa ler a área de transferência — segure o campo e escolha Colar',
+      '房间号或密码太长，检查一下': 'Sala ou senha longa demais — confira',
     },
 
     'ru': {
@@ -864,6 +918,12 @@
       "密码不对，或者电脑那边没开跨网中继": "Неверный пароль или реле выключено на ПК",
       "连不上电脑：{why}": "Не удаётся подключиться к ПК: {why}",
       "已断开。想再连，把房间号和密码再填一次": "Отключено. Чтобы вернуться, введите комнату и пароль заново",
+      '📋 粘贴房间号和密码': '📋 Вставить комнату и пароль',
+      '已填入，点连接': 'Заполнено — нажмите «Подключить»',
+      '只填了一格，另一格补一下': 'Заполнено одно поле — дополните второе',
+      '粘贴的内容里没找到房间号和密码': 'В вставленном тексте не найдены комната и пароль',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'Этот браузер не даёт прочитать буфер обмена — удерживайте поле и выберите «Вставить»',
+      '房间号或密码太长，检查一下': 'Комната или пароль слишком длинные — проверьте',
     },
 
     'th': {
@@ -949,6 +1009,12 @@
       "密码不对，或者电脑那边没开跨网中继": "รหัสผ่านไม่ถูกต้อง หรือรีเลย์บนคอมยังไม่เปิด",
       "连不上电脑：{why}": "เชื่อมต่อคอมพิวเตอร์ไม่ได้: {why}",
       "已断开。想再连，把房间号和密码再填一次": "ตัดการเชื่อมต่อแล้ว ถ้าจะต่อใหม่ให้กรอกห้องและรหัสผ่านอีกครั้ง",
+      '📋 粘贴房间号和密码': '📋 วางห้องและรหัสผ่าน',
+      '已填入，点连接': 'กรอกแล้ว กดเชื่อมต่อ',
+      '只填了一格，另一格补一下': 'กรอกแค่ช่องเดียว อีกช่องเติมด้วย',
+      '粘贴的内容里没找到房间号和密码': 'ไม่พบห้องและรหัสผ่านในข้อความที่วาง',
+      '这个浏览器不让读剪贴板，长按输入框选「粘贴」': 'เบราว์เซอร์นี้ไม่อนุญาตให้อ่านคลิปบอร์ด กดค้างที่ช่องแล้วเลือกวาง',
+      '房间号或密码太长，检查一下': 'ห้องหรือรหัสผ่านยาวเกินไป ตรวจสอบอีกครั้ง',
     }
 
   };
