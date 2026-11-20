@@ -3379,7 +3379,7 @@
   function askApi() {
     var cached = null;
     try { cached = JSON.parse(sessionStorage.getItem('mm_rel2') || 'null'); } catch (e) {}
-    if (cached && cached.d && Date.now() - cached.t < 6e5) { api = cached.d; paint(); return; }
+    if (cached && cached.d && Date.now() - cached.t < 6e4) { api = cached.d; paint(); return; }
     if (!window.fetch) return;
 
     var ctl = window.AbortController ? new AbortController() : null;
