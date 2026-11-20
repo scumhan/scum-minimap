@@ -1,0 +1,230 @@
+/* 手机端 —— 全屏深色，触控目标 ≥44px，横竖屏都撑满 */
+:root {
+  /* 第一百零九批：界面缩放。电脑上「🎨 画面 → 界面缩放」改的就是它，
+     所有尺寸都乘这个数，一处改完全局跟着变 */
+  --ui: 1;
+  --bg: #0b1014;
+  --panel: #131c23;
+  --line: #23323d;
+  --txt: #e6f1f7;
+  --dim: #8fa6b4;
+  --acc: #7fd4ff;
+  --warn: #ffb454;
+  --bad: #ff6b6b;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; padding: 0; height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--txt);
+  font-size: calc(15px * var(--ui));
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pane { position: fixed; inset: 0; }
+.hide { display: none !important; }
+
+/* ---------- 配对 ---------- */
+#pair {
+  display: flex; align-items: center; justify-content: center;
+  padding: calc(20px + env(safe-area-inset-top)) 20px calc(20px + env(safe-area-inset-bottom));
+  background: radial-gradient(circle at 50% 0%, #16242e 0%, var(--bg) 65%);
+}
+.card { width: 100%; max-width: 380px; text-align: center; }
+.logo {
+  font-size: calc(26px * var(--ui)); letter-spacing: 3px; font-weight: 800; color: var(--acc);
+  text-shadow: 0 0 22px rgba(127, 212, 255, .35);
+}
+.logo em { display: block; font-size: calc(11px * var(--ui)); letter-spacing: 6px; font-style: normal; color: var(--dim); margin-top: 4px; }
+.tip { color: var(--dim); font-size: calc(13px * var(--ui)); margin: 18px 0 16px; line-height: 1.7; }
+
+.code {
+  width: 100%; height: calc(64px * var(--ui)); margin-bottom: 10px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  color: var(--txt); font-size: calc(30px * var(--ui)); letter-spacing: 12px; text-align: center;
+  font-variant-numeric: tabular-nums; outline: none;
+}
+.code:focus { border-color: var(--acc); }
+.name {
+  width: 100%; height: calc(46px * var(--ui)); margin-bottom: 14px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+  color: var(--txt); font-size: calc(15px * var(--ui)); padding: 0 14px; outline: none;
+}
+.name:focus { border-color: var(--acc); }
+
+.big {
+  width: 100%; height: calc(52px * var(--ui)); border: 0; border-radius: 12px;
+  background: var(--acc); color: #06202b; font-size: calc(17px * var(--ui)); font-weight: 700;
+  margin-top: 6px;
+}
+.big:active { filter: brightness(.9); }
+.big.ghost { background: transparent; border: 1px solid var(--line); color: var(--txt); font-weight: 500; }
+.big[disabled] { opacity: .5; }
+.err { color: var(--bad); font-size: calc(13px * var(--ui)); min-height: 20px; margin: 10px 0 0; }
+
+/* ---------- 地图 ---------- */
+#cv { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+
+.hud {
+  position: absolute; left: 0; right: 0; top: 0;
+  padding: calc(8px + env(safe-area-inset-top)) 12px 8px;
+  display: flex; align-items: center; gap: 8px;
+  background: linear-gradient(to bottom, rgba(11, 16, 20, .85), transparent);
+  pointer-events: none;
+}
+.hud > * { pointer-events: auto; }
+.grow { flex: 1; pointer-events: none; }
+
+.pill {
+  height: calc(30px * var(--ui)); line-height: calc(30px * var(--ui));
+  padding: 0 calc(12px * var(--ui)); border-radius: calc(15px * var(--ui));
+  background: rgba(19, 28, 35, .82); border: 1px solid var(--line);
+  font-size: calc(12px * var(--ui)); color: var(--dim); white-space: nowrap;
+}
+.pill.on { color: #8ef2b4; border-color: #2c5a44; }
+.pill.off { color: var(--bad); border-color: #5a2c2c; }
+/* 第一百一十三批：撤销按钮就是一颗能点的 pill */
+.pill.undo {
+  color: var(--acc); border-color: #2b4b5c; cursor: pointer;
+  font-family: inherit; appearance: none;
+}
+.pill.undo:active { background: rgba(127, 212, 255, .18); }
+
+.ic {
+  width: calc(44px * var(--ui)); height: calc(44px * var(--ui));
+  border-radius: calc(12px * var(--ui));
+  background: rgba(19, 28, 35, .82); border: 1px solid var(--line);
+  color: var(--txt); font-size: calc(18px * var(--ui)); line-height: 1;
+}
+.ic:active { background: rgba(127, 212, 255, .18); }
+
+.bar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  display: flex; gap: 10px; align-items: center;
+  background: linear-gradient(to top, rgba(11, 16, 20, .92), transparent);
+}
+.b {
+  flex: 0 0 calc(56px * var(--ui)); height: calc(52px * var(--ui));
+  border-radius: calc(14px * var(--ui));
+  background: rgba(19, 28, 35, .92); border: 1px solid var(--line);
+  color: var(--txt); font-size: calc(20px * var(--ui));
+}
+.b:active { background: rgba(127, 212, 255, .18); }
+.b.wide { flex: 1; font-size: calc(16px * var(--ui)); color: var(--acc); border-color: #2b4b5c; }
+.b:disabled, .b.wide:disabled { opacity: .38; }
+
+/* ---------- 打点选类型 ---------- */
+.mkbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(11, 16, 20, .96), rgba(11, 16, 20, .82));
+  border-top: 1px solid var(--line);
+}
+.mkbar h4 { margin: 0 0 10px; font-size: calc(13px * var(--ui)); color: var(--dim); font-weight: 500; }
+.mklist { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+.mklist button {
+  padding: calc(9px * var(--ui)) calc(13px * var(--ui));
+  border-radius: 10px; font-size: calc(14px * var(--ui));
+  background: rgba(19, 28, 35, .92); border: 1px solid var(--line); color: var(--txt);
+}
+.mklist button.on { background: #1d4a5e; border-color: #2b6b84; color: var(--acc); }
+.mkbar .b { width: 100%; flex: none; font-size: calc(15px * var(--ui)); }
+.mkbtns { display: flex; gap: 10px; }
+.mkbtns .b { flex: 1; width: auto; }
+
+/* 只读提示 */
+.rotip {
+  margin: 0 0 12px; padding: 10px 12px; border-radius: 10px;
+  font-size: calc(13px * var(--ui));
+  background: rgba(255, 176, 32, .12); border: 1px solid rgba(255, 176, 32, .35);
+  color: #ffce7a; line-height: 1.5;
+}
+
+/* ---------- 抽屉 ---------- */
+.sheet {
+  position: absolute; inset: 0; background: rgba(0, 0, 0, .55);
+  display: flex; align-items: flex-end;
+}
+.sheet-in {
+  width: 100%; background: var(--panel);
+  border-radius: 18px 18px 0 0; border-top: 1px solid var(--line);
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
+  max-height: 78vh; overflow: auto;
+}
+.sheet h4 { margin: 0 0 12px; font-size: calc(14px * var(--ui)); color: var(--dim); font-weight: 500; }
+.row {
+  display: flex; align-items: center; justify-content: space-between;
+  height: calc(52px * var(--ui)); border-bottom: 1px solid var(--line);
+}
+.row span { font-size: calc(15px * var(--ui)); }
+.row input[type=checkbox] {
+  appearance: none; -webkit-appearance: none;
+  width: calc(50px * var(--ui)); height: calc(30px * var(--ui));
+  border-radius: calc(15px * var(--ui));
+  background: #22303a; position: relative; outline: none; margin: 0;
+}
+.row input[type=checkbox]::after {
+  content: ""; position: absolute;
+  top: calc(3px * var(--ui)); left: calc(3px * var(--ui));
+  width: calc(24px * var(--ui)); height: calc(24px * var(--ui));
+  border-radius: 50%; background: #6c8290;
+  transition: left .16s, background .16s;
+}
+.row input[type=checkbox]:checked { background: #1d4a5e; }
+.row input[type=checkbox]:checked::after { left: calc(23px * var(--ui)); background: var(--acc); }
+
+/* 第一百一十三批：抽屉里的改名行 —— 输入框和按钮并排 */
+.rn { display: flex; gap: 8px; margin: 4px 0 12px; }
+.rn .name { flex: 1; margin: 0; }
+.rn .b { width: auto; flex: none; padding: 0 calc(16px * var(--ui)); }
+/* 抽屉最底下那段小字说明（http 下没有离线缓存） */
+.tip2 {
+  margin: 14px 0 0; color: var(--dim);
+  font-size: calc(12px * var(--ui)); line-height: 1.7; text-align: left;
+}
+
+/* 横屏：把底部条压薄一点，别挡地图 */
+@media (orientation: landscape) and (max-height: 480px) {
+  .bar { padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); }
+  .b { height: calc(46px * var(--ui)); flex-basis: calc(50px * var(--ui)); }
+  .hud { padding-top: calc(4px + env(safe-area-inset-top)); }
+}
+
+/* ---------- 第一百一十五批：标点列表 ---------- */
+.plist { margin-bottom: 10px; }
+/* 分组标题吸顶，往下翻一长串还知道自己在看哪一类 */
+.pgh {
+  position: sticky; top: 0; z-index: 1;
+  padding: calc(8px * var(--ui)) 2px calc(6px * var(--ui));
+  font-size: calc(12px * var(--ui)); color: var(--dim);
+  background: var(--panel);
+}
+.prow {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; height: calc(48px * var(--ui));
+  padding: 0 calc(12px * var(--ui));
+  margin-bottom: 6px; border-radius: 10px;
+  background: rgba(19, 28, 35, .92); border: 1px solid var(--line); color: var(--txt);
+  font-size: calc(15px * var(--ui)); text-align: left;
+}
+.prow:active { filter: brightness(1.25); }
+.prow .pn { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.prow .pd { flex: none; color: var(--dim); font-size: calc(13px * var(--ui)); }
+.pempty {
+  margin: 0 0 10px; color: var(--dim);
+  font-size: calc(13px * var(--ui)); line-height: 1.7;
+}
+
+/* 第一百零九批：电脑上勾了「强制横屏」，竖着拿也按上面那套紧凑排布走 ——
+   小屏手机竖着用的时候，底部条能少占一截，地图多露一点 */
+@media (orientation: portrait) {
+  body.land .bar { padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); }
+  body.land .b { height: calc(46px * var(--ui)); flex-basis: calc(50px * var(--ui)); }
+  body.land .hud { padding-top: calc(4px + env(safe-area-inset-top)); }
+}
