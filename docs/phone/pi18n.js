@@ -1,0 +1,1072 @@
+// 手机页的多语言。电脑端那套 i18n.js 是给主窗口用的 —— 它依赖 config.js 里
+// 的语言列表、靠 MutationObserver 盯着整个设置页。手机页是另一个进程里的另一个
+// 页面，只有二十几 KB 的脚本预算，所以这里单做一套：一份小包 + 一次替换，没有观察器。
+//
+// 跟主窗口同一个约定：中文原文就是 key，查不到回落中文。所以中文包是空的 ——
+// 不写反而更安全，改了中文文案不用同步改包。
+//
+// zh-TW 的 key 必须是简体、value 才是繁体。写反整包失效，这条在主窗口那边踩过。
+(function (root) {
+  'use strict';
+
+  var LANGS = ['zh-CN', 'en', 'zh-TW', 'ja', 'ko', 'de', 'es', 'fr', 'pl', 'pt-BR', 'ru', 'th'];
+
+  // 要跟着一起换的属性。文本节点之外，占位符和长按提示也算文案
+  var ATTRS = ['placeholder', 'title', 'aria-label'];
+
+  var PACKS = {
+
+    'en': {
+      'SCUM 小地图': 'SCUM Minimap',
+      'SCUM 小地图 · 手机': 'SCUM Minimap · Phone',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'On your PC open Settings → 📱 Phone → 📲 Connect, then type the 6-digit code here',
+      '配对码': 'Pairing code',
+      '这台手机的名字（可不填）': 'Name for this phone (optional)',
+      '设备名': 'Device name',
+      '连接': 'Connect',
+      '连接中…': 'Connecting…',
+      '撤销打点': 'Undo',
+      '全图': 'Whole map',
+      '跟住我': 'Follow me',
+      '⚑ 打点': '⚑ Drop pin',
+      '打什么点？': 'What kind of pin?',
+      '放这儿': 'Place here',
+      '取消': 'Cancel',
+      '手机端': 'Phone',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'This phone is <b>read-only</b> — you can look, but not change anything.',
+      '显示队友': 'Show teammates',
+      '显示标点': 'Show pins',
+      '显示自己': 'Show me',
+      '显示底图': 'Show map',
+      '屏幕常亮': 'Keep screen on',
+      '跟随自己': 'Follow me',
+      '这台手机的名字': 'Name for this phone',
+      '改名': 'Rename',
+      '📋 标点列表': '📋 Pin list',
+      '断开这台手机': 'Disconnect this phone',
+      '收起': 'Close',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'Opened over a plain LAN address (http://…), browsers refuse to cache the page — no signal means a blank screen. For offline viewing, serve it over https (Tailscale Serve or your own reverse proxy).',
+      '标点列表': 'Pin list',
+      '配对码是 6 位数字': 'The code is 6 digits',
+      '配对码过期了，回电脑上点「重新生成」': 'Code expired — hit “Regenerate” on the PC',
+      '配对码不对': 'Wrong code',
+      '错太多次，等 5 分钟再试': 'Too many tries — wait 5 minutes',
+      '电脑上连的手机太多了，先踢掉一台': 'Too many phones connected — kick one off first',
+      '配对失败：{why}': 'Pairing failed: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'Cannot reach the PC — are you on the same WiFi?',
+      '已连接': 'Connected',
+      '重连中…': 'Reconnecting…',
+      '电脑那头断开了，重新配一次': 'The PC side dropped — pair again',
+      '信号丢了…': 'Signal lost',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'No pins yet. Anything you drop here or on the PC shows up in this list.',
+      '名字不能空着': 'Name cannot be empty',
+      '名字改好了': 'Name updated',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Disconnected. To reconnect, generate a new code on the PC.',
+      '没成功：{why}': 'Failed: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Too many pins — this phone only got the latest {n} of {m}. Raise the phone pin limit on the PC to see more.',
+      '已撤销': 'Undone',
+      '电脑上设成了只读': 'The PC set this phone to read-only',
+      '⚑ 点地图': '⚑ Tap map',
+      '点地图选位置': 'Tap the map to pick a spot',
+      '打点成功': 'Pin dropped',
+      '电脑上没给删的权限': 'The PC did not grant delete permission',
+      '删掉标点「{name}」？': 'Delete pin “{name}”?',
+      '未命名': 'unnamed',
+      '已删掉': 'Deleted',
+      '★ 收藏': '★ Favourite',
+      '💀 危险': '💀 Danger',
+      '📦 物资': '📦 Loot',
+      '⚑ 载具': '⚑ Vehicle',
+      '🏠 据点': '🏠 Base',
+      '⌂ 家': '⌂ Home',
+      '🏥 医疗': '🏥 Medical',
+      '🎯 目标': '🎯 Target',
+      "房间号": "Room",
+      "密码": "Password",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Not at home? Type the room and password from Settings → 📱 Phone → ☁️ Cross-net relay on your PC",
+      "改用跨网 / 局域网": "Switch to cross-net / LAN",
+      "房间号和密码都要填": "Room and password are both required",
+      "这个页面缺了 net.js，重开一次": "net.js is missing on this page — reopen it",
+      "正在连中转…": "Connecting to relay…",
+      "连不上中转：{why}": "Can't reach the relay: {why}",
+      "房间号或密码不对": "Wrong room or password",
+      "密码不对，或者电脑那边没开跨网中继": "Wrong password, or the relay isn't on on your PC",
+      "连不上电脑：{why}": "Can't reach your PC: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Disconnected. To reconnect, enter the room and password again",
+    },
+
+    'zh-TW': {
+      'SCUM 小地图': 'SCUM 小地圖',
+      'SCUM 小地图 · 手机': 'SCUM 小地圖 · 手機',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        '在電腦上打開 設定 → 📱 手機 → 📲 連接，把 6 位配對碼填在這裡',
+      '配对码': '配對碼',
+      '这台手机的名字（可不填）': '這台手機的名字（可不填）',
+      '设备名': '裝置名',
+      '连接': '連接',
+      '连接中…': '連接中…',
+      '撤销打点': '復原打點',
+      '全图': '全圖',
+      '跟住我': '跟住我',
+      '⚑ 打点': '⚑ 打點',
+      '打什么点？': '打什麼點？',
+      '放这儿': '放這裡',
+      '取消': '取消',
+      '手机端': '手機端',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        '這台手機現在是<b>唯讀</b>，只能看，改不了。',
+      '显示队友': '顯示隊友',
+      '显示标点': '顯示標點',
+      '显示自己': '顯示自己',
+      '显示底图': '顯示底圖',
+      '屏幕常亮': '螢幕恆亮',
+      '跟随自己': '跟隨自己',
+      '这台手机的名字': '這台手機的名字',
+      '改名': '改名',
+      '📋 标点列表': '📋 標點列表',
+      '断开这台手机': '斷開這台手機',
+      '收起': '收起',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        '用電腦的區域網路位址（http://…）打開時，瀏覽器不給網頁做離線快取 —— 斷網就白屏。想斷網也能看，得走 https（例如 Tailscale Serve 或自己的反向代理）。',
+      '标点列表': '標點列表',
+      '配对码是 6 位数字': '配對碼是 6 位數字',
+      '配对码过期了，回电脑上点「重新生成」': '配對碼過期了，回電腦上點「重新產生」',
+      '配对码不对': '配對碼不對',
+      '错太多次，等 5 分钟再试': '錯太多次，等 5 分鐘再試',
+      '电脑上连的手机太多了，先踢掉一台': '電腦上連的手機太多了，先踢掉一個',
+      '配对失败：{why}': '配對失敗：{why}',
+      '连不上电脑，检查是否同一个 WiFi': '連不上電腦，檢查是否同一個 WiFi',
+      '已连接': '已連上',
+      '重连中…': '重連中…',
+      '电脑那头断开了，重新配一次': '電腦那頭斷開了，重新配一次',
+      '信号丢了…': '訊號丟了',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        '現在沒有標點。電腦上加的、手機上打的都會出現在這裡。',
+      '名字不能空着': '名字不能空著',
+      '名字改好了': '名字改好了',
+      '已断开，想再连就回电脑上重新生成配对码':
+        '已斷開，想再連就回電腦上重新產生配對碼',
+      '没成功：{why}': '沒成功：{why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        '標點太多，這台手機只收到最近 {n} 個（一共 {m} 個）。想多看些，回電腦上把「手機標點上限」調大。',
+      '已撤销': '已復原',
+      '电脑上设成了只读': '電腦上設成了唯讀',
+      '⚑ 点地图': '⚑ 點地圖',
+      '点地图选位置': '點地圖選位置',
+      '打点成功': '打點成功',
+      '电脑上没给删的权限': '電腦上沒給刪的權限',
+      '删掉标点「{name}」？': '刪掉標點「{name}」？',
+      '未命名': '未命名',
+      '已删掉': '已刪掉',
+      '★ 收藏': '★ 收藏',
+      '💀 危险': '💀 危險',
+      '📦 物资': '📦 物資',
+      '⚑ 载具': '⚑ 載具',
+      '🏠 据点': '🏠 據點',
+      '⌂ 家': '⌂ 家',
+      '🏥 医疗': '🏥 醫療',
+      '🎯 目标': '🎯 目標',
+      "房间号": "房間號",
+      "密码": "密碼",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "不在家也能看：填電腦上 設定 → 📱 手機 → ☁️ 跨網中繼 裡的房間號和密碼",
+      "改用跨网 / 局域网": "改用跨網 / 區域網路",
+      "房间号和密码都要填": "房間號和密碼都要填",
+      "这个页面缺了 net.js，重开一次": "這個頁面缺了 net.js，重開一次",
+      "正在连中转…": "正在連中轉…",
+      "连不上中转：{why}": "連不上中轉：{why}",
+      "房间号或密码不对": "房間號或密碼不對",
+      "密码不对，或者电脑那边没开跨网中继": "密碼不對，或者電腦那邊沒開跨網中繼",
+      "连不上电脑：{why}": "連不上電腦：{why}",
+      "已断开。想再连，把房间号和密码再填一次": "已斷開。想再連，把房間號和密碼再填一次",
+    },
+
+    'ja': {
+      'SCUM 小地图': 'SCUM ミニマップ',
+      'SCUM 小地图 · 手机': 'SCUM ミニマップ · スマホ',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'PC で 設定 → 📱 スマホ → 📲 接続 を開き、6 桁のコードをここに入力してください',
+      '配对码': 'ペアリングコード',
+      '这台手机的名字（可不填）': 'このスマホの名前（任意）',
+      '设备名': 'デバイス名',
+      '连接': '接続',
+      '连接中…': '接続中…',
+      '撤销打点': '打点を取り消す',
+      '全图': '全体マップ',
+      '跟住我': '自分を追う',
+      '⚑ 打点': '⚑ ピンを打つ',
+      '打什么点？': 'どのピン？',
+      '放这儿': 'ここに置く',
+      '取消': 'キャンセル',
+      '手机端': 'スマホ',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'このスマホは<b>読み取り専用</b>です。見るだけで、変更はできません。',
+      '显示队友': 'チームメイトを表示',
+      '显示标点': 'ピンを表示',
+      '显示自己': '自分を表示',
+      '显示底图': '地図を表示',
+      '屏幕常亮': '画面を常時点灯',
+      '跟随自己': '自分を追従',
+      '这台手机的名字': 'このスマホの名前',
+      '改名': '名前を変更',
+      '📋 标点列表': '📋 ピン一覧',
+      '断开这台手机': 'このスマホを切断',
+      '收起': '閉じる',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'PC の LAN アドレス（http://…）で開くと、ブラウザはオフラインキャッシュを許可しません。電波が切れると真っ白になります。オフラインでも見たいなら https で配信してください（Tailscale Serve や自前のリバースプロキシなど）。',
+      '标点列表': 'ピン一覧',
+      '配对码是 6 位数字': 'コードは 6 桁の数字です',
+      '配对码过期了，回电脑上点「重新生成」': 'コードの期限切れです。PC で「再生成」を押してください',
+      '配对码不对': 'コードが違います',
+      '错太多次，等 5 分钟再试': '失敗が多すぎます。5 分待ってから再試行してください',
+      '电脑上连的手机太多了，先踢掉一台': 'PC に接続中のスマホが多すぎます。どれかを切断してください',
+      '配对失败：{why}': 'ペアリング失敗：{why}',
+      '连不上电脑，检查是否同一个 WiFi': 'PC に接続できません。同じ WiFi か確認してください',
+      '已连接': '接続しました',
+      '重连中…': '再接続中…',
+      '电脑那头断开了，重新配一次': 'PC 側が切断しました。もう一度ペアリングしてください',
+      '信号丢了…': '通信が切れました',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'ピンはまだありません。PC で追加したものも、ここで打ったものも、この一覧に出ます。',
+      '名字不能空着': '名前を入れてください',
+      '名字改好了': '名前を変更しました',
+      '已断开，想再连就回电脑上重新生成配对码':
+        '切断しました。再接続するには PC で新しいコードを生成してください。',
+      '没成功：{why}': '失敗：{why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'ピンが多すぎます。このスマホには最新 {n} 件のみ（全 {m} 件）届いています。もっと見るには PC で「スマホのピン上限」を上げてください。',
+      '已撤销': '取り消しました',
+      '电脑上设成了只读': 'PC 側で読み取り専用に設定されています',
+      '⚑ 点地图': '⚑ マップをタップ',
+      '点地图选位置': 'マップをタップして位置を選択',
+      '打点成功': 'ピンを打ちました',
+      '电脑上没给删的权限': 'PC 側で削除権限が与えられていません',
+      '删掉标点「{name}」？': 'ピン「{name}」を削除しますか？',
+      '未命名': '無名',
+      '已删掉': '削除しました',
+      '★ 收藏': '★ お気に入り',
+      '💀 危险': '💀 危険',
+      '📦 物资': '📦 物資',
+      '⚑ 载具': '⚑ 乗り物',
+      '🏠 据点': '🏠 拠点',
+      '⌂ 家': '⌂ 家',
+      '🏥 医疗': '🏥 医療',
+      '🎯 目标': '🎯 目標',
+      "房间号": "ルーム",
+      "密码": "パスワード",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "家にいなくても見られます：PC の設定 → 📱 スマホ → ☁️ 中継 にあるルームとパスワードを入力",
+      "改用跨网 / 局域网": "中継 / LAN を切り替え",
+      "房间号和密码都要填": "ルームとパスワードの両方が必要です",
+      "这个页面缺了 net.js，重开一次": "このページに net.js がありません。開き直してください",
+      "正在连中转…": "中継に接続中…",
+      "连不上中转：{why}": "中継に接続できません：{why}",
+      "房间号或密码不对": "ルームかパスワードが違います",
+      "密码不对，或者电脑那边没开跨网中继": "パスワードが違うか、PC 側で中継がオフです",
+      "连不上电脑：{why}": "PC に接続できません：{why}",
+      "已断开。想再连，把房间号和密码再填一次": "切断しました。再接続するにはルームとパスワードを入れ直してください",
+    },
+
+    'ko': {
+      'SCUM 小地图': 'SCUM 미니맵',
+      'SCUM 小地图 · 手机': 'SCUM 미니맵 · 휴대폰',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'PC에서 설정 → 📱 휴대폰 → 📲 연결을 열고 6자리 코드를 여기에 입력하세요',
+      '配对码': '페어링 코드',
+      '这台手机的名字（可不填）': '이 휴대폰 이름 (선택)',
+      '设备名': '기기 이름',
+      '连接': '연결',
+      '连接中…': '연결 중…',
+      '撤销打点': '핀 취소',
+      '全图': '전체 지도',
+      '跟住我': '나를 따라가기',
+      '⚑ 打点': '⚑ 핀 찍기',
+      '打什么点？': '어떤 핀인가요?',
+      '放这儿': '여기에 놓기',
+      '取消': '취소',
+      '手机端': '휴대폰',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        '이 휴대폰은 <b>읽기 전용</b>입니다. 보기만 되고 변경할 수 없습니다.',
+      '显示队友': '팀원 표시',
+      '显示标点': '핀 표시',
+      '显示自己': '나 표시',
+      '显示底图': '지도 표시',
+      '屏幕常亮': '화면 켜 두기',
+      '跟随自己': '나 따라가기',
+      '这台手机的名字': '이 휴대폰 이름',
+      '改名': '이름 변경',
+      '📋 标点列表': '📋 핀 목록',
+      '断开这台手机': '이 휴대폰 연결 해제',
+      '收起': '닫기',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'PC의 LAN 주소(http://…)로 열면 브라우저가 오프라인 캐시를 허용하지 않습니다. 신호가 끊기면 화면이 하얗게 됩니다. 오프라인으로 보려면 https로 제공하세요(Tailscale Serve 또는 자체 리버스 프록시).',
+      '标点列表': '핀 목록',
+      '配对码是 6 位数字': '코드는 6자리 숫자입니다',
+      '配对码过期了，回电脑上点「重新生成」': '코드가 만료되었습니다. PC에서 「다시 생성」을 누르세요',
+      '配对码不对': '코드가 맞지 않습니다',
+      '错太多次，等 5 分钟再试': '시도가 너무 많습니다. 5분 후 다시 시도하세요',
+      '电脑上连的手机太多了，先踢掉一台': 'PC에 연결된 휴대폰이 너무 많습니다. 하나를 해제하세요',
+      '配对失败：{why}': '페어링 실패: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'PC에 연결할 수 없습니다. 같은 WiFi인지 확인하세요',
+      '已连接': '연결됨',
+      '重连中…': '다시 연결 중…',
+      '电脑那头断开了，重新配一次': 'PC 쪽 연결이 끊겼습니다. 다시 페어링하세요',
+      '信号丢了…': '신호가 끊겼습니다',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        '아직 핀이 없습니다. PC에서 추가한 것과 여기서 찍은 것이 모두 이 목록에 나옵니다.',
+      '名字不能空着': '이름을 입력하세요',
+      '名字改好了': '이름을 변경했습니다',
+      '已断开，想再连就回电脑上重新生成配对码':
+        '연결을 해제했습니다. 다시 연결하려면 PC에서 새 코드를 생성하세요.',
+      '没成功：{why}': '실패: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        '핀이 너무 많습니다. 이 휴대폰에는 최신 {n}개만(전체 {m}개) 전송되었습니다. 더 보려면 PC에서 「휴대폰 핀 상한」을 올리세요.',
+      '已撤销': '취소되었습니다',
+      '电脑上设成了只读': 'PC에서 읽기 전용으로 설정되었습니다',
+      '⚑ 点地图': '⚑ 지도 누르기',
+      '点地图选位置': '지도를 눌러 위치 선택',
+      '打点成功': '핀을 찍었습니다',
+      '电脑上没给删的权限': 'PC에서 삭제 권한을 주지 않았습니다',
+      '删掉标点「{name}」？': '핀 「{name}」을 삭제할까요?',
+      '未命名': '이름 없음',
+      '已删掉': '삭제되었습니다',
+      '★ 收藏': '★ 즐겨찾기',
+      '💀 危险': '💀 위험',
+      '📦 物资': '📦 물자',
+      '⚑ 载具': '⚑ 탈것',
+      '🏠 据点': '🏠 거점',
+      '⌂ 家': '⌂ 집',
+      '🏥 医疗': '🏥 의료',
+      '🎯 目标': '🎯 목표',
+      "房间号": "룸",
+      "密码": "비밀번호",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "집에 없어도 볼 수 있습니다: PC의 설정 → 📱 휴대폰 → ☁️ 중계 에 있는 룸과 비밀번호를 입력하세요",
+      "改用跨网 / 局域网": "중계 / LAN 전환",
+      "房间号和密码都要填": "룸과 비밀번호를 모두 입력해야 합니다",
+      "这个页面缺了 net.js，重开一次": "이 페이지에 net.js가 없습니다. 다시 열어 주세요",
+      "正在连中转…": "중계에 연결 중…",
+      "连不上中转：{why}": "중계에 연결할 수 없습니다: {why}",
+      "房间号或密码不对": "룸 또는 비밀번호가 틀렸습니다",
+      "密码不对，或者电脑那边没开跨网中继": "비밀번호가 틀렸거나 PC에서 중계가 꺼져 있습니다",
+      "连不上电脑：{why}": "PC에 연결할 수 없습니다: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "연결이 끊겼습니다. 다시 연결하려면 룸과 비밀번호를 다시 입력하세요",
+    },
+
+    'de': {
+      'SCUM 小地图': 'SCUM-Karte',
+      'SCUM 小地图 · 手机': 'SCUM-Karte · Handy',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'Öffne am PC Einstellungen → 📱 Handy → 📲 Verbinden und gib den 6-stelligen Code hier ein',
+      '配对码': 'Kopplungscode',
+      '这台手机的名字（可不填）': 'Name für dieses Handy (optional)',
+      '设备名': 'Gerätename',
+      '连接': 'Verbinden',
+      '连接中…': 'Verbinde…',
+      '撤销打点': 'Rückgängig',
+      '全图': 'Ganze Karte',
+      '跟住我': 'Mir folgen',
+      '⚑ 打点': '⚑ Marker setzen',
+      '打什么点？': 'Welcher Marker?',
+      '放这儿': 'Hier setzen',
+      '取消': 'Abbrechen',
+      '手机端': 'Handy',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Dieses Handy ist <b>schreibgeschützt</b> – ansehen ja, ändern nein.',
+      '显示队友': 'Team anzeigen',
+      '显示标点': 'Marker anzeigen',
+      '显示自己': 'Mich anzeigen',
+      '显示底图': 'Karte anzeigen',
+      '屏幕常亮': 'Bildschirm anlassen',
+      '跟随自己': 'Mir folgen',
+      '这台手机的名字': 'Name für dieses Handy',
+      '改名': 'Umbenennen',
+      '📋 标点列表': '📋 Markerliste',
+      '断开这台手机': 'Dieses Handy trennen',
+      '收起': 'Schließen',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'Über eine normale LAN-Adresse (http://…) geöffnet, speichert der Browser die Seite nicht offline – ohne Signal bleibt der Bildschirm weiß. Für Offline-Betrieb über https ausliefern (Tailscale Serve oder eigener Reverse-Proxy).',
+      '标点列表': 'Markerliste',
+      '配对码是 6 位数字': 'Der Code hat 6 Ziffern',
+      '配对码过期了，回电脑上点「重新生成」': 'Code abgelaufen – am PC „Neu erzeugen“ drücken',
+      '配对码不对': 'Falscher Code',
+      '错太多次，等 5 分钟再试': 'Zu viele Versuche – in 5 Minuten erneut',
+      '电脑上连的手机太多了，先踢掉一台': 'Zu viele Handys verbunden – erst eins trennen',
+      '配对失败：{why}': 'Kopplung fehlgeschlagen: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'PC nicht erreichbar – gleiches WiFi?',
+      '已连接': 'Verbunden',
+      '重连中…': 'Verbinde neu…',
+      '电脑那头断开了，重新配一次': 'PC-Seite getrennt – neu koppeln',
+      '信号丢了…': 'Verbindung verloren',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'Noch keine Marker. Was du hier oder am PC setzt, erscheint in dieser Liste.',
+      '名字不能空着': 'Name darf nicht leer sein',
+      '名字改好了': 'Name geändert',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Getrennt. Zum Wiederverbinden am PC einen neuen Code erzeugen.',
+      '没成功：{why}': 'Fehlgeschlagen: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Zu viele Marker – dieses Handy hat nur die letzten {n} von {m}. Erhöhe am PC das Handy-Limit für mehr.',
+      '已撤销': 'Rückgängig gemacht',
+      '电脑上设成了只读': 'Am PC auf schreibgeschützt gesetzt',
+      '⚑ 点地图': '⚑ Karte antippen',
+      '点地图选位置': 'Karte antippen, um Position zu wählen',
+      '打点成功': 'Marker gesetzt',
+      '电脑上没给删的权限': 'Der PC hat kein Löschrecht erteilt',
+      '删掉标点「{name}」？': 'Marker „{name}“ löschen?',
+      '未命名': 'unbenannt',
+      '已删掉': 'Gelöscht',
+      '★ 收藏': '★ Favorit',
+      '💀 危险': '💀 Gefahr',
+      '📦 物资': '📦 Beute',
+      '⚑ 载具': '⚑ Fahrzeug',
+      '🏠 据点': '🏠 Stützpunkt',
+      '⌂ 家': '⌂ Zuhause',
+      '🏥 医疗': '🏥 Medizin',
+      '🎯 目标': '🎯 Ziel',
+      "房间号": "Raum",
+      "密码": "Passwort",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Nicht zu Hause? Gib Raum und Passwort aus Einstellungen → 📱 Handy → ☁️ Relay am PC ein",
+      "改用跨网 / 局域网": "Relay / LAN wechseln",
+      "房间号和密码都要填": "Raum und Passwort sind beide nötig",
+      "这个页面缺了 net.js，重开一次": "net.js fehlt auf dieser Seite – bitte neu öffnen",
+      "正在连中转…": "Verbinde mit Relay…",
+      "连不上中转：{why}": "Relay nicht erreichbar: {why}",
+      "房间号或密码不对": "Raum oder Passwort falsch",
+      "密码不对，或者电脑那边没开跨网中继": "Passwort falsch oder das Relay ist am PC aus",
+      "连不上电脑：{why}": "PC nicht erreichbar: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Getrennt. Zum Wiederverbinden Raum und Passwort erneut eingeben",
+    },
+
+    'es': {
+      'SCUM 小地图': 'Mapa de SCUM',
+      'SCUM 小地图 · 手机': 'Mapa de SCUM · Móvil',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'En el PC abre Ajustes → 📱 Móvil → 📲 Conectar y escribe aquí el código de 6 dígitos',
+      '配对码': 'Código de emparejamiento',
+      '这台手机的名字（可不填）': 'Nombre de este móvil (opcional)',
+      '设备名': 'Nombre del dispositivo',
+      '连接': 'Conectar',
+      '连接中…': 'Conectando…',
+      '撤销打点': 'Deshacer',
+      '全图': 'Mapa completo',
+      '跟住我': 'Seguirme',
+      '⚑ 打点': '⚑ Poner marca',
+      '打什么点？': '¿Qué tipo de marca?',
+      '放这儿': 'Poner aquí',
+      '取消': 'Cancelar',
+      '手机端': 'Móvil',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Este móvil está en <b>solo lectura</b>: puedes mirar, pero no cambiar nada.',
+      '显示队友': 'Ver compañeros',
+      '显示标点': 'Ver marcas',
+      '显示自己': 'Verme',
+      '显示底图': 'Ver mapa',
+      '屏幕常亮': 'Mantener pantalla encendida',
+      '跟随自己': 'Seguirme',
+      '这台手机的名字': 'Nombre de este móvil',
+      '改名': 'Renombrar',
+      '📋 标点列表': '📋 Lista de marcas',
+      '断开这台手机': 'Desconectar este móvil',
+      '收起': 'Cerrar',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'Abierto desde una dirección LAN normal (http://…), el navegador no guarda la página sin conexión: sin señal, pantalla en blanco. Para verlo sin conexión, sírvelo por https (Tailscale Serve o tu propio proxy inverso).',
+      '标点列表': 'Lista de marcas',
+      '配对码是 6 位数字': 'El código tiene 6 dígitos',
+      '配对码过期了，回电脑上点「重新生成」': 'Código caducado: pulsa «Regenerar» en el PC',
+      '配对码不对': 'Código incorrecto',
+      '错太多次，等 5 分钟再试': 'Demasiados intentos: espera 5 minutos',
+      '电脑上连的手机太多了，先踢掉一台': 'Demasiados móviles conectados: quita uno primero',
+      '配对失败：{why}': 'Error de emparejamiento: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'No se llega al PC: ¿estáis en el mismo WiFi?',
+      '已连接': 'Conectado',
+      '重连中…': 'Reconectando…',
+      '电脑那头断开了，重新配一次': 'El PC se desconectó: vuelve a emparejar',
+      '信号丢了…': 'Señal perdida',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'Aún no hay marcas. Lo que pongas aquí o en el PC aparece en esta lista.',
+      '名字不能空着': 'El nombre no puede estar vacío',
+      '名字改好了': 'Nombre actualizado',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Desconectado. Para volver a conectar, genera un código nuevo en el PC.',
+      '没成功：{why}': 'Falló: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Demasiadas marcas: este móvil solo recibió las últimas {n} de {m}. Sube el límite de marcas para móvil en el PC.',
+      '已撤销': 'Deshecho',
+      '电脑上设成了只读': 'El PC lo puso en solo lectura',
+      '⚑ 点地图': '⚑ Toca el mapa',
+      '点地图选位置': 'Toca el mapa para elegir el sitio',
+      '打点成功': 'Marca puesta',
+      '电脑上没给删的权限': 'El PC no dio permiso para borrar',
+      '删掉标点「{name}」？': '¿Borrar la marca «{name}»?',
+      '未命名': 'sin nombre',
+      '已删掉': 'Borrada',
+      '★ 收藏': '★ Favorito',
+      '💀 危险': '💀 Peligro',
+      '📦 物资': '📦 Botín',
+      '⚑ 载具': '⚑ Vehículo',
+      '🏠 据点': '🏠 Base',
+      '⌂ 家': '⌂ Casa',
+      '🏥 医疗': '🏥 Médico',
+      '🎯 目标': '🎯 Objetivo',
+      "房间号": "Sala",
+      "密码": "Contraseña",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "¿No estás en casa? Escribe la sala y la contraseña de Ajustes → 📱 Móvil → ☁️ Relé en el PC",
+      "改用跨网 / 局域网": "Cambiar a relé / LAN",
+      "房间号和密码都要填": "Hacen falta la sala y la contraseña",
+      "这个页面缺了 net.js，重开一次": "Falta net.js en esta página, vuelve a abrirla",
+      "正在连中转…": "Conectando al relé…",
+      "连不上中转：{why}": "No se puede conectar al relé: {why}",
+      "房间号或密码不对": "Sala o contraseña incorrectas",
+      "密码不对，或者电脑那边没开跨网中继": "Contraseña incorrecta o el relé está apagado en el PC",
+      "连不上电脑：{why}": "No se puede conectar al PC: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Desconectado. Para reconectar, escribe otra vez la sala y la contraseña",
+    },
+
+    'fr': {
+      'SCUM 小地图': 'Carte SCUM',
+      'SCUM 小地图 · 手机': 'Carte SCUM · Téléphone',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'Sur le PC, ouvre Réglages → 📱 Téléphone → 📲 Connexion, puis saisis ici le code à 6 chiffres',
+      '配对码': "Code d'appairage",
+      '这台手机的名字（可不填）': 'Nom de ce téléphone (facultatif)',
+      '设备名': "Nom de l'appareil",
+      '连接': 'Connecter',
+      '连接中…': 'Connexion…',
+      '撤销打点': 'Annuler le point',
+      '全图': 'Carte entière',
+      '跟住我': 'Me suivre',
+      '⚑ 打点': '⚑ Poser un point',
+      '打什么点？': 'Quel type de point ?',
+      '放这儿': 'Poser ici',
+      '取消': 'Annuler',
+      '手机端': 'Téléphone',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Ce téléphone est en <b>lecture seule</b> : tu peux regarder, pas modifier.',
+      '显示队友': "Afficher l'équipe",
+      '显示标点': 'Afficher les points',
+      '显示自己': "M'afficher",
+      '显示底图': 'Afficher la carte',
+      '屏幕常亮': "Garder l'écran allumé",
+      '跟随自己': 'Me suivre',
+      '这台手机的名字': 'Nom de ce téléphone',
+      '改名': 'Renommer',
+      '📋 标点列表': '📋 Liste des points',
+      '断开这台手机': 'Déconnecter ce téléphone',
+      '收起': 'Fermer',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        "Ouverte via une adresse LAN classique (http://…), la page n'est pas mise en cache hors ligne par le navigateur : sans réseau, écran blanc. Pour la consulter hors ligne, servez-la en https (Tailscale Serve ou ton propre reverse proxy).",
+      '标点列表': 'Liste des points',
+      '配对码是 6 位数字': 'Le code fait 6 chiffres',
+      '配对码过期了，回电脑上点「重新生成」': 'Code expiré — clique sur « Régénérer » sur le PC',
+      '配对码不对': 'Code incorrect',
+      '错太多次，等 5 分钟再试': "Trop d'essais — réessaie dans 5 minutes",
+      '电脑上连的手机太多了，先踢掉一台': "Trop de téléphones connectés — déconnectes-en un d'abord",
+      '配对失败：{why}': "Échec de l'appairage : {why}",
+      '连不上电脑，检查是否同一个 WiFi': 'PC injoignable — même WiFi ?',
+      '已连接': 'Connecté',
+      '重连中…': 'Reconnexion…',
+      '电脑那头断开了，重新配一次': "Le PC s'est déconnecté — réappaire",
+      '信号丢了…': 'Signal perdu',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        "Aucun point pour l'instant. Ce que tu poses ici ou sur le PC apparaît dans cette liste.",
+      '名字不能空着': 'Le nom ne peut pas être vide',
+      '名字改好了': 'Nom mis à jour',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Déconnecté. Pour te reconnecter, génère un nouveau code sur le PC.',
+      '没成功：{why}': 'Échec : {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        "Trop de points : ce téléphone n'a reçu que les {n} derniers sur {m}. Augmente la limite de points mobile sur le PC.",
+      '已撤销': 'Annulé',
+      '电脑上设成了只读': "Le PC l'a mis en lecture seule",
+      '⚑ 点地图': '⚑ Touche la carte',
+      '点地图选位置': 'Touche la carte pour choisir un emplacement',
+      '打点成功': 'Point posé',
+      '电脑上没给删的权限': "Le PC n'a pas accordé le droit de suppression",
+      '删掉标点「{name}」？': 'Supprimer le point « {name} » ?',
+      '未命名': 'sans nom',
+      '已删掉': 'Supprimé',
+      '★ 收藏': '★ Favori',
+      '💀 危险': '💀 Danger',
+      '📦 物资': '📦 Butin',
+      '⚑ 载具': '⚑ Véhicule',
+      '🏠 据点': '🏠 Base',
+      '⌂ 家': '⌂ Maison',
+      '🏥 医疗': '🏥 Médical',
+      '🎯 目标': '🎯 Objectif',
+      "房间号": "Salon",
+      "密码": "Mot de passe",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Pas à la maison ? Saisis le salon et le mot de passe depuis Réglages → 📱 Téléphone → ☁️ Relais sur le PC",
+      "改用跨网 / 局域网": "Passer au relais / LAN",
+      "房间号和密码都要填": "Le salon et le mot de passe sont requis",
+      "这个页面缺了 net.js，重开一次": "net.js manque sur cette page, rouvre-la",
+      "正在连中转…": "Connexion au relais…",
+      "连不上中转：{why}": "Relais injoignable : {why}",
+      "房间号或密码不对": "Salon ou mot de passe incorrect",
+      "密码不对，或者电脑那边没开跨网中继": "Mot de passe incorrect ou le relais est coupé sur le PC",
+      "连不上电脑：{why}": "PC injoignable : {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Déconnecté. Pour te reconnecter, ressaisis le salon et le mot de passe",
+    },
+
+    'pl': {
+      'SCUM 小地图': 'Mapa SCUM',
+      'SCUM 小地图 · 手机': 'Mapa SCUM · Telefon',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'Na PC otwórz Ustawienia → 📱 Telefon → 📲 Połącz i wpisz tutaj 6-cyfrowy kod',
+      '配对码': 'Kod parowania',
+      '这台手机的名字（可不填）': 'Nazwa tego telefonu (opcjonalnie)',
+      '设备名': 'Nazwa urządzenia',
+      '连接': 'Połącz',
+      '连接中…': 'Łączenie…',
+      '撤销打点': 'Cofnij punkt',
+      '全图': 'Cała mapa',
+      '跟住我': 'Podążaj za mną',
+      '⚑ 打点': '⚑ Postaw punkt',
+      '打什么点？': 'Jaki punkt?',
+      '放这儿': 'Postaw tutaj',
+      '取消': 'Anuluj',
+      '手机端': 'Telefon',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Ten telefon jest w trybie <b>tylko do odczytu</b> — można patrzeć, nie zmieniać.',
+      '显示队友': 'Pokaż drużynę',
+      '显示标点': 'Pokaż punkty',
+      '显示自己': 'Pokaż mnie',
+      '显示底图': 'Pokaż mapę',
+      '屏幕常亮': 'Nie wygaszaj ekranu',
+      '跟随自己': 'Podążaj za mną',
+      '这台手机的名字': 'Nazwa tego telefonu',
+      '改名': 'Zmień nazwę',
+      '📋 标点列表': '📋 Lista punktów',
+      '断开这台手机': 'Odłącz ten telefon',
+      '收起': 'Zamknij',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        "Otwierana przez zwykły adres LAN (http://…), strona nie jest cache'owana offline przez przeglądarkę — bez sieci ekran robi się biały. Do podglądu offline serwuj ją po https (Tailscale Serve lub własny reverse proxy).",
+      '标点列表': 'Lista punktów',
+      '配对码是 6 位数字': 'Kod ma 6 cyfr',
+      '配对码过期了，回电脑上点「重新生成」': 'Kod wygasł — kliknij „Wygeneruj ponownie” na PC',
+      '配对码不对': 'Nieprawidłowy kod',
+      '错太多次，等 5 分钟再试': 'Za dużo prób — spróbuj za 5 minut',
+      '电脑上连的手机太多了，先踢掉一台': 'Za dużo podłączonych telefonów — najpierw jeden odłącz',
+      '配对失败：{why}': 'Parowanie nieudane: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'Nie można połączyć się z PC — to samo WiFi?',
+      '已连接': 'Połączono',
+      '重连中…': 'Ponowne łączenie…',
+      '电脑那头断开了，重新配一次': 'PC się rozłączył — sparuj ponownie',
+      '信号丢了…': 'Utracono sygnał',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'Brak punktów. To, co postawisz tutaj lub na PC, pojawi się na tej liście.',
+      '名字不能空着': 'Nazwa nie może być pusta',
+      '名字改好了': 'Nazwa zmieniona',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Odłączono. Aby połączyć ponownie, wygeneruj nowy kod na PC.',
+      '没成功：{why}': 'Nie udało się: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Za dużo punktów — ten telefon dostał tylko ostatnie {n} z {m}. Zwiększ limit punktów dla telefonu na PC.',
+      '已撤销': 'Cofnięto',
+      '电脑上设成了只读': 'PC ustawił tryb tylko do odczytu',
+      '⚑ 点地图': '⚑ Dotknij mapy',
+      '点地图选位置': 'Dotknij mapy, aby wybrać miejsce',
+      '打点成功': 'Punkt postawiony',
+      '电脑上没给删的权限': 'PC nie przyznał prawa do usuwania',
+      '删掉标点「{name}」？': 'Usunąć punkt „{name}”?',
+      '未命名': 'bez nazwy',
+      '已删掉': 'Usunięto',
+      '★ 收藏': '★ Ulubione',
+      '💀 危险': '💀 Zagrożenie',
+      '📦 物资': '📦 Łup',
+      '⚑ 载具': '⚑ Pojazd',
+      '🏠 据点': '🏠 Baza',
+      '⌂ 家': '⌂ Dom',
+      '🏥 医疗': '🏥 Medyczne',
+      '🎯 目标': '🎯 Cel',
+      "房间号": "Pokój",
+      "密码": "Hasło",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Nie ma cię w domu? Wpisz pokój i hasło z Ustawienia → 📱 Telefon → ☁️ Przekaźnik na PC",
+      "改用跨网 / 局域网": "Przełącz na przekaźnik / LAN",
+      "房间号和密码都要填": "Pokój i hasło są wymagane",
+      "这个页面缺了 net.js，重开一次": "Na tej stronie brakuje net.js, otwórz ją ponownie",
+      "正在连中转…": "Łączenie z przekaźnikiem…",
+      "连不上中转：{why}": "Brak połączenia z przekaźnikiem: {why}",
+      "房间号或密码不对": "Zły pokój lub hasło",
+      "密码不对，或者电脑那边没开跨网中继": "Złe hasło albo przekaźnik jest wyłączony na PC",
+      "连不上电脑：{why}": "Brak połączenia z PC: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Rozłączono. Aby wrócić, wpisz pokój i hasło jeszcze raz",
+    },
+
+    'pt-BR': {
+      'SCUM 小地图': 'Mapa do SCUM',
+      'SCUM 小地图 · 手机': 'Mapa do SCUM · Celular',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'No PC abra Configurações → 📱 Celular → 📲 Conectar e digite aqui o código de 6 dígitos',
+      '配对码': 'Código de pareamento',
+      '这台手机的名字（可不填）': 'Nome deste celular (opcional)',
+      '设备名': 'Nome do aparelho',
+      '连接': 'Conectar',
+      '连接中…': 'Conectando…',
+      '撤销打点': 'Desfazer',
+      '全图': 'Mapa inteiro',
+      '跟住我': 'Seguir eu',
+      '⚑ 打点': '⚑ Marcar ponto',
+      '打什么点？': 'Que tipo de ponto?',
+      '放这儿': 'Pôr aqui',
+      '取消': 'Cancelar',
+      '手机端': 'Celular',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Este celular está em <b>somente leitura</b>: dá para olhar, não para mudar.',
+      '显示队友': 'Mostrar time',
+      '显示标点': 'Mostrar pontos',
+      '显示自己': 'Mostrar eu',
+      '显示底图': 'Mostrar mapa',
+      '屏幕常亮': 'Manter tela ligada',
+      '跟随自己': 'Seguir eu',
+      '这台手机的名字': 'Nome deste celular',
+      '改名': 'Renomear',
+      '📋 标点列表': '📋 Lista de pontos',
+      '断开这台手机': 'Desconectar este celular',
+      '收起': 'Fechar',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'Aberto por um endereço de LAN comum (http://…), o navegador não guarda a página offline: sem sinal, tela branca. Para ver offline, sirva por https (Tailscale Serve ou seu próprio proxy reverso).',
+      '标点列表': 'Lista de pontos',
+      '配对码是 6 位数字': 'O código tem 6 dígitos',
+      '配对码过期了，回电脑上点「重新生成」': 'Código expirado — clique em “Gerar de novo” no PC',
+      '配对码不对': 'Código errado',
+      '错太多次，等 5 分钟再试': 'Tentativas demais — espere 5 minutos',
+      '电脑上连的手机太多了，先踢掉一台': 'Celulares demais conectados — desconecte um primeiro',
+      '配对失败：{why}': 'Falha no pareamento: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'Não alcança o PC — mesmo WiFi?',
+      '已连接': 'Conectado',
+      '重连中…': 'Reconectando…',
+      '电脑那头断开了，重新配一次': 'O PC desconectou — pareie de novo',
+      '信号丢了…': 'Sinal perdido',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'Nenhum ponto ainda. O que você marcar aqui ou no PC aparece nesta lista.',
+      '名字不能空着': 'O nome não pode ficar vazio',
+      '名字改好了': 'Nome atualizado',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Desconectado. Para reconectar, gere um código novo no PC.',
+      '没成功：{why}': 'Falhou: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Pontos demais — este celular recebeu só os últimos {n} de {m}. Aumente o limite de pontos do celular no PC.',
+      '已撤销': 'Desfeito',
+      '电脑上设成了只读': 'O PC colocou em somente leitura',
+      '⚑ 点地图': '⚑ Toque no mapa',
+      '点地图选位置': 'Toque no mapa para escolher o lugar',
+      '打点成功': 'Ponto marcado',
+      '电脑上没给删的权限': 'O PC não deu permissão para apagar',
+      '删掉标点「{name}」？': 'Apagar o ponto “{name}”?',
+      '未命名': 'sem nome',
+      '已删掉': 'Apagado',
+      '★ 收藏': '★ Favorito',
+      '💀 危险': '💀 Perigo',
+      '📦 物资': '📦 Saque',
+      '⚑ 载具': '⚑ Veículo',
+      '🏠 据点': '🏠 Base',
+      '⌂ 家': '⌂ Casa',
+      '🏥 医疗': '🏥 Médico',
+      '🎯 目标': '🎯 Alvo',
+      "房间号": "Sala",
+      "密码": "Senha",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Fora de casa? Digite a sala e a senha de Configurações → 📱 Celular → ☁️ Retransmissor no PC",
+      "改用跨网 / 局域网": "Alternar retransmissor / LAN",
+      "房间号和密码都要填": "Sala e senha são obrigatórias",
+      "这个页面缺了 net.js，重开一次": "Falta o net.js nesta página, abra de novo",
+      "正在连中转…": "Conectando ao retransmissor…",
+      "连不上中转：{why}": "Não foi possível conectar ao retransmissor: {why}",
+      "房间号或密码不对": "Sala ou senha errada",
+      "密码不对，或者电脑那边没开跨网中继": "Senha errada ou o retransmissor está desligado no PC",
+      "连不上电脑：{why}": "Não foi possível conectar ao PC: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Desconectado. Para reconectar, digite a sala e a senha de novo",
+    },
+
+    'ru': {
+      'SCUM 小地图': 'Карта SCUM',
+      'SCUM 小地图 · 手机': 'Карта SCUM · Телефон',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'На ПК откройте Настройки → 📱 Телефон → 📲 Подключение и введите здесь 6-значный код',
+      '配对码': 'Код сопряжения',
+      '这台手机的名字（可不填）': 'Название этого телефона (необязательно)',
+      '设备名': 'Имя устройства',
+      '连接': 'Подключить',
+      '连接中…': 'Подключение…',
+      '撤销打点': 'Отменить метку',
+      '全图': 'Вся карта',
+      '跟住我': 'Следовать за мной',
+      '⚑ 打点': '⚑ Поставить метку',
+      '打什么点？': 'Какая метка?',
+      '放这儿': 'Поставить здесь',
+      '取消': 'Отмена',
+      '手机端': 'Телефон',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'Этот телефон в режиме <b>только чтение</b>: смотреть можно, менять нельзя.',
+      '显示队友': 'Показывать команду',
+      '显示标点': 'Показывать метки',
+      '显示自己': 'Показывать меня',
+      '显示底图': 'Показывать карту',
+      '屏幕常亮': 'Не гасить экран',
+      '跟随自己': 'Следовать за мной',
+      '这台手机的名字': 'Название этого телефона',
+      '改名': 'Переименовать',
+      '📋 标点列表': '📋 Список меток',
+      '断开这台手机': 'Отключить этот телефон',
+      '收起': 'Закрыть',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'При открытии по обычному адресу в локальной сети (http://…) браузер не кэширует страницу офлайн — без сети экран белый. Для работы офлайн отдавайте её по https (Tailscale Serve или свой обратный прокси).',
+      '标点列表': 'Список меток',
+      '配对码是 6 位数字': 'Код состоит из 6 цифр',
+      '配对码过期了，回电脑上点「重新生成」': 'Код истёк — нажмите «Создать заново» на ПК',
+      '配对码不对': 'Неверный код',
+      '错太多次，等 5 分钟再试': 'Слишком много попыток — подождите 5 минут',
+      '电脑上连的手机太多了，先踢掉一台': 'Слишком много телефонов — сначала отключите один',
+      '配对失败：{why}': 'Ошибка сопряжения: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'ПК недоступен — тот же WiFi?',
+      '已连接': 'Подключено',
+      '重连中…': 'Переподключение…',
+      '电脑那头断开了，重新配一次': 'Связь с ПК потеряна — сопрягите заново',
+      '信号丢了…': 'Сигнал потерян',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'Меток пока нет. Всё, что вы поставите здесь или на ПК, появится в этом списке.',
+      '名字不能空着': 'Имя не может быть пустым',
+      '名字改好了': 'Имя изменено',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'Отключено. Чтобы подключиться снова, создайте новый код на ПК.',
+      '没成功：{why}': 'Не получилось: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'Слишком много меток — на этот телефон пришли только последние {n} из {m}. Увеличьте лимит меток для телефона на ПК.',
+      '已撤销': 'Отменено',
+      '电脑上设成了只读': 'На ПК включён режим только чтения',
+      '⚑ 点地图': '⚑ Коснитесь карты',
+      '点地图选位置': 'Коснитесь карты, чтобы выбрать место',
+      '打点成功': 'Метка поставлена',
+      '电脑上没给删的权限': 'ПК не дал право на удаление',
+      '删掉标点「{name}」？': 'Удалить метку «{name}»?',
+      '未命名': 'без имени',
+      '已删掉': 'Удалено',
+      '★ 收藏': '★ Избранное',
+      '💀 危险': '💀 Опасно',
+      '📦 物资': '📦 Добыча',
+      '⚑ 载具': '⚑ Транспорт',
+      '🏠 据点': '🏠 База',
+      '⌂ 家': '⌂ Дом',
+      '🏥 医疗': '🏥 Медицина',
+      '🎯 目标': '🎯 Цель',
+      "房间号": "Комната",
+      "密码": "Пароль",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Не дома? Введите комнату и пароль из Настройки → 📱 Телефон → ☁️ Реле на ПК",
+      "改用跨网 / 局域网": "Переключить реле / LAN",
+      "房间号和密码都要填": "Нужны и комната, и пароль",
+      "这个页面缺了 net.js，重开一次": "На этой странице нет net.js — откройте её заново",
+      "正在连中转…": "Подключение к реле…",
+      "连不上中转：{why}": "Не удаётся подключиться к реле: {why}",
+      "房间号或密码不对": "Неверная комната или пароль",
+      "密码不对，或者电脑那边没开跨网中继": "Неверный пароль или реле выключено на ПК",
+      "连不上电脑：{why}": "Не удаётся подключиться к ПК: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "Отключено. Чтобы вернуться, введите комнату и пароль заново",
+    },
+
+    'th': {
+      'SCUM 小地图': 'แผนที่ SCUM',
+      'SCUM 小地图 · 手机': 'แผนที่ SCUM · มือถือ',
+      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
+        'บน PC เปิด ตั้งค่า → 📱 มือถือ → 📲 เชื่อมต่อ แล้วกรอกรหัส 6 หลักที่นี่',
+      '配对码': 'รหัสจับคู่',
+      '这台手机的名字（可不填）': 'ชื่อมือถือเครื่องนี้ (ไม่บังคับ)',
+      '设备名': 'ชื่ออุปกรณ์',
+      '连接': 'เชื่อมต่อ',
+      '连接中…': 'กำลังเชื่อมต่อ…',
+      '撤销打点': 'เลิกปักหมุด',
+      '全图': 'แผนที่ทั้งหมด',
+      '跟住我': 'ตามฉัน',
+      '⚑ 打点': '⚑ ปักหมุด',
+      '打什么点？': 'ปักหมุดแบบไหน?',
+      '放这儿': 'ปักตรงนี้',
+      '取消': 'ยกเลิก',
+      '手机端': 'มือถือ',
+      '这台手机现在是<b>只读</b>，只能看，改不了。':
+        'มือถือเครื่องนี้เป็น <b>อ่านอย่างเดียว</b> ดูได้ แต่แก้ไม่ได้',
+      '显示队友': 'แสดงเพื่อนร่วมทีม',
+      '显示标点': 'แสดงหมุด',
+      '显示自己': 'แสดงตัวเอง',
+      '显示底图': 'แสดงแผนที่',
+      '屏幕常亮': 'เปิดหน้าจอค้างไว้',
+      '跟随自己': 'ตามตัวเอง',
+      '这台手机的名字': 'ชื่อมือถือเครื่องนี้',
+      '改名': 'เปลี่ยนชื่อ',
+      '📋 标点列表': '📋 รายการหมุด',
+      '断开这台手机': 'ตัดการเชื่อมต่อมือถือเครื่องนี้',
+      '收起': 'ปิด',
+      '用电脑的局域网地址（http://…）打开时，浏览器不给网页做离线缓存 —— 断网就白屏。想断网也能看，得走 https（比如 Tailscale Serve 或者自己的反向代理）。':
+        'ถ้าเปิดผ่านที่อยู่ในวงแลนธรรมดา (http://…) เบราว์เซอร์จะไม่แคชหน้าไว้ให้ เน็ตขาดก็จอขาว ถ้าอยากดูแบบออฟไลน์ได้ ต้องให้บริการผ่าน https (เช่น Tailscale Serve หรือ reverse proxy ของคุณเอง)',
+      '标点列表': 'รายการหมุด',
+      '配对码是 6 位数字': 'รหัสเป็นตัวเลข 6 หลัก',
+      '配对码过期了，回电脑上点「重新生成」': 'รหัสหมดอายุ กลับไปกด «สร้างใหม่» บน PC',
+      '配对码不对': 'รหัสไม่ถูกต้อง',
+      '错太多次，等 5 分钟再试': 'ผิดหลายครั้งเกินไป รอ 5 นาทีแล้วลองใหม่',
+      '电脑上连的手机太多了，先踢掉一台': 'มือถือเชื่อมต่อเยอะเกินไป ตัดออกก่อนหนึ่งเครื่อง',
+      '配对失败：{why}': 'จับคู่ไม่สำเร็จ: {why}',
+      '连不上电脑，检查是否同一个 WiFi': 'ต่อ PC ไม่ได้ ตรวจสอบว่าอยู่ WiFi เดียวกันไหม',
+      '已连接': 'เชื่อมต่อแล้ว',
+      '重连中…': 'กำลังเชื่อมต่อใหม่…',
+      '电脑那头断开了，重新配一次': 'ฝั่ง PC หลุดแล้ว จับคู่อีกครั้ง',
+      '信号丢了…': 'สัญญาณหาย',
+      '现在没有标点。电脑上加的、手机上打的都会出现在这里。':
+        'ยังไม่มีหมุด สิ่งที่ปักที่นี่หรือบน PC จะมาโผล่ในรายการนี้',
+      '名字不能空着': 'ชื่อต้องไม่ว่าง',
+      '名字改好了': 'เปลี่ยนชื่อแล้ว',
+      '已断开，想再连就回电脑上重新生成配对码':
+        'ตัดการเชื่อมต่อแล้ว ถ้าจะต่อใหม่ให้สร้างรหัสใหม่บน PC',
+      '没成功：{why}': 'ไม่สำเร็จ: {why}',
+      '标点太多，这台手机只收到最近 {n} 个（一共 {m} 个）。想多看些，回电脑上把「手机标点上限」调大。':
+        'หมุดเยอะเกินไป มือถือเครื่องนี้ได้แค่ {n} อันล่าสุดจากทั้งหมด {m} อัน ถ้าอยากเห็นมากกว่านี้ ให้เพิ่มขีดจำกัดหมุดบนมือถือที่ PC',
+      '已撤销': 'เลิกแล้ว',
+      '电脑上设成了只读': 'PC ตั้งเป็นอ่านอย่างเดียว',
+      '⚑ 点地图': '⚑ แตะแผนที่',
+      '点地图选位置': 'แตะแผนที่เพื่อเลือกตำแหน่ง',
+      '打点成功': 'ปักหมุดแล้ว',
+      '电脑上没给删的权限': 'PC ไม่ได้ให้สิทธิ์ลบ',
+      '删掉标点「{name}」？': 'ลบหมุด «{name}» ไหม?',
+      '未命名': 'ไม่มีชื่อ',
+      '已删掉': 'ลบแล้ว',
+      '★ 收藏': '★ รายการโปรด',
+      '💀 危险': '💀 อันตราย',
+      '📦 物资': '📦 ของ',
+      '⚑ 载具': '⚑ ยานพาหนะ',
+      '🏠 据点': '🏠 ฐาน',
+      '⌂ 家': '⌂ บ้าน',
+      '🏥 医疗': '🏥 การแพทย์',
+      '🎯 目标': '🎯 เป้าหมาย',
+      "房间号": "ห้อง",
+      "密码": "รหัสผ่าน",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "ไม่อยู่บ้านก็ดูได้: กรอกห้องและรหัสผ่านจาก ตั้งค่า → 📱 มือถือ → ☁️ รีเลย์ บนคอมพิวเตอร์",
+      "改用跨网 / 局域网": "สลับรีเลย์ / LAN",
+      "房间号和密码都要填": "ต้องกรอกทั้งห้องและรหัสผ่าน",
+      "这个页面缺了 net.js，重开一次": "หน้านี้ไม่มี net.js เปิดใหม่อีกครั้ง",
+      "正在连中转…": "กำลังเชื่อมต่อรีเลย์…",
+      "连不上中转：{why}": "เชื่อมต่อรีเลย์ไม่ได้: {why}",
+      "房间号或密码不对": "ห้องหรือรหัสผ่านไม่ถูกต้อง",
+      "密码不对，或者电脑那边没开跨网中继": "รหัสผ่านไม่ถูกต้อง หรือรีเลย์บนคอมยังไม่เปิด",
+      "连不上电脑：{why}": "เชื่อมต่อคอมพิวเตอร์ไม่ได้: {why}",
+      "已断开。想再连，把房间号和密码再填一次": "ตัดการเชื่อมต่อแล้ว ถ้าจะต่อใหม่ให้กรอกห้องและรหัสผ่านอีกครั้ง",
+    }
+
+  };
+
+  var LANG = 'zh-CN';
+  var PACK = null;
+  var SRC = new WeakMap();   // 文本节点 → 原文。记一次，切语言时从原文重翻，不叠加
+
+  function has(o, k) { return Object.prototype.hasOwnProperty.call(o, k); }
+
+  function t(s, vars) {
+    if (s == null) return s;
+    var v = (PACK && has(PACK, s)) ? PACK[s] : s;
+    if (vars) {
+      v = String(v).replace(/\{(\w+)\}/g, function (m, k) {
+        return vars[k] == null ? m : vars[k];
+      });
+    }
+    return v;
+  }
+
+  function setLang(code) {
+    var c = String(code || '').trim();
+    // zh / zh-Hans / zh-CN 一律算简体；zh-TW / zh-HK / zh-Hant 算繁体
+    if (/^zh/i.test(c)) {
+      c = /tw|hk|hant/i.test(c) ? 'zh-TW' : 'zh-CN';
+    } else if (/^pt/i.test(c)) {
+      c = 'pt-BR';
+    } else {
+      c = c.split(/[-_]/)[0].toLowerCase();
+    }
+    if (LANGS.indexOf(c) < 0) c = 'zh-CN';
+    LANG = c;
+    PACK = (c === 'zh-CN') ? null : (PACKS[c] || null);
+    return LANG;
+  }
+
+  // 换一个文本节点。src 里存原文，所以第二次 apply 不会把英文再翻一遍
+  function doText(node) {
+    var parent = node.parentNode;
+    if (!parent) return;
+    var pn = parent.nodeName;
+    if (pn === 'SCRIPT' || pn === 'STYLE' || pn === 'TEXTAREA') return;
+    var rec = SRC.get(node);
+    if (rec === undefined) {
+      var raw = node.nodeValue;
+      if (!raw || !/\S/.test(raw)) return;
+      var lead = raw.match(/^\s*/)[0];
+      var trail = raw.match(/\s*$/)[0];
+      rec = { lead: lead, trail: trail, key: raw.trim() };
+      SRC.set(node, rec);
+    }
+    if (!rec.key) return;
+    var want = rec.lead + t(rec.key) + rec.trail;
+    if (node.nodeValue !== want) node.nodeValue = want;
+  }
+
+  function doAttr(el) {
+    for (var i = 0; i < ATTRS.length; i++) {
+      var a = ATTRS[i];
+      if (!el.hasAttribute || !el.hasAttribute(a)) continue;
+      var key = el.getAttribute('data-i18n-' + a);
+      if (key === null) {
+        key = el.getAttribute(a);
+        if (!key || !/\S/.test(key)) continue;
+        el.setAttribute('data-i18n-' + a, key);
+      }
+      var want = t(key);
+      if (el.getAttribute(a) !== want) el.setAttribute(a, want);
+    }
+  }
+
+  // 整棵树翻一遍。DOM 变了（列表重画、状态条换字）之后再调一次就够，
+  // 没变的地方因为「目标值 == 当前值」不会碰，不会白刷
+  function apply(node) {
+    var start = node || (typeof document !== 'undefined' ? document.body : null);
+    if (!start) return;
+    if (start.nodeType === 3) { doText(start); return; }
+    if (start.nodeType === 1) doAttr(start);
+    if (!start.querySelectorAll) return;
+    var els = start.querySelectorAll('*');
+    for (var i = 0; i < els.length; i++) doAttr(els[i]);
+    if (typeof document !== 'undefined' && document.createTreeWalker) {
+      var w = document.createTreeWalker(start, NodeFilter.SHOW_TEXT, null, false);
+      var n;
+      while ((n = w.nextNode())) doText(n);
+    }
+  }
+
+  // 语言从哪来：URL 上的 ?lang= 最优先（方便试），其次上次记住的，
+  // 再次浏览器自己的语言。连上电脑之后会被电脑那边的设置覆盖
+  function detect() {
+    var q = '';
+    try { q = new URLSearchParams(location.search).get('lang') || ''; } catch (e) { q = ''; }
+    if (q) return setLang(q);
+    var saved = '';
+    try { saved = localStorage.getItem('smm_plang') || ''; } catch (e) { saved = ''; }
+    if (saved) return setLang(saved);
+    return setLang((typeof navigator !== 'undefined' && navigator.language) || 'zh-CN');
+  }
+
+  function remember(code) {
+    try { localStorage.setItem('smm_plang', code); } catch (e) {}
+  }
+
+  var API = {
+    t: t,
+    setLang: setLang,
+    apply: apply,
+    detect: detect,
+    remember: remember,
+    LANGS: LANGS,
+    packs: PACKS,
+    get lang() { return LANG; }
+  };
+
+  if (typeof module === 'object' && module.exports) module.exports = API;
+  root.PI = API;
+  // 跟主窗口一样，全局再放一个短的，phone.js 里直接 T(...)
+  root.T = t;
+})(typeof window !== 'undefined' ? window : globalThis);
