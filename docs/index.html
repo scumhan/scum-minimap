@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="自动读游戏坐标，在屏幕一角画实时雷达。队友位置共享、标点带距离。Windows 10 / 11，免费。">
 <meta name="twitter:image" content="og.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.0.3","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-20","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.0.4","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-20","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
 </script>
 <style>
   :root {
@@ -1278,8 +1278,25 @@
     <div class="rv">
       <details class="cl-item now" open>
               <summary>
-                <span class="clv">v1.0.3</span>
+                <span class="clv">v1.0.4</span>
                 <span class="clnew">最新</span>
+                <span class="clt">引导里就能换采集键</span>
+                <span class="cld">2026-11-20</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>🎹 引导第 2 步直接换采集键</b>　原来这一步只写「在游戏里按一次 Ctrl + C」，键不对的人当场卡住，想换得自己摸到 设置 → ⚙ 采集 → 复制键，第一次装的人根本不知道有这地方。现在「自动采集」下面多一组「采集键」：候选键清单（F11 / F12 / Insert / Home / End / Ctrl+C，标出推荐 / 有代价 / 不能用，还写明被游戏里哪个动作占了），也能「⌨ 自己按一个键」，选完点「应用这个键」当场写进游戏配置。</li>
+                  <li><b>🔁 文案跟着键走</b>　这一步、等灯的提示、最后摘要里写死的 Ctrl + C 全换成当前键名，不会再出现「明明改成了 F11，界面还叫你按 Ctrl + C」。</li>
+                  <li><b>⚠️ 影响说明跟着变</b>　换成单键后「裸 C 会让角色蹲一下」那条自动换成「不会带出蹲下」，三条说明收成两条。</li>
+                  <li><b>📉 换完顺手提醒压间隔</b>　跟设置页同一套判断，换成单键后给一句「间隔还能降到 800 ms」，引导里一键就能调。</li>
+                  <li><b>📊 关于页的下载数，打开就刷</b>　以前有 5 分钟缓存，短时间内再打开一个请求都不发，数字看着像不动。现在每次打开都真拉一次，新数到了自己跳上去（服务器那边的统计本身还有点延迟）。</li>
+                  <li><b>✅ 342 项单测全过</b>　不换键的话，引导这一步看起来跟以前一样。</li>
+                </ul>
+              </div>
+            </details>
+      <details class="cl-item">
+              <summary>
+                <span class="clv">v1.0.3</span>
                 <span class="clt">换单键后提醒压间隔</span>
                 <span class="cld">2026-11-20</span>
         </summary>
@@ -3225,11 +3242,11 @@
      发版只改这一段（或跑 scripts/bump_download.js 自动改）
      ══════════════════════════════════════════════════════════ */
   var CFG = {
-    ver:    '1.0.3',
+    ver:    '1.0.4',
     date:   '2026-11-20',
-    size:   119611838,
-    count:  810,
-    sha256: '3d7cf8910f02de37554dcd4539a1c876bbdbbbf8f981bda31f1e0a0402e1898d'
+    size:   119619650,
+    count:  835,
+    sha256: '57c6416f5b19fb8cb52ba0b5b8af5323b5a4e8558519b8a569348817738af416'
   };
 
   /* 域名与文件名不写明文 */
