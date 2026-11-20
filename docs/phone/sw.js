@@ -12,7 +12,8 @@
 // 还是旧的壳，phone.js 找不到 ML 整个页面就崩了。
 // 第一百一十七批加了 pi18n.js，同理升到 v3。
 // 第一百一十九批加了 net.js（跨网），升到 v4
-const CACHE = 'smm-phone-v4';
+// 第一百二十二批加了 pairparse.js（粘贴拆房间号密码），升到 v5
+const CACHE = 'smm-phone-v5';
 
 // 壳文件：少一样页面就白屏，必须拿到
 const SHELL = [
@@ -20,6 +21,7 @@ const SHELL = [
   '/phone/phone.css',
   '/phone/pi18n.js',
   '/phone/mklist.js',
+  '/phone/pairparse.js',
   '/phone/net.js',
   '/phone/phone.js',
   '/phone/manifest.json',
