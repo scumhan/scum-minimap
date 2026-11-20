@@ -1272,14 +1272,28 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.0.0</span>，一共一百批，一批不少。点标题展开，看每一批改了什么。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.0.0</span>，一共一百零一批，一批不少。点标题展开，看每一批改了什么。</p>
     </div>
 
     <div class="rv">
       <details class="cl-item now" open>
               <summary>
-                <span class="clv">v1.0.0</span>
+                <span class="clv">v1.0.1</span>
                 <span class="clnew">最新</span>
+                <span class="clt">设置页音效不再响两声</span>
+                <span class="cld">2026-11-20</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>🔊 点一下只响一声</b>　设置页那个全局音效委托本意是给没自己配音的按钮兜底，但大部分按钮在自己的处理器里已经响过一声，于是同一个点击响两遍。现在委托只当兜底：按钮自己响过就不再补。</li>
+                  <li><b>🔧 失败提示音改对了</b>　「一键共享标点」失败那两处音效名写错了，会回落成默认的点击音，警告音根本听不出来。</li>
+                  <li><b>✅ 306 项单测全过</b>　功能和默认值一点没变，老配置不用重设。</li>
+                </ul>
+              </div>
+            </details>
+      <details class="cl-item">
+              <summary>
+                <span class="clv">v1.0.0</span>
                 <span class="clt">一百批收尾，版本进 1.0.0</span>
                 <span class="cld">2026-11-20</span>
         </summary>
