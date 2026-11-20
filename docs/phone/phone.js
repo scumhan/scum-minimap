@@ -200,7 +200,10 @@
         $('go').disabled = false;
         if (!j || !j.ok) {
           var m = { full: '电脑上连的手机太多了，先踢掉一台', auth: '房间号或密码不对', timeout: '电脑没回话：房间号和密码要跟电脑上的一模一样（分大小写）' };
-          $('err').textContent = m[j && j.why] ? T(m[j.why]) : T('连不上电脑：{why}', { why: (j && j.why) || '' });
+          var tip = m[j && j.why] ? T(m[j.why]) : T('连不上电脑：{why}', { why: (j && j.why) || '' });
+          // 第一百二十三批：超时八成是两边填的不一样，把自己填的亮出来好对
+          if (j && j.why === 'timeout') tip += ' · ' + T('房间号') + ' ' + r;
+          $('err').textContent = tip;
           return;
         }
         try {
