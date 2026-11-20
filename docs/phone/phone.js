@@ -18,7 +18,13 @@
   try {
     if (/[?&]net=1/.test(location.search)) { NET = true; localStorage.setItem(LS_X, '1'); }
     else if (/[?&]net=0/.test(location.search)) { NET = false; localStorage.removeItem(LS_X); }
-    else NET = localStorage.getItem(LS_X) === '1';
+    else {
+      NET = localStorage.getItem(LS_X) === '1';
+      // 公网页（https + 非内网地址）默认就进跨网：人在外面打开这个地址，
+      // 眼前该是「房间号 + 密码」，不该是只有家里局域网才用得上的 6 位码
+      if (!NET && location.protocol === 'https:' &&
+        !/^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.)/.test(location.hostname)) NET = true;
+    }
   } catch (e) {}
   var netPing = null;
 
