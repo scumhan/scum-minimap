@@ -16,7 +16,10 @@
 (function () {
   'use strict';
 
-  var BROKER = 'wss://broker.emqx.io:8084/mqtt';
+  // 第一百二十八批：国际节点在国内移动网络下时通时不通（实测 1 秒通 / 6 秒超时来回跳），
+  // 换成国内节点。两端必须用同一个 broker，否则派生的主题对不上。
+  var BROKER = 'wss://broker-cn.emqx.io:8084/mqtt';
+  var BROKER_HOST = 'broker-cn.emqx.io';
   var REQ_TIMEOUT = 12000;
   var PING_MS = 25000;
   var RETRY_MAX = 20000;
@@ -272,7 +275,7 @@
     w.onmessage = function (ev) {
       try { parse(new Uint8Array(ev.data)); } catch (e) {}
     };
-    w.onerror = function () { st = 'error'; err = '连不上中转服务器'; };
+    w.onerror = function () { st = 'error'; err = '连不上 ' + BROKER_HOST; };
     w.onclose = function () {
       if (ws !== w) return;
       ws = null;
@@ -298,20 +301,29 @@
     return derive().then(function () {
       return new Promise(function (res) {
         openWaiters.push(function (ok) {
-          if (!ok) err = err || '连不上中转服务器';
+          if (!ok) err = err || '连不上 ' + BROKER_HOST;
           res({ ok: ok, st: st, err: err });
         });
         connect();
         setTimeout(function () {
-          // 十五秒还没连上就别让用户一直转圈，直接报错，后台继续重试
+          // 第一百二十八批：十五秒太长，八秒没连上就报，后台继续重试。
+          // 人盯着「正在连中转」转十五秒，只会以为程序坏了。
           if (st !== 'online') {
             var idx = openWaiters.length;
             openWaiters = [];
-            if (idx) res({ ok: false, st: st || 'error', err: err || '连不上中转服务器' });
+            if (idx) res({ ok: false, st: st || 'error', err: err || '连不上 ' + BROKER_HOST });
           }
-        }, 15000);
+        }, 8000);
       });
-    }).then(function (r) { return r; });
+    }).catch(function (e) {
+      // 第一百二十八批：派生密钥这步以前没有 catch —— 一旦抛异常（老浏览器的
+      // crypto.subtle、隐私模式下的配额限制），Promise 直接悬着，页面永远停在
+      // 「正在连中转」。现在失败要立刻说清楚是哪一步。
+      st = 'error';
+      started = false;
+      err = '加密初始化失败：' + ((e && (e.name || e.message)) || String(e));
+      return { ok: false, st: st, err: err };
+    });
   }
 
   function req(path, body) {
