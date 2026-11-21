@@ -18,8 +18,23 @@
 <meta name="twitter:title" content="SCUM 小地图 · 实时雷达">
 <meta name="twitter:description" content="自动读游戏坐标，在屏幕一角画实时雷达。队友位置共享、标点带距离。Windows 10 / 11，免费。">
 <meta name="twitter:image" content="og.png">
+<link rel="canonical" href="https://scumhan.github.io/scum-minimap/">
+<meta property="og:url" content="https://scumhan.github.io/scum-minimap/">
+<meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.2.9","fileSize":"114MB","inLanguage":"zh-CN","datePublished":"2026-11-21","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"SCUM 小地图怎么安装？","acceptedAnswer":{"@type":"Answer","text":"下载安装包后双击打开，默认装到当前用户目录下的 Programs\\SCUM小地图，也可以自己挑文件夹。不需要管理员权限，不会弹 UAC 蓝框。点「安装」等进度条走完，桌面和开始菜单会留一个「SCUM小地图」快捷方式。"}},
+{"@type":"Question","name":"SCUM 小地图要钱吗？需要注册吗？","acceptedAnswer":{"@type":"Answer","text":"免费，不注册。不填手机号、不用账号，下载完直接装。"}},
+{"@type":"Question","name":"支持什么系统？手机能装吗？","acceptedAnswer":{"@type":"Answer","text":"只支持 Windows 10 / 11 64 位。这是桌面程序，手机上装不了，需要把下载页链接发到电脑上打开。"}},
+{"@type":"Question","name":"SCUM 小地图和按 M 开大地图有什么区别？","acceptedAnswer":{"@type":"Answer","text":"大地图要停下来按 M、盖住半个屏幕、看不到队友；小地图常驻屏幕一角不挡视野，跑着就能看，队友位置和标点直接画在同一张图上并带距离刻度。"}},
+{"@type":"Question","name":"会读内存、改游戏文件或者被封号吗？","acceptedAnswer":{"@type":"Answer","text":"不读内存、不注入游戏、不改游戏文件、不上传存档。它只读取游戏提供的坐标，然后在屏幕上画一个雷达。"}},
+{"@type":"Question","name":"队友位置怎么共享？","acceptedAnswer":{"@type":"Answer","text":"填一个名字和一个频道号就能用。同一个 WiFi 下走局域网共享，零延迟、断网也能用；队友不在同一网络可以开跨网共享，走公共服务器中转。"}},
+{"@type":"Question","name":"怎么卸载？设置会丢吗？","acceptedAnswer":{"@type":"Answer","text":"Windows 设置 → 应用 → 找到「SCUM小地图」→ 卸载，程序和快捷方式一起清掉。你的设置、标点、配置不会动，重装还是原来那套。"}},
+{"@type":"Question","name":"下载被浏览器拦截或者卡在 0 字节怎么办？","acceptedAnswer":{"@type":"Answer","text":"浏览器拦截时，点地址栏右侧的「已拦截」图标选允许，再点一次下载按钮，或者用「直接下载安装包」链接。卡在 0 字节多半是线路问题，点「国内加速下载」会换镜像线路。"}}
+]}
 </script>
 <style>
   :root {
@@ -44,6 +59,8 @@
     --mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
   }
   * { box-sizing: border-box; }
+  .site-url { margin: 12px 0 0; font-size: 12.5px; color: var(--fg3); }
+  .site-url code { font-family: var(--mono); font-size: 12px; color: var(--fg2); background: rgba(255,255,255,.05); padding: 2px 6px; border-radius: 4px; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
     margin: 0;
@@ -649,6 +666,7 @@
         <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v1.2.9</span> · <span data-size>114 MB</span> · Win10/11</span></span></button>
         <button class="btn btn-ghost" id="dlMirror" type="button"><span>🚀 国内加速下载<span class="btn-sub">备用线路 · 同一个包</span></span></button>
       </div>
+      <p class="site-url">本站地址 <code>scumhan.github.io/scum-minimap</code> · 收藏这一页，更新都在这</p>
       <p class="meta">
         <span>Windows 10 / 11 64 位</span>
         <span>安装包 <b id="dlSize">约 114 MB</b></span>
@@ -3606,7 +3624,7 @@
       <p>当前版本 <b data-ver>v1.2.9</b> · <span data-date>2026-11-21</span></p>
     </div>
     <p class="fine">
-      完全免费、无广告、无内购，作者无偿分享给 SCUM 玩家。不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
+      完全免费、无内购、无弹窗骚扰，作者无偿分享给 SCUM 玩家。不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
       任何第三方工具都无法保证绝对安全，使用前请自行判断。
     </p>
   </div>
