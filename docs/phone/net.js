@@ -230,7 +230,11 @@
         if (t1 <= j + len) {
           var topic = dec.decode(buf.subarray(j + 2, t1));
           if (topic === topicDn) {
-            var raw = b64(buf.subarray(t1, j + len));
+            // 第一百二十九批：这里原来是 b64(...)，等于把 broker 上那串 base64 文本
+            // 又编了一次 base64 —— open() 里 unb64 解出来的还是文本字节，IV/tag 全错位，
+            // 解密必然失败、还静默返回 null。表现就是电脑明明回了包，手机永远「没回话」。
+            // 电脑端发的是 base64 文本，这里按文本取出来直接交给 open() 才对。
+            var raw = dec.decode(buf.subarray(t1, j + len));
             open(raw).then(function (m) {
               if (!m) return;
               if (m.k === 'frame' && frameCb) frameCb(m.b);
