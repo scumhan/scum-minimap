@@ -19,8 +19,8 @@
     'en': {
       'SCUM 小地图': 'SCUM Minimap',
       'SCUM 小地图 · 手机': 'SCUM Minimap · Phone',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'On your PC open Settings → 📱 Phone → 📲 Connect, then type the 6-digit code here',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'On your PC open Settings → 📱 Phone → 📡 LAN, then type the 6-digit code here',
       '配对码': 'Pairing code',
       '这台手机的名字（可不填）': 'Name for this phone (optional)',
       '设备名': 'Device name',
@@ -89,7 +89,7 @@
       '🎯 目标': '🎯 Target',
       "房间号": "Room",
       "密码": "Password",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Not at home? Type the room and password from Settings → 📱 Phone → ☁️ Cross-net relay on your PC",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Not at home? Type the room and password from Settings → 📱 Phone → 🌐 Cross-net on your PC",
       "改用跨网 / 局域网": "Switch to cross-net / LAN",
       "房间号和密码都要填": "Room and password are both required",
       "这个页面缺了 net.js，重开一次": "net.js is missing on this page — reopen it",
@@ -111,8 +111,8 @@
     'zh-TW': {
       'SCUM 小地图': 'SCUM 小地圖',
       'SCUM 小地图 · 手机': 'SCUM 小地圖 · 手機',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        '在電腦上打開 設定 → 📱 手機 → 📲 連接，把 6 位配對碼填在這裡',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        '在電腦上打開 設定 → 📱 手機 → 📡 區域網路，把 6 位配對碼填在這裡',
       '配对码': '配對碼',
       '这台手机的名字（可不填）': '這台手機的名字（可不填）',
       '设备名': '裝置名',
@@ -181,7 +181,7 @@
       '🎯 目标': '🎯 目標',
       "房间号": "房間號",
       "密码": "密碼",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "不在家也能看：填電腦上 設定 → 📱 手機 → ☁️ 跨網中繼 裡的房間號和密碼",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "不在家也能看：填電腦上 設定 → 📱 手機 → 🌐 跨網 裡的房間號和密碼",
       "改用跨网 / 局域网": "改用跨網 / 區域網路",
       "房间号和密码都要填": "房間號和密碼都要填",
       "这个页面缺了 net.js，重开一次": "這個頁面缺了 net.js，重開一次",
@@ -203,8 +203,8 @@
     'ja': {
       'SCUM 小地图': 'SCUM ミニマップ',
       'SCUM 小地图 · 手机': 'SCUM ミニマップ · スマホ',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'PC で 設定 → 📱 スマホ → 📲 接続 を開き、6 桁のコードをここに入力してください',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'PC で 設定 → 📱 スマホ → 📡 LAN を開き、6 桁のコードをここに入力してください',
       '配对码': 'ペアリングコード',
       '这台手机的名字（可不填）': 'このスマホの名前（任意）',
       '设备名': 'デバイス名',
@@ -273,7 +273,7 @@
       '🎯 目标': '🎯 目標',
       "房间号": "ルーム",
       "密码": "パスワード",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "家にいなくても見られます：PC の設定 → 📱 スマホ → ☁️ 中継 にあるルームとパスワードを入力",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "家にいなくても見られます：PC の設定 → 📱 スマホ → 🌐 中継 にあるルームとパスワードを入力",
       "改用跨网 / 局域网": "中継 / LAN を切り替え",
       "房间号和密码都要填": "ルームとパスワードの両方が必要です",
       "这个页面缺了 net.js，重开一次": "このページに net.js がありません。開き直してください",
@@ -295,8 +295,8 @@
     'ko': {
       'SCUM 小地图': 'SCUM 미니맵',
       'SCUM 小地图 · 手机': 'SCUM 미니맵 · 휴대폰',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'PC에서 설정 → 📱 휴대폰 → 📲 연결을 열고 6자리 코드를 여기에 입력하세요',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'PC에서 설정 → 📱 휴대폰 → 📡 LAN을 열고 6자리 코드를 여기에 입력하세요',
       '配对码': '페어링 코드',
       '这台手机的名字（可不填）': '이 휴대폰 이름 (선택)',
       '设备名': '기기 이름',
@@ -365,7 +365,7 @@
       '🎯 目标': '🎯 목표',
       "房间号": "룸",
       "密码": "비밀번호",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "집에 없어도 볼 수 있습니다: PC의 설정 → 📱 휴대폰 → ☁️ 중계 에 있는 룸과 비밀번호를 입력하세요",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "집에 없어도 볼 수 있습니다: PC의 설정 → 📱 휴대폰 → 🌐 중계 에 있는 룸과 비밀번호를 입력하세요",
       "改用跨网 / 局域网": "중계 / LAN 전환",
       "房间号和密码都要填": "룸과 비밀번호를 모두 입력해야 합니다",
       "这个页面缺了 net.js，重开一次": "이 페이지에 net.js가 없습니다. 다시 열어 주세요",
@@ -387,8 +387,8 @@
     'de': {
       'SCUM 小地图': 'SCUM-Karte',
       'SCUM 小地图 · 手机': 'SCUM-Karte · Handy',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'Öffne am PC Einstellungen → 📱 Handy → 📲 Verbinden und gib den 6-stelligen Code hier ein',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'Öffne am PC Einstellungen → 📱 Handy → 📡 LAN und gib den 6-stelligen Code hier ein',
       '配对码': 'Kopplungscode',
       '这台手机的名字（可不填）': 'Name für dieses Handy (optional)',
       '设备名': 'Gerätename',
@@ -457,7 +457,7 @@
       '🎯 目标': '🎯 Ziel',
       "房间号": "Raum",
       "密码": "Passwort",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Nicht zu Hause? Gib Raum und Passwort aus Einstellungen → 📱 Handy → ☁️ Relay am PC ein",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Nicht zu Hause? Gib Raum und Passwort aus Einstellungen → 📱 Handy → 🌐 Relay am PC ein",
       "改用跨网 / 局域网": "Relay / LAN wechseln",
       "房间号和密码都要填": "Raum und Passwort sind beide nötig",
       "这个页面缺了 net.js，重开一次": "net.js fehlt auf dieser Seite – bitte neu öffnen",
@@ -479,8 +479,8 @@
     'es': {
       'SCUM 小地图': 'Mapa de SCUM',
       'SCUM 小地图 · 手机': 'Mapa de SCUM · Móvil',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'En el PC abre Ajustes → 📱 Móvil → 📲 Conectar y escribe aquí el código de 6 dígitos',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'En el PC abre Ajustes → 📱 Móvil → 📡 LAN y escribe aquí el código de 6 dígitos',
       '配对码': 'Código de emparejamiento',
       '这台手机的名字（可不填）': 'Nombre de este móvil (opcional)',
       '设备名': 'Nombre del dispositivo',
@@ -549,7 +549,7 @@
       '🎯 目标': '🎯 Objetivo',
       "房间号": "Sala",
       "密码": "Contraseña",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "¿No estás en casa? Escribe la sala y la contraseña de Ajustes → 📱 Móvil → ☁️ Relé en el PC",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "¿No estás en casa? Escribe la sala y la contraseña de Ajustes → 📱 Móvil → 🌐 Relé en el PC",
       "改用跨网 / 局域网": "Cambiar a relé / LAN",
       "房间号和密码都要填": "Hacen falta la sala y la contraseña",
       "这个页面缺了 net.js，重开一次": "Falta net.js en esta página, vuelve a abrirla",
@@ -571,8 +571,8 @@
     'fr': {
       'SCUM 小地图': 'Carte SCUM',
       'SCUM 小地图 · 手机': 'Carte SCUM · Téléphone',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'Sur le PC, ouvre Réglages → 📱 Téléphone → 📲 Connexion, puis saisis ici le code à 6 chiffres',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'Sur le PC, ouvre Réglages → 📱 Téléphone → 📡 LAN, puis saisis ici le code à 6 chiffres',
       '配对码': "Code d'appairage",
       '这台手机的名字（可不填）': 'Nom de ce téléphone (facultatif)',
       '设备名': "Nom de l'appareil",
@@ -641,7 +641,7 @@
       '🎯 目标': '🎯 Objectif',
       "房间号": "Salon",
       "密码": "Mot de passe",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Pas à la maison ? Saisis le salon et le mot de passe depuis Réglages → 📱 Téléphone → ☁️ Relais sur le PC",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Pas à la maison ? Saisis le salon et le mot de passe depuis Réglages → 📱 Téléphone → 🌐 Relais sur le PC",
       "改用跨网 / 局域网": "Passer au relais / LAN",
       "房间号和密码都要填": "Le salon et le mot de passe sont requis",
       "这个页面缺了 net.js，重开一次": "net.js manque sur cette page, rouvre-la",
@@ -663,8 +663,8 @@
     'pl': {
       'SCUM 小地图': 'Mapa SCUM',
       'SCUM 小地图 · 手机': 'Mapa SCUM · Telefon',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'Na PC otwórz Ustawienia → 📱 Telefon → 📲 Połącz i wpisz tutaj 6-cyfrowy kod',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'Na PC otwórz Ustawienia → 📱 Telefon → 📡 LAN i wpisz tutaj 6-cyfrowy kod',
       '配对码': 'Kod parowania',
       '这台手机的名字（可不填）': 'Nazwa tego telefonu (opcjonalnie)',
       '设备名': 'Nazwa urządzenia',
@@ -733,7 +733,7 @@
       '🎯 目标': '🎯 Cel',
       "房间号": "Pokój",
       "密码": "Hasło",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Nie ma cię w domu? Wpisz pokój i hasło z Ustawienia → 📱 Telefon → ☁️ Przekaźnik na PC",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Nie ma cię w domu? Wpisz pokój i hasło z Ustawienia → 📱 Telefon → 🌐 Przekaźnik na PC",
       "改用跨网 / 局域网": "Przełącz na przekaźnik / LAN",
       "房间号和密码都要填": "Pokój i hasło są wymagane",
       "这个页面缺了 net.js，重开一次": "Na tej stronie brakuje net.js, otwórz ją ponownie",
@@ -755,8 +755,8 @@
     'pt-BR': {
       'SCUM 小地图': 'Mapa do SCUM',
       'SCUM 小地图 · 手机': 'Mapa do SCUM · Celular',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'No PC abra Configurações → 📱 Celular → 📲 Conectar e digite aqui o código de 6 dígitos',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'No PC abra Configurações → 📱 Celular → 📡 LAN e digite aqui o código de 6 dígitos',
       '配对码': 'Código de pareamento',
       '这台手机的名字（可不填）': 'Nome deste celular (opcional)',
       '设备名': 'Nome do aparelho',
@@ -825,7 +825,7 @@
       '🎯 目标': '🎯 Alvo',
       "房间号": "Sala",
       "密码": "Senha",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Fora de casa? Digite a sala e a senha de Configurações → 📱 Celular → ☁️ Retransmissor no PC",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Fora de casa? Digite a sala e a senha de Configurações → 📱 Celular → 🌐 Retransmissor no PC",
       "改用跨网 / 局域网": "Alternar retransmissor / LAN",
       "房间号和密码都要填": "Sala e senha são obrigatórias",
       "这个页面缺了 net.js，重开一次": "Falta o net.js nesta página, abra de novo",
@@ -847,8 +847,8 @@
     'ru': {
       'SCUM 小地图': 'Карта SCUM',
       'SCUM 小地图 · 手机': 'Карта SCUM · Телефон',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'На ПК откройте Настройки → 📱 Телефон → 📲 Подключение и введите здесь 6-значный код',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'На ПК откройте Настройки → 📱 Телефон → 📡 LAN и введите здесь 6-значный код',
       '配对码': 'Код сопряжения',
       '这台手机的名字（可不填）': 'Название этого телефона (необязательно)',
       '设备名': 'Имя устройства',
@@ -917,7 +917,7 @@
       '🎯 目标': '🎯 Цель',
       "房间号": "Комната",
       "密码": "Пароль",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "Не дома? Введите комнату и пароль из Настройки → 📱 Телефон → ☁️ Реле на ПК",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "Не дома? Введите комнату и пароль из Настройки → 📱 Телефон → 🌐 Реле на ПК",
       "改用跨网 / 局域网": "Переключить реле / LAN",
       "房间号和密码都要填": "Нужны и комната, и пароль",
       "这个页面缺了 net.js，重开一次": "На этой странице нет net.js — откройте её заново",
@@ -939,8 +939,8 @@
     'th': {
       'SCUM 小地图': 'แผนที่ SCUM',
       'SCUM 小地图 · 手机': 'แผนที่ SCUM · มือถือ',
-      '在电脑上打开 设置 → 📱 手机 → 📲 连接，把 6 位配对码填在这里':
-        'บน PC เปิด ตั้งค่า → 📱 มือถือ → 📲 เชื่อมต่อ แล้วกรอกรหัส 6 หลักที่นี่',
+      '在电脑上打开 设置 → 📱 手机 → 📡 局域网，把 6 位配对码填在这里':
+        'บน PC เปิด ตั้งค่า → 📱 มือถือ → 📡 LAN แล้วกรอกรหัส 6 หลักที่นี่',
       '配对码': 'รหัสจับคู่',
       '这台手机的名字（可不填）': 'ชื่อมือถือเครื่องนี้ (ไม่บังคับ)',
       '设备名': 'ชื่ออุปกรณ์',
@@ -1009,7 +1009,7 @@
       '🎯 目标': '🎯 เป้าหมาย',
       "房间号": "ห้อง",
       "密码": "รหัสผ่าน",
-      "不在家也能看：填电脑上 设置 → 📱 手机 → ☁️ 跨网中继 里的房间号和密码": "ไม่อยู่บ้านก็ดูได้: กรอกห้องและรหัสผ่านจาก ตั้งค่า → 📱 มือถือ → ☁️ รีเลย์ บนคอมพิวเตอร์",
+      "不在家也能看：填电脑上 设置 → 📱 手机 → 🌐 跨网 里的房间号和密码": "ไม่อยู่บ้านก็ดูได้: กรอกห้องและรหัสผ่านจาก ตั้งค่า → 📱 มือถือ → 🌐 รีเลย์ บนคอมพิวเตอร์",
       "改用跨网 / 局域网": "สลับรีเลย์ / LAN",
       "房间号和密码都要填": "ต้องกรอกทั้งห้องและรหัสผ่าน",
       "这个页面缺了 net.js，重开一次": "หน้านี้ไม่มี net.js เปิดใหม่อีกครั้ง",
