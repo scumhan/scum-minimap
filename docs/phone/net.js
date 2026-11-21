@@ -16,7 +16,7 @@
 (function () {
   'use strict';
 
-  // 第一百二十八批：国际节点在国内移动网络下时通时不通（实测 1 秒通 / 6 秒超时来回跳），
+  // 第一百三十批：国际节点在国内移动网络下时通时不通（实测 1 秒通 / 6 秒超时来回跳），
   // 换成国内节点。两端必须用同一个 broker，否则派生的主题对不上。
   var BROKER = 'wss://broker-cn.emqx.io:8084/mqtt';
   var BROKER_HOST = 'broker-cn.emqx.io';
@@ -230,7 +230,7 @@
         if (t1 <= j + len) {
           var topic = dec.decode(buf.subarray(j + 2, t1));
           if (topic === topicDn) {
-            // 第一百二十九批：这里原来是 b64(...)，等于把 broker 上那串 base64 文本
+            // 第一百三十批：这里原来是 b64(...)，等于把 broker 上那串 base64 文本
             // 又编了一次 base64 —— open() 里 unb64 解出来的还是文本字节，IV/tag 全错位，
             // 解密必然失败、还静默返回 null。表现就是电脑明明回了包，手机永远「没回话」。
             // 电脑端发的是 base64 文本，这里按文本取出来直接交给 open() 才对。
@@ -310,7 +310,7 @@
         });
         connect();
         setTimeout(function () {
-          // 第一百二十八批：十五秒太长，八秒没连上就报，后台继续重试。
+          // 第一百三十批：十五秒太长，八秒没连上就报，后台继续重试。
           // 人盯着「正在连中转」转十五秒，只会以为程序坏了。
           if (st !== 'online') {
             var idx = openWaiters.length;
@@ -320,7 +320,7 @@
         }, 8000);
       });
     }).catch(function (e) {
-      // 第一百二十八批：派生密钥这步以前没有 catch —— 一旦抛异常（老浏览器的
+      // 第一百三十批：派生密钥这步以前没有 catch —— 一旦抛异常（老浏览器的
       // crypto.subtle、隐私模式下的配额限制），Promise 直接悬着，页面永远停在
       // 「正在连中转」。现在失败要立刻说清楚是哪一步。
       st = 'error';
