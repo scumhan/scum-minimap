@@ -16,19 +16,18 @@
     font:15px/1.5 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
   }
   h1{font-size:19px;margin:0 0 6px;font-weight:600}
+  h2{font-size:14px;margin:22px 0 8px;font-weight:600;color:#a9c2d2}
   .sub{margin:0 0 14px;color:var(--dim);font-size:13px}
   .env{
     background:var(--card);border:1px solid var(--line);border-radius:10px;
-    padding:10px 12px;font-size:12px;color:var(--dim);line-height:1.7;word-break:break-all;margin-bottom:14px;
+    padding:10px 12px;font-size:12px;color:var(--dim);line-height:1.7;word-break:break-all;
   }
   .env b{color:var(--txt);font-weight:500}
   .row{
     display:flex;align-items:flex-start;gap:10px;background:var(--card);
-    border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:8px;
+    border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:8px;
   }
-  .row .dot{
-    flex:0 0 10px;width:10px;height:10px;border-radius:50%;margin-top:6px;background:#3b4a55;
-  }
+  .row .dot{flex:0 0 10px;width:10px;height:10px;border-radius:50%;margin-top:6px;background:#3b4a55}
   .row.ok .dot{background:var(--ok);box-shadow:0 0 8px rgba(61,220,132,.6)}
   .row.bad .dot{background:var(--bad)}
   .row.run .dot{background:var(--warn);animation:pulse 1s infinite}
@@ -40,54 +39,71 @@
   .row.ok .rs{color:var(--ok)}
   .row.bad .rs{color:var(--bad)}
   .row.run .rs{color:var(--warn)}
-  .sum{
-    margin:16px 0 12px;padding:12px;border-radius:10px;font-size:14px;line-height:1.6;
-    background:#132029;border:1px solid var(--line);
-  }
+  .sum{margin:14px 0 12px;padding:12px;border-radius:10px;font-size:14px;line-height:1.6;background:#132029;border:1px solid var(--line)}
   .sum.ok{border-color:rgba(61,220,132,.5)}
   .sum.bad{border-color:rgba(255,107,107,.5)}
   .sum b{color:#fff}
-  .btns{display:flex;gap:10px}
+  .field{display:flex;gap:8px;margin-bottom:8px}
+  .field input{
+    flex:1;min-width:0;padding:11px 12px;border-radius:10px;border:1px solid var(--line);
+    background:#101a21;color:var(--txt);font-size:14px;font-family:inherit;
+  }
+  .btns{display:flex;gap:10px;margin-top:12px}
   button{
     flex:1;padding:12px;border-radius:10px;border:1px solid var(--line);
     background:#1d2b34;color:var(--txt);font-size:14px;font-family:inherit;
   }
   button:active{background:#24343f}
-  .foot{margin-top:16px;font-size:11px;color:#5d7280;line-height:1.6}
+  button:disabled{opacity:.5}
+  .foot{margin-top:18px;font-size:11px;color:#5d7280;line-height:1.6}
 </style>
 </head>
 <body>
 <h1>中转连通性诊断</h1>
-<p class="sub">全部自动测，不用点。绿色 = 这条通道在你的网络下能连上。</p>
+<p class="sub">三部分：端点能不能连、加密能不能算、整条链路能不能走通。绿色才算正常。</p>
 
 <div class="env" id="env">读取环境信息…</div>
-<div id="list"></div>
-<div class="sum" id="sum">正在测…</div>
+
+<h2>一、端点（能不能连上 broker）</h2>
+<div id="eps"></div>
+
+<h2>二、加密（浏览器能不能算出密钥）</h2>
+<div id="cryptoBox"></div>
+
+<h2>三、整条链路（用页面真实代码跑一遍）</h2>
+<div class="field">
+  <input id="nroom" placeholder="房间号" autocapitalize="characters" spellcheck="false">
+</div>
+<div class="field">
+  <input id="npass" placeholder="密码" spellcheck="false">
+</div>
 <div class="btns">
-  <button id="again" type="button">重测一遍</button>
+  <button id="runLink" type="button">开始测链路</button>
   <button id="copy" type="button">复制结果</button>
 </div>
+<div id="link"></div>
+
 <div class="foot">
-  说明：握手失败的耗时很短（几百毫秒）通常是「端口被拒/被拦」；一直卡到 6 秒超时通常是「包被丢」。
-  不管哪种，都说明这条通道在你这网络下用不了。
+  说明：握手失败的耗时很短（几百毫秒）通常是「端口被拒/被拦」；卡到 6 秒超时是「包被丢」。
+  加密那一栏如果 PBKDF2 失败或耗时超过 5 秒，就是页面卡在「正在连中转」的原因。
 </div>
 
+<script src="net.js?v=124"></script>
 <script>
 (function () {
   'use strict';
 
-  // 电脑端和手机端现在用的就是这个。测不通就是它。
   var EPS = [
     { n: 'EMQX 国际 · 8084', u: 'wss://broker.emqx.io:8084/mqtt', cur: true },
     { n: 'EMQX 国内节点 · 8084', u: 'wss://broker-cn.emqx.io:8084/mqtt' },
     { n: 'HiveMQ 公共 · 8884', u: 'wss://broker.hivemq.com:8884/mqtt' },
-    { n: 'Mosquitto 测试 · 8081', u: 'wss://test.mosquitto.org:8081/mqtt' },
-    { n: 'Eclipse 公共 · 443', u: 'wss://mqtt.eclipseprojects.io:443/mqtt' }
+    { n: 'Mosquitto 测试 · 8081', u: 'wss://test.mosquitto.org:8081/mqtt' }
   ];
 
   var $ = function (id) { return document.getElementById(id); };
-  var rows = {};
-  var results = {};
+  var out = [];
+
+  function line(s) { out.push(s); }
 
   function paintEnv() {
     var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
@@ -96,35 +112,33 @@
       (c.downlink ? ' · 下行约 ' + c.downlink + 'Mbps' : '') +
       (c.rtt ? ' · RTT ' + c.rtt + 'ms' : ''));
     bits.push('省流量模式：<b>' + (c.saveData ? '开' : '关') + '</b>');
-    bits.push('页面：' + location.host + location.pathname);
+    bits.push('安全上下文：<b>' + (window.isSecureContext ? '是' : '否') + '</b> · crypto.subtle：<b>' +
+      (window.crypto && window.crypto.subtle ? '有' : '没有') + '</b>');
     bits.push('UA：' + navigator.userAgent);
     $('env').innerHTML = bits.join('<br>');
+    line('网络：' + (c.effectiveType || '未知') + ' / 省流量：' + (c.saveData ? '开' : '关'));
+    line('isSecureContext=' + window.isSecureContext + ' crypto.subtle=' + !!(window.crypto && window.crypto.subtle));
   }
 
-  function addRow(e) {
-    var d = document.createElement('div');
-    d.className = 'row run';
+  function row(host, title, url, state, text) {
+    var d = document.getElementById(host + '|' + title);
+    if (!d) {
+      d = document.createElement('div');
+      d.id = host + '|' + title;
+      $(host).appendChild(d);
+    }
+    d.className = 'row ' + state;
     d.innerHTML = '<span class="dot"></span><div class="body">' +
-      '<div class="nm">' + e.n + (e.cur ? '（现在用的）' : '') + '</div>' +
-      '<div class="u">' + e.u + '</div>' +
-      '<div class="rs">测试中…</div></div>';
-    $('list').appendChild(d);
-    rows[e.u] = d;
+      '<div class="nm">' + title + '</div>' +
+      (url ? '<div class="u">' + url + '</div>' : '') +
+      '<div class="rs">' + text + '</div></div>';
+    return d;
   }
 
-  function setRow(u, ok, ms, why) {
-    var d = rows[u];
-    if (!d) return;
-    d.className = 'row ' + (ok ? 'ok' : 'bad');
-    d.querySelector('.rs').textContent = ok
-      ? '✅ 能连上 · ' + Math.round(ms) + 'ms'
-      : '❌ ' + why + ' · ' + Math.round(ms) + 'ms';
-  }
-
+  /* ---------- 一、端点 ---------- */
   function testWs(u) {
     return new Promise(function (res) {
-      var t0 = performance.now(), done = false;
-      var w = null;
+      var t0 = performance.now(), done = false, w = null;
       function fin(ok, why) {
         if (done) return;
         done = true;
@@ -132,67 +146,158 @@
         try { if (w) { w.onopen = w.onerror = w.onclose = null; w.close(); } } catch (e) {}
         res({ ok: ok, ms: performance.now() - t0, why: why || '' });
       }
-      var tm = setTimeout(function () { fin(false, '超时（6 秒没握上手，包被丢了）'); }, 6000);
-      try {
-        w = new WebSocket(u, 'mqtt');
-      } catch (e) {
-        return fin(false, '浏览器拒绝建连');
-      }
+      var tm = setTimeout(function () { fin(false, '超时（6 秒没握上手）'); }, 6000);
+      try { w = new WebSocket(u, 'mqtt'); } catch (e) { return fin(false, '浏览器拒绝建连'); }
       w.onopen = function () { fin(true, ''); };
-      w.onerror = function () { fin(false, '握手失败（端口被拒或被拦）'); };
+      w.onerror = function () { fin(false, '握手失败'); };
       w.onclose = function () { fin(false, '连接被关闭'); };
     });
   }
 
-  function run() {
-    $('list').innerHTML = '';
-    rows = {};
-    results = {};
-    $('sum').className = 'sum';
-    $('sum').textContent = '正在测…';
-    paintEnv();
-
-    // 基线：443 能不能通。这一条挂了说明整台手机都上不了网，后面的结果没意义
-    EPS.forEach(addRow);
-
-    var left = EPS.length;
-    var greens = [];
-
+  function runEps() {
+    $('eps').innerHTML = '';
     EPS.forEach(function (e) {
+      row('eps', e.n, e.u, 'run', '测试中…');
       testWs(e.u).then(function (r) {
-        results[e.u] = r;
-        setRow(e.u, r.ok, r.ms, r.why);
-        if (r.ok) greens.push(e);
-        if (--left === 0) finish(greens);
+        row('eps', e.n, e.u, r.ok ? 'ok' : 'bad',
+          r.ok ? '✅ 能连上 · ' + Math.round(r.ms) + 'ms' : '❌ ' + r.why + ' · ' + Math.round(r.ms) + 'ms');
+        line((r.ok ? '✅ ' : '❌ ') + e.n + ' ' + Math.round(r.ms) + 'ms ' + (r.why || ''));
       });
     });
   }
 
-  function finish(greens) {
-    var s = $('sum');
-    if (greens.length) {
-      s.className = 'sum ok';
-      s.innerHTML = '能用的通道：<br><b>' + greens.map(function (g) {
-        return g.n + ' → ' + Math.round(results[g.u].ms) + 'ms';
-      }).join('<br>') + '</b><br><br>把这一屏截图发给电脑那边就行。';
-    } else {
-      s.className = 'sum bad';
-      s.innerHTML = '五个端点一个都没连上。<br>' +
-        '<b>说明这个网络对非标准端口做了限制（或把 broker 域名污染了）。</b><br>' +
-        '这种情况下只能走 443 端口的反代，没有别的办法。';
-    }
+  /* ---------- 二、加密 ---------- */
+  var enc = new TextEncoder();
+
+  function t(label, fn) {
+    row('cryptoBox', label, '', 'run', '测试中…');
+    var t0 = performance.now();
+    return Promise.resolve().then(fn).then(function (extra) {
+      var ms = performance.now() - t0;
+      row('cryptoBox', label, '', 'ok', '✅ ' + Math.round(ms) + 'ms' + (extra ? ' · ' + extra : ''));
+      line('✅ ' + label + ' ' + Math.round(ms) + 'ms ' + (extra || ''));
+      return { ok: true, ms: ms };
+    }).catch(function (e) {
+      var ms = performance.now() - t0;
+      var msg = (e && (e.name + ': ' + e.message)) || String(e);
+      row('cryptoBox', label, '', 'bad', '❌ ' + Math.round(ms) + 'ms · ' + msg);
+      line('❌ ' + label + ' ' + Math.round(ms) + 'ms ' + msg);
+      return { ok: false, ms: ms, err: msg };
+    });
   }
 
-  $('again').onclick = run;
+  function runCrypto() {
+    $('cryptoBox').innerHTML = '';
+    var S = window.crypto && window.crypto.subtle;
+
+    t('getRandomValues', function () {
+      var b = new Uint8Array(16);
+      window.crypto.getRandomValues(b);
+      return 'ok';
+    }).then(function () {
+      return t('PBKDF2 20 万轮（派生密钥）', function () {
+        return S.importKey('raw', enc.encode('probe-room\u0000probe-pass'), 'PBKDF2', false, ['deriveBits'])
+          .then(function (k) {
+            return S.deriveBits({ name: 'PBKDF2', salt: enc.encode('scum-minimap-v2-salt'), iterations: 200000, hash: 'SHA-256' }, k, 256);
+          })
+          .then(function (bits) { return '得到 ' + new Uint8Array(bits).length + ' 字节'; });
+      });
+    }).then(function () {
+      return t('HMAC-SHA256（算主题）', function () {
+        return S.importKey('raw', new Uint8Array(32), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign'])
+          .then(function (hk) { return S.sign('HMAC', hk, enc.encode('scum-minimap-phone-v1')); })
+          .then(function (sig) { return new Uint8Array(sig).length + ' 字节签名'; });
+      });
+    }).then(function () {
+      return t('AES-256-GCM 加解密', function () {
+        return S.importKey('raw', new Uint8Array(32), { name: 'AES-GCM' }, false, ['encrypt', 'decrypt'])
+          .then(function (k) {
+            var iv = new Uint8Array(12);
+            window.crypto.getRandomValues(iv);
+            return S.encrypt({ name: 'AES-GCM', iv: iv, tagLength: 128 }, k, enc.encode('{"t":"smm4"}'))
+              .then(function (buf) { return S.decrypt({ name: 'AES-GCM', iv: iv, tagLength: 128 }, k, buf); })
+              .then(function (pt) { return new TextDecoder().decode(pt); });
+          });
+      });
+    }).then(function () {
+      line('');
+    });
+  }
+
+  /* ---------- 三、整条链路 ---------- */
+  function runLink() {
+    var room = ($('nroom').value || '').trim();
+    var pass = ($('npass').value || '').trim();
+    $('link').innerHTML = '';
+    if (!room || !pass) {
+      row('link', '参数', '', 'bad', '房间号和密码都要填');
+      return;
+    }
+    if (!window.PN) {
+      row('link', 'net.js', '', 'bad', 'net.js 没加载上，刷新一次');
+      return;
+    }
+
+    var dev = '';
+    try { dev = localStorage.getItem('smm_phone_dev') || ''; } catch (e) {}
+    var t0 = performance.now();
+    row('link', '1. 连 broker + 派生密钥', '', 'run', '进行中…');
+
+    var timer = setTimeout(function () {
+      row('link', '1. 连 broker + 派生密钥', '', 'bad',
+        '❌ ' + Math.round(performance.now() - t0) + 'ms · 20 秒还没返回（卡在这里就是它）');
+      line('❌ 链路 init 20 秒无返回');
+    }, 20000);
+
+    window.PN.init({ room: room, pass: pass, devId: dev }).then(function (x) {
+      clearTimeout(timer);
+      var ms = Math.round(performance.now() - t0);
+      if (!x.ok) {
+        row('link', '1. 连 broker + 派生密钥', '', 'bad', '❌ ' + ms + 'ms · ' + (x.err || x.st || '未知'));
+        line('❌ 链路 init ' + ms + 'ms ' + (x.err || x.st || ''));
+        return;
+      }
+      row('link', '1. 连 broker + 派生密钥', '', 'ok', '✅ ' + ms + 'ms · ' + x.st);
+      line('✅ 链路 init ' + ms + 'ms');
+      try { localStorage.setItem('smm_phone_dev', window.PN.devId()); } catch (e) {}
+
+      var t1 = performance.now();
+      row('link', '2. 给电脑发 ping', '', 'run', '进行中…');
+      return window.PN.req('/api/ping', null).then(function (j) {
+        var ms2 = Math.round(performance.now() - t1);
+        if (j && j.ok) {
+          row('link', '2. 给电脑发 ping', '', 'ok', '✅ ' + ms2 + 'ms · 电脑版本 ' + (j.ver || '?'));
+          line('✅ 链路 ping ' + ms2 + 'ms ver=' + (j.ver || '?'));
+          row('link', '结论', '', 'ok', '整条链路通。页面卡住不是网络问题，是前端某处没接上。');
+        } else {
+          row('link', '2. 给电脑发 ping', '', 'bad', '❌ ' + ms2 + 'ms · ' + ((j && j.why) || '无回包'));
+          line('❌ 链路 ping ' + ms2 + 'ms ' + ((j && j.why) || ''));
+        }
+      });
+    }).catch(function (e) {
+      clearTimeout(timer);
+      var msg = (e && (e.name + ': ' + e.message)) || String(e);
+      row('link', '1. 连 broker + 派生密钥', '', 'bad',
+        '❌ ' + Math.round(performance.now() - t0) + 'ms · 抛异常 ' + msg);
+      line('❌ 链路 init 抛异常 ' + msg);
+    });
+  }
+
+  /* ---------- 启动 ---------- */
+  paintEnv();
+  runEps();
+  runCrypto();
+
+  try {
+    var rr = JSON.parse(localStorage.getItem('smm_phone_relay') || 'null');
+    if (rr && rr.room) $('nroom').value = rr.room;
+    if (rr && rr.pass) $('npass').value = rr.pass;
+  } catch (e) {}
+
+  $('runLink').onclick = runLink;
 
   $('copy').onclick = function () {
-    var c = navigator.connection || {};
-    var lines = ['SCUM 小地图 · 中转诊断', '网络：' + (c.effectiveType || '未知') + ' / 省流量：' + (c.saveData ? '开' : '关'), 'UA：' + navigator.userAgent, ''];
-    EPS.forEach(function (e) {
-      var r = results[e.u];
-      lines.push((r ? (r.ok ? '✅ ' : '❌ ') : '… ') + e.n + ' ' + e.u + (r ? '  ' + Math.round(r.ms) + 'ms ' + (r.why || '') : ''));
-    });
-    var txt = lines.join('\n');
+    var txt = ['SCUM 小地图 · 中转诊断', navigator.userAgent, ''].concat(out).join('\n');
     var done = function () { $('copy').textContent = '已复制'; setTimeout(function () { $('copy').textContent = '复制结果'; }, 1500); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(txt).then(done, function () { alert(txt); });
@@ -200,8 +305,6 @@
       alert(txt);
     }
   };
-
-  run();
 })();
 </script>
 </body>
