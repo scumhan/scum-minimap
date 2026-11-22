@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://scumhan.github.io/scum-minimap/">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.4.7","fileSize":"118MB","inLanguage":"zh-CN","datePublished":"2026-11-22","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.5.0","fileSize":"119MB","inLanguage":"zh-CN","datePublished":"2026-11-22","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -645,7 +645,7 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 <span data-ver>v1.4.7</span></button>
+    <button class="mini" id="dlTop" type="button">下载 <span data-ver>v1.5.0</span></button>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="tnav" aria-label="打开页面目录">目录</button>
   </div>
 </div>
@@ -653,7 +653,7 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <a class="badge" href="#changelog" title="看这一版改了什么"><i></i> <span data-ver>v1.4.7</span> <s>·</s> <span data-date>2026-11-22</span> <s>·</s> 已上线 <em class="badge-more">改了什么 →</em></a>
+      <a class="badge" href="#changelog" title="看这一版改了什么"><i></i> <span data-ver>v1.5.0</span> <s>·</s> <span data-date>2026-11-22</span> <s>·</s> 已上线 <em class="badge-more">改了什么 →</em></a>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -663,7 +663,7 @@
         <span>不读内存</span><span>不注入游戏</span><span>不改游戏文件</span><span>不上传存档</span>
       </p>
       <div class="cta">
-        <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v1.4.7</span> · <span data-size>118 MB</span> · Win10/11</span></span></button>
+        <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v1.5.0</span> · <span data-size>119 MB</span> · Win10/11</span></span></button>
         <button class="btn btn-ghost" id="dlMirror" type="button"><span>🚀 国内加速下载<span class="btn-sub">备用线路 · 同一个包</span></span></button>
       </div>
       <p class="site-url">本站地址 <code>scumhan.github.io/scum-minimap</code> · 收藏这一页，更新都在这</p>
@@ -856,7 +856,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2><span data-ver>v1.4.7</span> 全部功能</h2>
+      <h2><span data-ver>v1.5.0</span> 全部功能</h2>
       <p class="sec-sub">六大类、三十个设置分页、九十三张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1290,14 +1290,62 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.4.7</span>，一共一百四十七批，一批不少。点标题展开，看每一批改了什么。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.5.0</span>，一共一百五十批，一批不少。点标题展开，看每一批改了什么。</p>
     </div>
 
     <div class="rv">
             <details class="cl-item now" open>
               <summary>
-                <span class="clv">v1.4.7</span>
+                <span class="clv">v1.5.0</span>
                 <span class="clnew">最新</span>
+                <span class="clt">不动就不画</span>
+                <span class="cld">2026-11-22</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>🧊 完全静止时一帧都不画</b>　以前 rAF 渲染循环只要起来就停不下：坐标每 1.2 秒推一条强制重绘、跟随模式每帧都在画，动画一关 CPU 还在 60fps 空转。现在没有动画需求、位置也收敛时就把循环彻底挂起，等有事件（坐标、滚动、交互）再叫醒。静止时的 CPU 直接从 60fps 干到 0。</li>
+                  <li><b>🐢 跟随滚动降到 20fps</b>　跟随模式下按 50ms 节拍重绘（约 20fps），追踪呼吸环按 48ms，肉眼几乎无差，CPU 少烧一大截；真有逐帧动画（聚焦闪烁、队友标记、波动环）才回 60fps 全速。</li>
+                  <li><b>🔋 恢复可见无条件重启渲染</b>　不再卡在隐藏期间的循环空档，切回来看一眼就是最新的图。</li>
+                  <li><b>🔢 版本号按批次走</b>　第 150 批 = v1.5.0，669 项单测全过。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.4.9</span>
+                <span class="clt">路线贴着公路走</span>
+                <span class="cld">2026-11-22</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.5.0 一起发出去，没有单独的安装包，装 1.5.0 或更新的版本就都有了。</li>
+                  <li><b>🛣 路线精度翻四倍</b>　路网从 1024 提到 4096，一格从 15 米细到 3.7 米。以前 A* 眼里的路是一条三十米宽的模糊带，底图上两三个像素宽的白线被摊成一片；现在就是那条线本身，该在哪拐就在哪拐。</li>
+                  <li><b>🧭 分层寻路</b>　四千的网格一次性铺开要四百兆内存，改成分两层走：先用五一二的粗网找一条走廊，再在走廊里用细网走。中位一百三十毫秒、最坏零点七秒，内存十几兆。长线走不通或超时，自动退回粗层路径。</li>
+                  <li><b>🚶 起点自动吸到最近的路</b>　站在路边草里点导航，以前会先往旁边野地窜一段才上路。现在起点先吸到九十二米内最近的主路或支路；中间隔着河就不吸。</li>
+                  <li><b>🛤 主路支路分开算</b>　以前路只有一档成本，主路和白色小径一样值钱。现在主路 1、支路 3，同样的距离更愿意走主路。</li>
+                  <li><b>🔢 版本号按批次走</b>　第 149 批 = v1.4.9，669 项单测全过。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.4.8</span>
+                <span class="clt">下载进度条各归各位</span>
+                <span class="cld">2026-11-22</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.5.0 一起发出去，没有单独的安装包，装 1.5.0 或更新的版本就都有了。</li>
+                  <li><b>⬇ 音色包下载看得见进度了</b>　以前点「下载音色包」，音色卡里一点动静都没有：进度全画在更新页那根条上，人待在音色卡里根本看不见。现在音色卡自己有一条，显示「12.3 / 20.5 MB（60%）」，下完转「正在解包」，装好留六秒再收起来；没装成也直接写在条下面。</li>
+                  <li><b>🗺️ 高清底图同样补上</b>　同一个下载器、同一个毛病，底图卡里也加了一条自己的进度。</li>
+                  <li><b>更新页不再串台</b>　音色包和底图下载时，更新页原本会亮起「安装完成，重启后生效」，其实程序根本没更新。现在这两类进度只画到各自的卡里。</li>
+                  <li><b>🔢 版本号按批次走</b>　第 148 批 = v1.4.8，664 项单测全过。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.4.7</span>
                 <span class="clt">十二种语言全部补齐</span>
                 <span class="cld">2026-11-22</span>
         </summary>
@@ -3893,7 +3941,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b data-ver>v1.4.7</b> · <span data-date>2026-11-22</span></p>
+      <p>当前版本 <b data-ver>v1.5.0</b> · <span data-date>2026-11-22</span></p>
     </div>
     <p class="fine">
       完全免费、无内购、无弹窗骚扰，作者无偿分享给 SCUM 玩家。不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -3910,11 +3958,11 @@
      发版只改这一段（或跑 scripts/bump_download.js 自动改）
      ══════════════════════════════════════════════════════════ */
   var CFG = {
-    ver:    '1.4.7',
+    ver:    '1.5.0',
     date:   '2026-11-22',
-    size:   123881165,
-    count:  1337,
-    sha256: '871d9f5bb1d721f2f3195b01c7e9c7e6b4e016e0b1109682dabf03e728b54546'
+    size:   124370341,
+    count:  1529,
+    sha256: '72b9c08f4e4b58cb77f243adef0159a6175b510e6b634d54824cc0658ea3d173'
   };
 
   /* 域名与文件名不写明文 */
