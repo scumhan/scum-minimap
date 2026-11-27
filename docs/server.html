@@ -1,68 +1,193 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>5789 SCUM 服务器社区 · 韩老魔</title>
-  <meta name="description" content="5789 SCUM 服务器社区信息。包含五个分区的游戏模式、连接地址及社区入口。">
-  <meta name="robots" content="index,follow">
-  <link rel="canonical" href="https://scumhan.github.io/scum-minimap/server.html">
-  <meta name="theme-color" content="#10151d">
-  <style>
-    :root{color-scheme:dark;--bg:#10151d;--panel:#19212c;--line:#2b394a;--text:#edf2f7;--muted:#aab6c5;--accent:#e5a13a}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202d3c 0,var(--bg) 55%);color:var(--text);font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif}
-    main{max-width:980px;margin:auto;padding:44px 22px 70px}.top{display:flex;justify-content:space-between;gap:16px;align-items:center}
-    a{color:#f2b85f;text-decoration:none}a:hover{text-decoration:underline}.eyebrow{color:var(--accent);font-size:13px;letter-spacing:.14em;text-transform:uppercase}
-    h1{font-size:clamp(34px,6vw,56px);line-height:1.12;margin:12px 0}h2{font-size:23px;margin:0 0 12px}
-    .lead{font-size:18px;color:var(--muted);max-width:720px}.panel{background:linear-gradient(145deg,#1c2734,#151d27);border:1px solid var(--line);border-radius:18px;padding:24px;margin:22px 0}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.server{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
-    .server h3{margin:0 0 8px}.meta{color:var(--muted);font-size:14px}.ip{font:600 15px ui-monospace,monospace;background:#0d131a;padding:7px 10px;border-radius:8px;display:inline-block;margin:8px 0}
-    .pill{display:inline-block;border:1px solid #5b4930;color:#f4c77d;background:#302719;padding:3px 9px;border-radius:99px;font-size:12px}
-    ul{padding-left:22px;color:var(--muted)}.footer{border-top:1px solid var(--line);margin-top:34px;padding-top:20px;color:var(--muted);font-size:13px}
-    .button{display:inline-block;background:var(--accent);color:#171717;font-weight:700;padding:11px 17px;border-radius:10px;margin:8px 8px 0 0}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>5789 SCUM 服务器社区 · 韩老魔</title>
+<meta name="description" content="5789 SCUM 服务器社区：五个分区的游戏模式、物资倍率、直连地址、商城与服规，以及开服搭建服务。">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://scumhan.github.io/scum-minimap/server.html">
+<meta name="theme-color" content="#0a0d0a">
+<style>
+  :root{
+    color-scheme:dark;
+    --bg:#0a0d0a; --bg2:#0f1310; --panel:#141a13; --panel2:#1a2218;
+    --line:rgba(143,191,74,.15); --line2:rgba(255,255,255,.07);
+    --fg:#eaece4; --fg2:#a5b09c; --fg3:#7d8879;
+    --ac:#8fbf4a; --ac-l:#a8d662; --ac-d:#6d9438; --ac2:#ff8a3d;
+    --r:14px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.72 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(900px 420px at 50% -160px,rgba(143,191,74,.10),transparent 70%);
+  }
+  a{color:var(--ac-l);text-decoration:none}
+  a:hover{text-decoration:underline}
+  main{max-width:1000px;margin:0 auto;padding:34px 20px 72px}
+
+  .top{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+       padding-bottom:18px;border-bottom:1px solid var(--line2);font-size:14px}
+  .top a{color:var(--fg2)}
+  .pill{display:inline-block;padding:4px 11px;border-radius:99px;font-size:12px;letter-spacing:.04em;
+        color:var(--ac-l);background:rgba(143,191,74,.10);border:1px solid var(--line)}
+
+  .hero{padding:44px 0 8px}
+  .eyebrow{font:600 12px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ac)}
+  h1{font-size:clamp(32px,5.6vw,52px);line-height:1.1;margin:14px 0 10px;letter-spacing:-.01em}
+  h1 span{color:var(--ac2)}
+  .lead{max-width:700px;color:var(--fg2);font-size:17px;margin:0}
+
+  section{margin-top:34px}
+  h2{font-size:19px;margin:0 0 14px;display:flex;align-items:center;gap:9px}
+  h2::before{content:"";width:4px;height:17px;border-radius:2px;background:var(--ac);display:inline-block}
+  .note{color:var(--fg3);font-size:13px;margin:10px 0 0}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:12px}
+  .card{background:linear-gradient(160deg,var(--panel2),var(--panel));border:1px solid var(--line2);
+        border-radius:var(--r);padding:18px 18px 16px;transition:border-color .15s ease,transform .15s ease}
+  .card:hover{border-color:var(--line);transform:translateY(-2px)}
+  .card h3{margin:0 0 6px;font-size:17px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .tag{font-size:11px;padding:2px 9px;border-radius:99px;font-weight:500;white-space:nowrap}
+  .t-green{color:#c6e89a;background:rgba(143,191,74,.14);border:1px solid rgba(143,191,74,.32)}
+  .t-red{color:#ffb4a2;background:rgba(255,138,61,.13);border:1px solid rgba(255,138,61,.30)}
+  .t-purple{color:#d8c2ff;background:rgba(185,140,240,.13);border:1px solid rgba(185,140,240,.30)}
+  .meta{color:var(--fg2);font-size:13.5px;margin:2px 0}
+  .ip{display:block;font:600 14px/1.4 var(--mono);color:var(--fg);background:#070a07;
+      border:1px solid var(--line2);border-radius:9px;padding:8px 10px;margin:11px 0 9px;
+      user-select:all;-webkit-user-select:all}
+
+  .rows{background:var(--panel);border:1px solid var(--line2);border-radius:var(--r);overflow:hidden}
+  .row{display:flex;gap:14px;padding:13px 16px;border-top:1px solid var(--line2);font-size:14.5px}
+  .row:first-child{border-top:0}
+  .row b{flex:0 0 96px;color:var(--fg);font-weight:600}
+  .row span{color:var(--fg2)}
+  .row span a{color:var(--ac-l)}
+
+  ul.rules{margin:0;padding-left:20px;color:var(--fg2);font-size:14.5px}
+  ul.rules li{margin:7px 0}
+  ul.rules b{color:var(--fg)}
+
+  .contact{background:linear-gradient(160deg,rgba(255,138,61,.07),var(--panel));
+           border:1px solid rgba(255,138,61,.22);border-radius:var(--r);padding:22px}
+  .contact h2::before{background:var(--ac2)}
+  .contact .lead{color:var(--fg2)}
+  .cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-top:16px}
+  .cbox{background:#0b0f0b;border:1px solid var(--line2);border-radius:10px;padding:11px 13px}
+  .cbox i{display:block;font-style:normal;font-size:12px;color:var(--fg3);letter-spacing:.06em}
+  .cbox b{font:600 15px var(--mono);color:var(--fg);user-select:all}
+
+  .foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line2);color:var(--fg3);font-size:13px}
+  .btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .btn{display:inline-block;padding:10px 18px;border-radius:10px;font-size:14px;font-weight:600;
+       background:var(--ac);color:#0a0d0a;border:1px solid var(--ac)}
+  .btn:hover{background:var(--ac-l);text-decoration:none}
+  .btn.ghost{background:transparent;color:var(--ac-l);border-color:var(--line)}
+  .btn.ghost:hover{background:rgba(143,191,74,.08)}
+</style>
 </head>
 <body>
 <main>
-  <div class="top"><a href="./">← SCUM MiniMap 官方主页</a><span class="pill">独立社区页面</span></div>
-  <p class="eyebrow">SCUM COMMUNITY · 5789</p>
-  <h1>5789 SCUM 服务器社区</h1>
-  <p class="lead">由韩老魔运营的 SCUM 游戏服务器社区。这里集中展示各分区模式与连接信息，和 SCUM 小地图软件相互独立。</p>
-  <section class="panel">
-    <h2>选择适合你的分区</h2>
-    <p class="meta">以下信息由服务器运营方提供。倍率、服务器状态及规则可能调整，请以游戏内实际显示和社区最新公告为准。</p>
+
+  <div class="top">
+    <a href="./">← 返回 SCUM 小地图官网</a>
+    <span class="pill">独立社区 · 与软件无关</span>
+  </div>
+
+  <header class="hero">
+    <p class="eyebrow">5789 SCUM COMMUNITY</p>
+    <h1>5789 <span>服务器社区</span></h1>
+    <p class="lead">五个分区，从新手到硬核都有。抄家要挑战、炸家有保护、查挂从严。进服报 ID，直接连 IP 就行。</p>
+  </header>
+
+  <section>
+    <h2>选择你的分区</h2>
     <div class="grid">
-      <article class="server"><h3>5789 · 1服</h3><span class="pill">新手推荐</span><p class="meta">PVP + PVE · 基础物资 1×</p><div class="ip">202.189.7.151:6002</div><p class="meta">QQ群：808140002</p></article>
-      <article class="server"><h3>5789 · 2服</h3><span class="pill">打架抄家</span><p class="meta">纯 PVP · 基础物资 1× / 机场 10×</p><div class="ip">202.189.7.151:6202</div><p class="meta">QQ群：135578918</p></article>
-      <article class="server"><h3>5789 · 3服</h3><span class="pill">新手推荐</span><p class="meta">纯 PVE · 基础物资 1×</p><div class="ip">202.189.7.151:6402</div><p class="meta">QQ群：1028892300</p></article>
-      <article class="server"><h3>5789 · 4服</h3><span class="pill">硬核高难</span><p class="meta">纯 PVP 仿官 · 基础物资 0.2×</p><div class="ip">202.189.7.151:6602</div><p class="meta">QQ群：2169045995</p></article>
-      <article class="server"><h3>5789 · 5服</h3><span class="pill">硬核高难</span><p class="meta">纯 PVE · 基础物资 0.1×</p><div class="ip">202.189.7.151:8002</div><p class="meta">QQ群：1092608008</p></article>
+      <article class="card">
+        <h3>5789 · 1服 <span class="tag t-green">新手推荐</span></h3>
+        <p class="meta">PVP + PVE · 基础物资 1×</p>
+        <code class="ip">202.189.7.151:6002</code>
+        <p class="meta">QQ 群 808140002</p>
+      </article>
+      <article class="card">
+        <h3>5789 · 2服 <span class="tag t-red">打架抄家</span></h3>
+        <p class="meta">纯 PVP · 基础 1× / 机场 10×</p>
+        <code class="ip">202.189.7.151:6202</code>
+        <p class="meta">QQ 群 135578918</p>
+      </article>
+      <article class="card">
+        <h3>5789 · 3服 <span class="tag t-green">新手推荐</span></h3>
+        <p class="meta">纯 PVE · 基础物资 1×</p>
+        <code class="ip">202.189.7.151:6402</code>
+        <p class="meta">QQ 群 1028892300</p>
+      </article>
+      <article class="card">
+        <h3>5789 · 4服 <span class="tag t-purple">硬核高难</span></h3>
+        <p class="meta">纯 PVP 仿官 · 基础物资 0.2×</p>
+        <code class="ip">202.189.7.151:6602</code>
+        <p class="meta">QQ 群 2169045995</p>
+      </article>
+      <article class="card">
+        <h3>5789 · 5服 <span class="tag t-purple">硬核高难</span></h3>
+        <p class="meta">纯 PVE · 基础物资 0.1×</p>
+        <code class="ip">202.189.7.151:8002</code>
+        <p class="meta">QQ 群 1092608008</p>
+      </article>
     </div>
-    <p class="meta">进入方式：在 SCUM 主菜单选择 Direct Connect / 直连，输入对应 IP 和端口。</p>
+    <p class="note">人数、倍率、开服状态以游戏内实际显示为准。</p>
   </section>
-  <section class="panel">
-    <h2>商城入口</h2>
-    <p><strong>1服：</strong><a href="https://57891.scum8.com">scum8 商城</a> · <a href="https://57891.scum.plus">scum.plus 商城</a></p>
-    <p><strong>2服：</strong><a href="https://57892.scum8.com">scum8 商城</a> · <a href="https://57892.scum.plus">scum.plus 商城</a></p>
-    <p><strong>3服：</strong><a href="https://57893.scum8.com">scum8 商城</a> · <a href="https://57893.scum.plus">scum.plus 商城</a></p>
-    <p><strong>语音社区：</strong><a href="https://kook.vip/Lp1scY">加入 KOOK 频道</a></p>
+
+  <section>
+    <h2>怎么进服 · 商城 · 语音</h2>
+    <div class="rows">
+      <div class="row"><b>进服方式</b><span>游戏主菜单 →「直连 / Direct Connect」→ 粘贴上方 IP 和端口 → 进服后报自己的 ID</span></div>
+      <div class="row"><b>1服商城</b><span><a href="https://57891.scum8.com">57891.scum8.com</a> ｜ <a href="https://57891.scum.plus">57891.scum.plus</a></span></div>
+      <div class="row"><b>2服商城</b><span><a href="https://57892.scum8.com">57892.scum8.com</a> ｜ <a href="https://57892.scum.plus">57892.scum.plus</a></span></div>
+      <div class="row"><b>3服商城</b><span><a href="https://57893.scum8.com">57893.scum8.com</a> ｜ <a href="https://57893.scum.plus">57893.scum.plus</a></span></div>
+      <div class="row"><b>语音频道</b><span><a href="https://kook.vip/Lp1scY">KOOK 频道</a>（kook.vip/Lp1scY）</span></div>
+    </div>
   </section>
-  <section class="panel">
-    <h2>规则提示</h2>
-    <ul>
-      <li>1服抄家需发起挑战并按服务器要求报备。</li>
-      <li>2服、4服有指定时段的基地保护规则；3服为纯 PVE 分区。</li>
-      <li>不同分区的区域规则、抄家条件和保护时段可能不同，进服前请阅读社区公告。</li>
-      <li>撬锁录像、举报与反作弊等要求以服务器现行规则为准。</li>
+
+  <section>
+    <h2>服规要点</h2>
+    <ul class="rules">
+      <li><b>抄家要挑战</b>：1 服抄家必须向对方发起挑战并报备服主，双方画 24 小时红圈，第三方不得进圈干扰；2 服要求抄家方有 ≥1000 元素领地、小队资产占比 ≥50%。</li>
+      <li><b>炸家保护</b>：2 服凌晨 2 点–上午 10 点、4 服凌晨 2 点–中午 12 点基地不可被炸毁；3 服（纯 PVE）全天保护。</li>
+      <li><b>区域规则</b>：绿色圈是交易区绝对安全区，蓝色圈是新手村（有拳头伤害、不能建家），红色区埋雷无限制。</li>
+      <li><b>撬锁要录屏</b>：撬锁全程录像并在 6 小时内传群文件，密码锁截图备注位置，漏录视为违规。</li>
+      <li><b>查挂零容忍</b>：使用外挂永久 BAN 并上传社区联 BAN，拒绝配合查挂按开挂处理；举报请私聊管理，别发公屏。</li>
     </ul>
+    <p class="note">规则可能随赛季调整，进服前请阅读社区最新公告。</p>
   </section>
-  <section class="panel">
+
+  <section class="contact" id="contact">
+    <h2>想开服？联系作者</h2>
+    <p class="lead">自己开一台 SCUM 服务器，作者可以从零帮你搭起来：服务器选型、开服参数、PVP / PVE 规则、反作弊、后台管理、定时重启备份，以及和小地图的对接。</p>
+    <p class="lead"><b>开服就送，不另外收费</b>：全套管理软件（后台面板、玩家管理、物资发放、白名单、封禁解封）、服务器日志（进出服、拿物资、击杀记录可查可导出）、萌新服主指南。</p>
+    <div class="cgrid">
+      <div class="cbox"><i>QQ</i><b>3182380548</b></div>
+      <div class="cbox"><i>微信</i><b>scumhan</b></div>
+      <div class="cbox"><i>邮箱</i><b>3182380548@qq.com</b></div>
+    </div>
+    <p class="note">加好友备注一句「SCUM 开服」，通过得快一点。</p>
+  </section>
+
+  <section>
     <h2>关于 SCUM 小地图</h2>
-    <p>SCUM 小地图是一款独立的 Windows 桌面地图工具。它并不要求玩家加入 5789 服务器；其他服务器玩家也可以按软件说明使用。</p>
-    <a class="button" href="./">返回小地图官网</a>
-    <a class="button" href="https://github.com/scumhan/scum-minimap/releases">下载小地图</a>
+    <p class="lead">SCUM 小地图是一款独立的 Windows 桌面战术地图工具：实时定位、队友共享、标点同步、路线导航。<b>它不要求你加入 5789 服务器</b>，任何服务器的玩家都可以按软件说明使用。</p>
+    <div class="btns">
+      <a class="btn" href="./">返回小地图官网</a>
+      <a class="btn ghost" href="https://github.com/scumhan/scum-minimap/releases">下载最新版</a>
+    </div>
   </section>
-  <div class="footer">页面维护者：韩老魔 · 服务器信息可能变更，请以社区公告为准。SCUM 为其权利人所有，本社区与 Gamepires 无隶属或官方背书关系。</div>
+
+  <div class="foot">
+    页面维护者：韩老魔 · 服务器信息由运营方提供，可能变更，请以社区公告为准。<br>
+    SCUM 为其权利人所有。本社区与 Gamepires 无隶属或官方背书关系。
+  </div>
+
 </main>
 </body>
 </html>
