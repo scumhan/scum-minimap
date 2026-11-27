@@ -107,12 +107,12 @@
 
 </div>
 
-<a name="english" id="english"></a>
-
 ---
 
+## English
+
 <details>
-<summary><b>🇬🇧 English</b> &nbsp;·&nbsp; click to expand</summary>
+<summary><b>🇬🇧 点击展开完整英文说明 · Expand full English description</b></summary>
 
 <br>
 
