@@ -1,125 +1,208 @@
 <div align="center">
 
-# SCUM 小地图
+# SCUM 小地图 · SCUM MiniMap
 
-**常驻屏幕一角的实时战术雷达 —— 队友在哪、离你多远、该往哪走，一眼看见，不用再按 M 开大地图。**
+**战场信息，一目了然。**  
+**See More. Navigate Smarter.**
 
-最新版本 **v1.5.6**（2026-11-24） · Windows 10 / 11 · 免费 · 12 种语言
+一款面向 SCUM 玩家的 Windows 桌面战术地图工具，帮助你查看实时位置、队友位置、共享标记与导航路线。
 
-[**⬇ 下载最新版**](https://scumhan.github.io/scum-minimap/) · [完整功能说明](https://scumhan.github.io/scum-minimap/) · [反馈问题](https://github.com/scumhan/scum-minimap/issues)
+A Windows desktop tactical map companion for SCUM. View your position, teammates, shared markers, and navigation routes at a glance.
 
-<img src="images/poster.jpg" width="440" alt="SCUM 小地图 · 共享标点，队友可见">
+[**下载最新版 · Download**](https://scumhan.github.io/scum-minimap/) ·
+[功能与教程 · Guide](https://scumhan.github.io/scum-minimap/) ·
+[版本更新 · Releases](https://github.com/scumhan/scum-minimap/releases) ·
+[反馈问题 · Report an Issue](https://github.com/scumhan/scum-minimap/issues)
+
+<img src="images/poster.jpg" width="560" alt="SCUM MiniMap product poster">
+
+[![Latest Release](https://img.shields.io/github/v/release/scumhan/scum-minimap?label=latest%20release)](https://github.com/scumhan/scum-minimap/releases)
+[![Downloads](https://img.shields.io/github/downloads/scumhan/scum-minimap/total)](https://github.com/scumhan/scum-minimap/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-3776AB)](https://scumhan.github.io/scum-minimap/)
+[![Languages](https://img.shields.io/badge/languages-12-amber)](https://scumhan.github.io/scum-minimap/)
 
 </div>
 
 ---
 
-## 这是什么
+## 中文
 
-一个独立的小窗口，浮在 SCUM 游戏画面上，把你在岛上的实时位置画在地图里：红色三角是你，箭头指的方向就是你的面朝方向。圆形之外是透明的，鼠标移出去直接点到游戏里，不挡操作。
+### 产品介绍
 
-- **不读游戏内存**
-- **不注入游戏进程**
-- **不改游戏文件**
-- **免费，不用注册**
+SCUM 小地图是一款独立运行的桌面地图工具。它将游戏中的位置数据呈现在屏幕悬浮地图上，让你在跑图、组队和导航时更方便地掌握地图信息。
 
-坐标来自游戏自己写出的位置数据，程序只读不算，和游戏客户端没有交集。
+**产品特点**
+- 免费使用，无需注册账号。
+- Windows 10 / 11 桌面端。
+- 支持 12 种界面语言。
+- 可调整窗口形状、大小和显示方式。
+- 支持单人使用及队友协作功能。
 
-## 主要功能
+### 核心功能
 
 | 功能 | 说明 |
-| --- | --- |
-| 🎯 **实时定位与朝向** | 红色三角箭头跟着你走，箭头方向就是面朝方向，走到地图边缘会贴着边缘显示 |
-| 👥 **多人联机** | 队友的位置、颜色、名字都画在同一张图上，谁在线、离你多远一目了然 |
-| 📏 **距离环** | 以你为圆心画同心圆，米数自己填（默认 `100,200,500`），扫一眼就知道标点大概多远 |
-| 🧭 **方位罗盘** | N / NE / E / SE / S / SW / W / NW 八方位 + 实时角度读数，可选地图随朝向旋转 |
-| 📍 **标点与收藏** | 物资点、据点、队友标记随手打，**标点在队伍内共享，队友地图上同步可见**；常用位置收藏起来，下次直接看 |
-| 🧭 **路线导航** | 点一个标点，自动算出一条路，按路线跑图不用边跑边找 |
-| ⚔ **作战模式** | 一个热键切换「跑图态 / 战斗态」：地图放大 1.6 倍、物资点隐藏、准星自动开、音效自动关，退出时原样还原 |
-| 🌙 **夜视滤镜** | 调显示器输出曲线把黑夜提亮（不动游戏内存、不注入），六根滑杆自己调 |
-| 🖱 **鼠标穿透** | 圆外自动穿透；`Ctrl + Shift + L` 可全局穿透，地图彻底不吃鼠标 |
-| 📸 **一键截图 / 坐标历史 / 死亡点** | 打点、复盘、找回死亡位置 |
-| 🌐 **12 种语言** | 简体中文、繁體中文、English、Русский、Español、Português BR、Deutsch、Français、Polski、日本語、한국어、ไทย，设置里点一下即时切换 |
-| 🗺 **高清底图** | 2048 / 4096 / 8192 三档按缩放自动切换，14×14 瓦片按需加载 |
+|---|---|
+| 实时定位与朝向 | 在地图上显示自己的位置和朝向 |
+| 队友位置共享 | 查看队友位置、名称和距离等信息 |
+| 距离环与测距 | 通过距离环辅助判断目标远近 |
+| 方位罗盘 | 显示八方位与角度信息 |
+| 标记与收藏 | 添加地图标记，支持队伍内共享标记 |
+| 路线导航 | 根据目标标记规划地图路线 |
+| 作战模式 | 快速切换地图显示与相关辅助设置 |
+| 夜视滤镜 | 调整显示器输出曲线，改善暗部可见度 |
+| 鼠标穿透 | 减少悬浮地图对游戏操作的干扰 |
+| 截图与坐标历史 | 保存截图、查看坐标历史及死亡点 |
+| 高清底图 | 根据缩放级别切换不同清晰度地图资源 |
+
+> 具体功能以当前软件版本和官网说明为准。部分多人协作功能需要正确配置网络连接及频道信息。
+
+### 软件截图
 
 <div align="center">
-
-<img src="images/screenshot-square.jpg" width="820" alt="方窗口界面：路线导航、距离环、方位罗盘">
-
-<img src="images/setup-language.jpg" width="640" alt="12 种语言">
-
+<img src="images/screenshot-square.jpg" width="820" alt="SCUM MiniMap interface and navigation">
+<br>
+<img src="images/setup-language.jpg" width="640" alt="SCUM MiniMap language settings">
 </div>
 
-## 下载安装
+### 下载与安装
 
-| 方式 | 地址 |
-| --- | --- |
-| **官网下载页（推荐）** | https://scumhan.github.io/scum-minimap/ |
-| **GitHub Releases** | https://github.com/scumhan/scum-minimap/releases |
+**推荐：从官网下载页获取最新安装包。**
 
-1. 下载 `SCUM-minimap-x.x.x-setup.exe`，双击安装，桌面会出现「SCUM 小地图」图标
-2. 启动后是一个圆形悬浮窗，按住顶部程序名就能拖动，拖右下角小圆点调大小
-3. 第一次启动跟着快速设置走一遍（起名字、挑颜色、选语言），大概一分钟
+- [官网下载页](https://scumhan.github.io/scum-minimap/)
+- [GitHub Releases 下载页](https://github.com/scumhan/scum-minimap/releases)
 
-**老用户升级**：程序里「设置 → ⚙️ 系统 → 🔄 软件更新 → 检查更新」，只下 1.5M 左右的增量包，设置和标点都保留。启动 8 秒后也会静默查一次，有新版在托盘提示。
+1. 打开下载页，下载最新版本的 `SCUM-minimap-版本号-setup.exe`。
+2. 双击安装程序，按照安装提示完成安装。
+3. 启动 SCUM 小地图，按首次启动引导完成基础设置。
+4. 进入游戏后，根据需要调整地图位置、大小、形状和显示选项。
 
-## 推荐服务器 · 5789 服务器
+**已有用户升级：** 优先使用软件内的更新检查功能；如遇到更新失败，再前往 Releases 下载完整安装包。升级前建议保留自己的设置与重要标记数据。
 
-> 五个分区，从新手到硬核都有；抄家要挑战、炸家有保护、查挂从严。进服报 ID，直接连 IP 就行。
+### 使用教程与常见问题
 
-| 分区 | 定位 | 模式 | 物资倍率 | 直连 IP | QQ 群 |
-| --- | --- | --- | --- | --- | --- |
-| **5789·1服** | 🟢 新手推荐 | PVP + PVE | 基础物资 1× | `202.189.7.151:6002` | 808140002 |
-| **5789·2服** | 🔴 打架抄家 | 纯 PVP | 基础 1× / 机场 10× | `202.189.7.151:6202` | 135578918 |
-| **5789·3服** | 🟢 新手推荐 | 纯 PVE | 基础物资 1× | `202.189.7.151:6402` | 1028892300 |
-| **5789·4服** | 🟣 硬核高难 | 纯 PVP 仿官 | 基础物资 0.2× | `202.189.7.151:6602` | 2169045995 |
-| **5789·5服** | 🟣 硬核高难 | 纯 PVE | 基础物资 0.1× | `202.189.7.151:8002` | 1092608008 |
+安装教程、功能说明、常见问题和最新版本信息统一维护在：
 
-**怎么进服**：游戏主菜单 → 「直连 / Direct Connect」→ 粘贴上面的 IP 和端口。
+**[SCUM 小地图官方网站](https://scumhan.github.io/scum-minimap/)**
 
-**商城**（1～3 服）
+### 安全与兼容性说明
 
-- 1服：https://57891.scum8.com ｜ https://57891.scum.plus
-- 2服：https://57892.scum8.com ｜ https://57892.scum.plus
-- 3服：https://57893.scum8.com ｜ https://57893.scum.plus
+根据本项目当前版本的设计说明：
+- 不读取游戏进程内存。
+- 不向游戏进程注入代码。
+- 不修改 SCUM 游戏文件。
+- 坐标数据来自游戏自身生成的位置数据文件，由工具读取并显示。
 
-**语音频道（KOOK）**：https://kook.vip/Lp1scY
+请注意：游戏版本、系统权限、杀毒软件和本地网络环境可能影响软件运行。请以官网最新说明和实际测试结果为准。
 
-**服规要点**
+### 问题反馈与功能建议
 
-- **抄家要挑战**：1 服抄家必须向对方发起挑战并报备服主，双方画 24 小时红圈，第三方不得进圈干扰；2 服要求抄家方有 ≥1000 元素领地、小队资产占比 ≥50%
-- **炸家保护**：2 服凌晨 2 点–上午 10 点、4 服凌晨 2 点–中午 12 点基地不可被炸毁；3 服（纯 PVE）全天保护
-- **区域规则**：绿色圈是交易区绝对安全区，蓝色圈是新手村（有拳头伤害、不能建家），红色区埋雷无限制
-- **撬锁要录屏**：撬锁全程录像并在 6 小时内传群文件，密码锁截图备注位置，漏录视为违规
-- **查挂零容忍**：使用外挂永久 BAN 并上传社区联 BAN，拒绝配合查挂按开挂处理；举报请私聊管理，别发公屏
+遇到问题时，请先查看官网常见问题，再提交反馈：
 
-服务器信息由服主提供，人数、倍率、开服状态以游戏内实际显示为准。
+- [提交 BUG / Report a bug](https://github.com/scumhan/scum-minimap/issues/new?template=bug_report.yml)
+- [提交功能建议 / Request a feature](https://github.com/scumhan/scum-minimap/issues/new?template=feature_request.yml)
+- [查看已有问题 / Existing issues](https://github.com/scumhan/scum-minimap/issues)
 
-## 想开服？联系作者
+提交问题时，请尽量提供软件版本、Windows 版本、复现步骤和截图。请勿上传账号密码、隐私信息或未经处理的个人数据。
 
-自己开一台 SCUM 服务器，作者可以从零帮你搭起来：服务器选型、开服参数、PVP / PVE 规则、反作弊、后台管理、定时重启备份，以及和小地图的对接。
+### 关于作者
 
-**开服就送，不另外收费**：全套管理软件（后台面板、玩家管理、物资发放、白名单、封禁解封）、服务器日志（进出服、拿物资、击杀记录可查可导出）、萌新服主指南。
+**作者 / Developer：韩老魔 · Han Laomo**
 
-| 联系方式 | 号码 |
-| --- | --- |
-| QQ | `3182380548` |
-| 微信 | `scumhan` |
-| 邮箱 | `3182380548@qq.com` |
+- GitHub: [@scumhan](https://github.com/scumhan)
+- 项目仓库: [scumhan/scum-minimap](https://github.com/scumhan/scum-minimap)
+- 官网: [scumhan.github.io/scum-minimap](https://scumhan.github.io/scum-minimap/)
 
-加好友备注一句「SCUM 开服」，通过得快一点。
+### 社区服务器
 
-## 说明
+5789 服务器是作者运营的独立 SCUM 游戏社区，与 SCUM 小地图软件本身相互独立。是否加入服务器不影响工具的正常使用。
 
-- 本工具为第三方辅助，与 SCUM 开发商 Gamepires 无关联
-- 软件免费，不含任何付费解锁功能；不接受任何形式的二次售卖
-- 坐标采集异常、地图校准、显示模式等问题，先看官网下载页的常见问题
-- 版本更新记录见 [Releases](https://github.com/scumhan/scum-minimap/releases)
+**[查看 5789 服务器信息](https://scumhan.github.io/scum-minimap/server.html)**
+
+---
+
+## English
+
+### About
+
+SCUM MiniMap is a standalone Windows desktop map companion for SCUM. It displays in-game position data in an on-screen map overlay, helping players stay aware of their location, teammates, markers, and routes.
+
+**Highlights**
+- Free to use; no account registration required.
+- Windows 10 / 11 desktop application.
+- 12 interface languages.
+- Adjustable window shape, size, and display options.
+- Features for solo play and team coordination.
+
+### Features
+
+| Feature | Description |
+|---|---|
+| Live Position & Heading | Displays your current map position and facing direction |
+| Teammate Sharing | View teammate positions and related information |
+| Distance Rings | Estimate distances to nearby map points |
+| Compass | Shows cardinal and intercardinal directions |
+| Markers & Favorites | Add, save, and share map markers with your team |
+| Route Navigation | Plan a route toward a selected marker |
+| Combat Mode | Quickly switch map display and related settings |
+| Night Vision Filter | Adjust display output curves to improve dark-area visibility |
+| Mouse Passthrough | Reduce interference from the overlay during gameplay |
+| Screenshots & History | Save screenshots and review coordinate/death-point history |
+| High-resolution Map | Switch map detail levels based on zoom |
+
+> Feature availability may vary by software version. Some team features require correct network and channel configuration.
+
+### Screenshots
+
+See the product screenshots above or visit the [official website](https://scumhan.github.io/scum-minimap/).
+
+### Download & Installation
+
+- **Official website:** https://scumhan.github.io/scum-minimap/
+- **GitHub Releases:** https://github.com/scumhan/scum-minimap/releases
+
+Download the latest Windows installer, run it, and follow the setup instructions. On first launch, complete the quick setup guide.
+
+### Documentation & Support
+
+For installation instructions, feature details, troubleshooting, and the latest release information, visit the **[official website](https://scumhan.github.io/scum-minimap/)**.
+
+To report a bug or suggest an improvement:
+- [Report a bug](https://github.com/scumhan/scum-minimap/issues/new?template=bug_report.yml)
+- [Request a feature](https://github.com/scumhan/scum-minimap/issues/new?template=feature_request.yml)
+- [Browse existing issues](https://github.com/scumhan/scum-minimap/issues)
+
+### Technical Notes
+
+According to the current project design:
+- The tool does not read the game's process memory.
+- It does not inject code into the game process.
+- It does not modify SCUM game files.
+- Position data is read from data files generated by the game itself.
+
+Compatibility may depend on the game version, Windows configuration, permissions, security software, and network environment. Please refer to the official website for current guidance.
+
+### Developer
+
+**Han Laomo · 韩老魔**
+
+- GitHub: [@scumhan](https://github.com/scumhan)
+- Repository: [scumhan/scum-minimap](https://github.com/scumhan/scum-minimap)
+- Website: [SCUM MiniMap](https://scumhan.github.io/scum-minimap/)
+
+### Community Server
+
+The 5789 servers are a separate SCUM community operated by the developer. They are independent from the SCUM MiniMap application, and joining them is not required to use the software.
+
+**[View 5789 server information](https://scumhan.github.io/scum-minimap/server.html)**
 
 ---
 
 <div align="center">
 
-**作者：韩老魔** · QQ 3182380548 · 如果这个小工具帮你多活了几次，点个 ⭐ Star 就是最大的支持
+**SCUM MiniMap · Made by Han Laomo**
+
+If this tool is useful to you, consider giving the project a ⭐ Star on GitHub.
+
+SCUM is a trademark of its respective owner. This is an independent third-party community tool and is not affiliated with or endorsed by Gamepires.
 
 </div>

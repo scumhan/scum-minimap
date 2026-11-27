@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 官方网站 / Official Website
+    url: https://scumhan.github.io/scum-minimap/
+    about: 查看下载、使用教程和常见问题 / Downloads, guides, and FAQ
+  - name: 已有问题 / Existing Issues
+    url: https://github.com/scumhan/scum-minimap/issues
+    about: 提交前先检查是否已有相同问题 / Search before submitting
