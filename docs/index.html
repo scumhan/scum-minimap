@@ -22,7 +22,7 @@
 <meta property="og:url" content="https://scumhan.github.io/scum-minimap/">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.5.6","fileSize":"119MB","inLanguage":"zh-CN","datePublished":"2026-11-24","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SCUM 小地图","alternateName":"SCUM Minimap","applicationCategory":"GameApplication","applicationSubCategory":"Game Utility","operatingSystem":"Windows 10, Windows 11","softwareVersion":"1.6.2","fileSize":"119MB","inLanguage":"zh-CN","datePublished":"2026-11-28","description":"SCUM 小地图：自动读游戏坐标，在屏幕一角画实时雷达，支持队友位置共享、标点追踪、28 个热键。","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY","availability":"https://schema.org/InStock"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -645,7 +645,7 @@
       <a href="#changelog">更新日志</a>
       <a href="#faq">问题</a>
     </nav>
-    <button class="mini" id="dlTop" type="button">下载 <span data-ver>v1.5.6</span></button>
+    <button class="mini" id="dlTop" type="button">下载 <span data-ver>v1.6.2</span></button>
     <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="tnav" aria-label="打开页面目录">目录</button>
   </div>
 </div>
@@ -653,7 +653,7 @@
 <header class="hero">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <a class="badge" href="#changelog" title="看这一版改了什么"><i></i> <span data-ver>v1.5.6</span> <s>·</s> <span data-date>2026-11-24</span> <s>·</s> 已上线 <em class="badge-more">改了什么 →</em></a>
+      <a class="badge" href="#changelog" title="看这一版改了什么"><i></i> <span data-ver>v1.6.2</span> <s>·</s> <span data-date>2026-11-28</span> <s>·</s> 已上线 <em class="badge-more">改了什么 →</em></a>
       <h1>SCUM <em>小地图</em><small>Real-time tactical radar</small></h1>
       <p class="lede">
         自动读游戏坐标，在屏幕上画一个实时雷达。<br>
@@ -663,7 +663,7 @@
         <span>不读内存</span><span>不注入游戏</span><span>不改游戏文件</span><span>不上传存档</span>
       </p>
       <div class="cta">
-        <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v1.5.6</span> · <span data-size>119 MB</span> · Win10/11</span></span></button>
+        <button class="btn btn-main" id="dlSetup" type="button"><span>⚡ 下载安装包（推荐）<span class="btn-sub"><span data-ver>v1.6.2</span> · <span data-size>119 MB</span> · Win10/11</span></span></button>
         <button class="btn btn-ghost" id="dlMirror" type="button"><span>🚀 国内加速下载<span class="btn-sub">备用线路 · 同一个包</span></span></button>
       </div>
       <p class="site-url">本站地址 <code>scumhan.github.io/scum-minimap</code> · 收藏这一页，更新都在这</p>
@@ -856,7 +856,7 @@
   <div class="wrap">
     <div class="sec-head rv">
       <span class="sec-no">01 / FEATURES</span>
-      <h2><span data-ver>v1.5.6</span> 全部功能</h2>
+      <h2><span data-ver>v1.6.2</span> 全部功能</h2>
       <p class="sec-sub">六大类、三十个设置分页、九十三张卡片，全在这里。每一项都能单独开关，改完当场生效，没有「保存」按钮。</p>
     </div>
 
@@ -1290,14 +1290,104 @@
     <div class="sec-head rv">
       <span class="sec-no">04 / CHANGELOG</span>
       <h2>更新日志</h2>
-      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.5.6</span>，一共一百五十六批，一批不少。点标题展开，看每一批改了什么。</p>
+      <p class="sec-sub">从 v0.0.1 到 <span data-ver>v1.6.2</span>，一共一百六十二批，一批不少。点标题展开，看每一批改了什么。</p>
     </div>
 
     <div class="rv">
             <details class="cl-item now" open>
               <summary>
-                <span class="clv">v1.5.6</span>
+                <span class="clv">v1.6.2</span>
                 <span class="clnew">最新</span>
+                <span class="clt">去掉多余的 ✕</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>🧹 删掉重复的关闭按钮</b>　MOD 管理器顶栏左边是「↩ 返回小地图」，右边又有一个 ✕，绑的是同一个动作。删掉右边的，关闭仍可以用返回 / Esc / 直接关窗口。</li>
+                  <li><b>🔢 版本号按批次走</b>　第 157～162 批 = v1.6.2，724 项单测全过。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.6.1</span>
+                <span class="clt">外部 mod 看得见、收得进来</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.6.2 一起发出去，没有单独的安装包，装 1.6.2 或更新的版本就都有了。</li>
+                  <li><b>👀 外部 pak 单独列出</b>　~mods 里不是这里装的 pak，以前只在底栏数个数，现在列出来，带名字、大小、时间。</li>
+                  <li><b>📥 点「全部纳入」才收</b>　复制进库、逐个比大小，全对上才删源文件；失败自动回滚，源文件不动。不自动收，免得改你的加载顺序。</li>
+                  <li><b>🔄 窗口会自己刷新</b>　切回窗口、重新打开都会重扫，不用关掉重开。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.6.0</span>
+                <span class="clt">回来那句换真台词</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.6.2 一起发出去，没有单独的安装包，装 1.6.2 或更新的版本就都有了。</li>
+                  <li><b>💬 六句真台词</b>　哟，回来了。/ 舍得回来？/ 行，接着干。/ 人回来了，包还在不在。/ 回来就好，路还长。/ 搞定了？那就走吧。</li>
+                  <li><b>🎙 八个音色包全重做</b>　每包 297 句，这次新合 48 句。</li>
+                  <li><b>🛟 老包不哑</b>　没更新的语音包会回落到上线问候，不会没声。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.5.9</span>
+                <span class="clt">返回小地图说欢迎回来</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.6.2 一起发出去，没有单独的安装包，装 1.6.2 或更新的版本就都有了。</li>
+                  <li><b>👋 待够 10 秒才说</b>　从 MOD 模式退回小地图，待够 10 秒才说一句欢迎回来，切一下就走不吵你。</li>
+                  <li><b>🔇 不抢话</b>　照普通语音走 8 秒间隔，导航报话时让位。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.5.8</span>
+                <span class="clt">推荐 mod</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.6.2 一起发出去，没有单独的安装包，装 1.6.2 或更新的版本就都有了。</li>
+                  <li><b>📦 新增「推荐 mod」标签</b>　从线上清单拉，显示作者、版本、大小、下载次数、说明。</li>
+                  <li><b>🔄 可更新会标出来</b>　装了旧版、清单里是新版就标「可更新」，点一下先卸旧版再装新版，两个版本不会抢加载。</li>
+                  <li><b>📥 每行一条进度条</b>　下载中不重画整表，按钮不会被点掉。</li>
+                  <li><b>🛡 清单先洗一遍</b>　只收 http(s) 链接，id 只认字母数字下划线横线，sha256 不是 64 位当没写。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.5.7</span>
+                <span class="clt">MOD 管理</span>
+                <span class="cld">2026-11-28</span>
+        </summary>
+              <div class="cl-body">
+                <ul>
+                  <li><b>📌 没单独发版</b>　这批的改动跟着 v1.6.2 一起发出去，没有单独的安装包，装 1.6.2 或更新的版本就都有了。</li>
+                  <li><b>🧩 新增 MOD 管理窗口</b>　设置页底栏进去，独立的窗口。</li>
+                  <li><b>📥 拖 pak 就装</b>　勾选启停、上下挪排序，装完按顺序铺回游戏 ~mods。</li>
+                  <li><b>🚀 一键带 mod 启动</b>　有启用的 mod 就走 Steam 启动并带固定参数，全停用不加。</li>
+                  <li><b>🛡 只动自己的文件</b>　只碰清单里的文件，你自己塞进 ~mods 的不动，同名插 -2。</li>
+                  <li><b>🧹 进 MOD 模式先收摊</b>　快照地图/设置/准星/教程/手机/夜视，注销热键、停采集和手机，退出按快照恢复。</li>
+                </ul>
+              </div>
+            </details>
+            <details class="cl-item">
+              <summary>
+                <span class="clv">v1.5.6</span>
                 <span class="clt">夜视重做</span>
                 <span class="cld">2026-11-24</span>
         </summary>
@@ -4038,7 +4128,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <p>作者 <b>韩老魔</b> · QQ <a href="https://wpa.qq.com/msgrd?v=3&amp;uin=3182380548&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener noreferrer">3182380548</a> · 邮箱 <b>3182380548@qq.com</b></p>
-      <p>当前版本 <b data-ver>v1.5.6</b> · <span data-date>2026-11-24</span></p>
+      <p>当前版本 <b data-ver>v1.6.2</b> · <span data-date>2026-11-28</span></p>
     </div>
     <p class="fine">
       完全免费、无内购、无弹窗骚扰，作者无偿分享给 SCUM 玩家。不收钱、不注册、不上传你的存档。坐标来自游戏自带的「复制位置」功能，程序不读内存、不注入、不改游戏文件。
@@ -4055,11 +4145,11 @@
      发版只改这一段（或跑 scripts/bump_download.js 自动改）
      ══════════════════════════════════════════════════════════ */
   var CFG = {
-    ver:    '1.5.6',
-    date:   '2026-11-24',
-    size:   124394834,
-    count:  1799,
-    sha256: '7fde70ad08bd5b7a3512b4c8988714090b903f8da59fdb980357ccb2b4032d4f'
+    ver:    '1.6.2',
+    date:   '2026-11-28',
+    size:   124497391,
+    count:  2147,
+    sha256: 'ae1e63ca5a323c3ce55bff273771d3118b4c6b9e1de1494b7e5b02f1647f789a'
   };
 
   /* 域名与文件名不写明文 */
